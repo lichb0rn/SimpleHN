@@ -51,10 +51,11 @@
 		89F28B11292DFDFD00D7E7D8 /* SImpleHN */ = {
 			isa = PBXGroup;
 			children = (
-				89F28B12292DFDFD00D7E7D8 /* SImpleHNApp.swift */,
-				89F28B14292DFDFD00D7E7D8 /* ContentView.swift */,
 				89F28B16292DFDFE00D7E7D8 /* Assets.xcassets */,
+				89F28B14292DFDFD00D7E7D8 /* ContentView.swift */,
+				89F28B20292DFF1700D7E7D8 /* Domain */,
 				89F28B18292DFDFE00D7E7D8 /* Preview Content */,
+				89F28B12292DFDFD00D7E7D8 /* SImpleHNApp.swift */,
 			);
 			path = SImpleHN;
 			sourceTree = "<group>";
@@ -65,6 +66,61 @@
 				89F28B19292DFDFE00D7E7D8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		89F28B20292DFF1700D7E7D8 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				89F28B22292DFF3D00D7E7D8 /* Stories */,
+				89F28B21292DFF3100D7E7D8 /* Workers */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		89F28B21292DFF3100D7E7D8 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
+		89F28B22292DFF3D00D7E7D8 /* Stories */ = {
+			isa = PBXGroup;
+			children = (
+				89F28B23292DFF5600D7E7D8 /* Model */,
+				89F28B24292DFF5C00D7E7D8 /* Scene */,
+			);
+			path = Stories;
+			sourceTree = "<group>";
+		};
+		89F28B23292DFF5600D7E7D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		89F28B24292DFF5C00D7E7D8 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				89F28B26292DFF9F00D7E7D8 /* Stories Detail */,
+				89F28B25292DFF9500D7E7D8 /* Stories List */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		89F28B25292DFF9500D7E7D8 /* Stories List */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Stories List";
+			sourceTree = "<group>";
+		};
+		89F28B26292DFF9F00D7E7D8 /* Stories Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Stories Detail";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
