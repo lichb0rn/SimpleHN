@@ -11,7 +11,22 @@
 		89F28B15292DFDFD00D7E7D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B14292DFDFD00D7E7D8 /* ContentView.swift */; };
 		89F28B17292DFDFE00D7E7D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89F28B16292DFDFE00D7E7D8 /* Assets.xcassets */; };
 		89F28B1A292DFDFE00D7E7D8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89F28B19292DFDFE00D7E7D8 /* Preview Assets.xcassets */; };
+		89F28B39292E627B00D7E7D8 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B38292E627B00D7E7D8 /* Request.swift */; };
+		89F28B3B292E630900D7E7D8 /* NewStoriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B3A292E630900D7E7D8 /* NewStoriesRequest.swift */; };
+		89F28B3E292E632900D7E7D8 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B3D292E632900D7E7D8 /* URL+Extension.swift */; };
+		89F28B40292E634800D7E7D8 /* StoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B3F292E634800D7E7D8 /* StoryRequest.swift */; };
+		89F28B42292E637300D7E7D8 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B41292E637300D7E7D8 /* Story.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89F28B2F292E618000D7E7D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89F28B07292DFDFD00D7E7D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89F28B0E292DFDFD00D7E7D8;
+			remoteInfo = SImpleHN;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		89F28B0F292DFDFD00D7E7D8 /* SImpleHN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SImpleHN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -19,10 +34,23 @@
 		89F28B14292DFDFD00D7E7D8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		89F28B16292DFDFE00D7E7D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89F28B19292DFDFE00D7E7D8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		89F28B2B292E618000D7E7D8 /* SImpleHNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SImpleHNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89F28B38292E627B00D7E7D8 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		89F28B3A292E630900D7E7D8 /* NewStoriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStoriesRequest.swift; sourceTree = "<group>"; };
+		89F28B3D292E632900D7E7D8 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		89F28B3F292E634800D7E7D8 /* StoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryRequest.swift; sourceTree = "<group>"; };
+		89F28B41292E637300D7E7D8 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		89F28B0C292DFDFD00D7E7D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89F28B28292E618000D7E7D8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -36,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				89F28B11292DFDFD00D7E7D8 /* SImpleHN */,
+				89F28B2C292E618000D7E7D8 /* SImpleHNTests */,
 				89F28B10292DFDFD00D7E7D8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				89F28B0F292DFDFD00D7E7D8 /* SImpleHN.app */,
+				89F28B2B292E618000D7E7D8 /* SImpleHNTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -51,6 +81,7 @@
 		89F28B11292DFDFD00D7E7D8 /* SImpleHN */ = {
 			isa = PBXGroup;
 			children = (
+				89F28B3C292E631400D7E7D8 /* Utilities */,
 				89F28B16292DFDFE00D7E7D8 /* Assets.xcassets */,
 				89F28B14292DFDFD00D7E7D8 /* ContentView.swift */,
 				89F28B20292DFF1700D7E7D8 /* Domain */,
@@ -80,6 +111,9 @@
 		89F28B21292DFF3100D7E7D8 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
+				89F28B38292E627B00D7E7D8 /* Request.swift */,
+				89F28B3A292E630900D7E7D8 /* NewStoriesRequest.swift */,
+				89F28B3F292E634800D7E7D8 /* StoryRequest.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -96,6 +130,7 @@
 		89F28B23292DFF5600D7E7D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				89F28B41292E637300D7E7D8 /* Story.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,7 +138,7 @@
 		89F28B24292DFF5C00D7E7D8 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				89F28B26292DFF9F00D7E7D8 /* Stories Detail */,
+				89F28B26292DFF9F00D7E7D8 /* Story Detail */,
 				89F28B25292DFF9500D7E7D8 /* Stories List */,
 			);
 			path = Scene;
@@ -116,11 +151,58 @@
 			path = "Stories List";
 			sourceTree = "<group>";
 		};
-		89F28B26292DFF9F00D7E7D8 /* Stories Detail */ = {
+		89F28B26292DFF9F00D7E7D8 /* Story Detail */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "Stories Detail";
+			path = "Story Detail";
+			sourceTree = "<group>";
+		};
+		89F28B2C292E618000D7E7D8 /* SImpleHNTests */ = {
+			isa = PBXGroup;
+			children = (
+				89F28B34292E61ED00D7E7D8 /* Stories */,
+			);
+			path = SImpleHNTests;
+			sourceTree = "<group>";
+		};
+		89F28B34292E61ED00D7E7D8 /* Stories */ = {
+			isa = PBXGroup;
+			children = (
+				89F28B35292E620900D7E7D8 /* Scene */,
+			);
+			path = Stories;
+			sourceTree = "<group>";
+		};
+		89F28B35292E620900D7E7D8 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				89F28B37292E624D00D7E7D8 /* Stories List */,
+				89F28B36292E621800D7E7D8 /* Story Detail */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		89F28B36292E621800D7E7D8 /* Story Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Story Detail";
+			sourceTree = "<group>";
+		};
+		89F28B37292E624D00D7E7D8 /* Stories List */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Stories List";
+			sourceTree = "<group>";
+		};
+		89F28B3C292E631400D7E7D8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				89F28B3D292E632900D7E7D8 /* URL+Extension.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +225,24 @@
 			productReference = 89F28B0F292DFDFD00D7E7D8 /* SImpleHN.app */;
 			productType = "com.apple.product-type.application";
 		};
+		89F28B2A292E618000D7E7D8 /* SImpleHNTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89F28B31292E618000D7E7D8 /* Build configuration list for PBXNativeTarget "SImpleHNTests" */;
+			buildPhases = (
+				89F28B27292E618000D7E7D8 /* Sources */,
+				89F28B28292E618000D7E7D8 /* Frameworks */,
+				89F28B29292E618000D7E7D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89F28B30292E618000D7E7D8 /* PBXTargetDependency */,
+			);
+			name = SImpleHNTests;
+			productName = SImpleHNTests;
+			productReference = 89F28B2B292E618000D7E7D8 /* SImpleHNTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -155,6 +255,10 @@
 				TargetAttributes = {
 					89F28B0E292DFDFD00D7E7D8 = {
 						CreatedOnToolsVersion = 14.1;
+					};
+					89F28B2A292E618000D7E7D8 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 89F28B0E292DFDFD00D7E7D8;
 					};
 				};
 			};
@@ -172,6 +276,7 @@
 			projectRoot = "";
 			targets = (
 				89F28B0E292DFDFD00D7E7D8 /* SImpleHN */,
+				89F28B2A292E618000D7E7D8 /* SImpleHNTests */,
 			);
 		};
 /* End PBXProject section */
@@ -186,6 +291,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		89F28B29292E618000D7E7D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -193,12 +305,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89F28B42292E637300D7E7D8 /* Story.swift in Sources */,
 				89F28B15292DFDFD00D7E7D8 /* ContentView.swift in Sources */,
+				89F28B39292E627B00D7E7D8 /* Request.swift in Sources */,
+				89F28B3B292E630900D7E7D8 /* NewStoriesRequest.swift in Sources */,
+				89F28B40292E634800D7E7D8 /* StoryRequest.swift in Sources */,
+				89F28B3E292E632900D7E7D8 /* URL+Extension.swift in Sources */,
 				89F28B13292DFDFD00D7E7D8 /* SImpleHNApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		89F28B27292E618000D7E7D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89F28B30292E618000D7E7D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89F28B0E292DFDFD00D7E7D8 /* SImpleHN */;
+			targetProxy = 89F28B2F292E618000D7E7D8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		89F28B1B292DFDFE00D7E7D8 /* Debug */ = {
@@ -373,6 +505,42 @@
 			};
 			name = Release;
 		};
+		89F28B32292E618000D7E7D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 54893W6U2X;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtaleiko.SImpleHNTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SImpleHN.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SImpleHN";
+			};
+			name = Debug;
+		};
+		89F28B33292E618000D7E7D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 54893W6U2X;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mtaleiko.SImpleHNTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SImpleHN.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SImpleHN";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -390,6 +558,15 @@
 			buildConfigurations = (
 				89F28B1E292DFDFE00D7E7D8 /* Debug */,
 				89F28B1F292DFDFE00D7E7D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89F28B31292E618000D7E7D8 /* Build configuration list for PBXNativeTarget "SImpleHNTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89F28B32292E618000D7E7D8 /* Debug */,
+				89F28B33292E618000D7E7D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
