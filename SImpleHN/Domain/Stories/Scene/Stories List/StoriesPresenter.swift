@@ -25,7 +25,7 @@ extension StoriesPresenter: StoriesPresentationLogic {
                 let posted = RelativeTimeFormatter.formatTimeString(timeInterval: story.time)
                 
                 return Stories.Fetch.ViewModel
-                    .DisplayStory(story: story,
+                    .DisplayedStory(story: story,
                                   timePosted: posted)
             }
             viewModel.success = true

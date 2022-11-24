@@ -10,10 +10,10 @@ import SwiftUI
 
 @MainActor
 class DataStore: ObservableObject {
-    @Published var stories: [Stories.Fetch.ViewModel.DisplayStory] = []
+    @Published var stories: [Stories.Fetch.ViewModel.DisplayedStory] = []
     @Published var error: String?
     
-    func update(_ stories: [Stories.Fetch.ViewModel.DisplayStory]) {
+    func update(_ stories: [Stories.Fetch.ViewModel.DisplayedStory]) {
         self.stories = stories
     }
     

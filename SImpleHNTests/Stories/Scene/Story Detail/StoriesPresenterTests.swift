@@ -45,7 +45,7 @@ final class StoriesPresenterTests: XCTestCase {
         let repsonse = Stories.Fetch.Response(stories: Seeds.stories)
         var viewModel = Stories.Fetch.ViewModel(success: true)
         viewModel.stories = Seeds.stories.map {
-            Stories.Fetch.ViewModel.DisplayStory(story: $0, timePosted: "")
+            Stories.Fetch.ViewModel.DisplayedStory(story: $0, timePosted: "")
         }
         
         sut.presentStories(response: repsonse)

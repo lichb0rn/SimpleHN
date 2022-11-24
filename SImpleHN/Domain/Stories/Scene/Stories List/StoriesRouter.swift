@@ -9,7 +9,7 @@ import SwiftUI
 
 protocol StoriesRoutingLogic {
     associatedtype View: SwiftUI.View
-    func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayStory.ID) -> View
+    func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> View
 }
 
 protocol StoriesDataPassing {
@@ -19,8 +19,9 @@ protocol StoriesDataPassing {
 class StoriesRouter: StoriesRoutingLogic, StoriesDataPassing {
     var store: StoriesStore?
     
-    func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayStory.ID) -> StoryDetailView {
+    func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> StoryDetailView {
         let story = store?.stories?.first(where: { $0.id == id })
-        return StoryDetailView(story: story!)
+        let detailView = StoryDetailConfigurator.storyDetail(for: story!)
+        return detailView as! StoryDetailView
     }
 }

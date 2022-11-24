@@ -9,8 +9,8 @@ import SwiftUI
 
 struct StoriesListView: View {
     
-    var stories: [Stories.Fetch.ViewModel.DisplayStory]
-    @Binding var selectedStory: Stories.Fetch.ViewModel.DisplayStory.ID?
+    var stories: [Stories.Fetch.ViewModel.DisplayedStory]
+    @Binding var selectedStory: Stories.Fetch.ViewModel.DisplayedStory.ID?
     
     var body: some View {
         List(stories, selection: $selectedStory) { story in

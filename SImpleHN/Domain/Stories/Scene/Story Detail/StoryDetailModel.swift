@@ -1,5 +1,5 @@
 //
-//  StoriesModel.swift
+//  StoryDetailModel.swift
 //  SImpleHN
 //
 //  Created by Miroslav Taleiko on 24.11.2022.
@@ -7,13 +7,12 @@
 
 import Foundation
 
-enum Stories {
-    enum Fetch {
+enum StoryDetail {
+    enum GetStory {
         struct Request {}
         
         struct Response {
-            var stories: [Story]?
-            var error: Error?
+            var story: Story
         }
         
         struct ViewModel {
@@ -35,22 +34,7 @@ enum Stories {
                 }
             }
             
-            var stories: [DisplayedStory]?
-            var success: Bool
-            var errorMessage: String?
+            var displayedStory: DisplayedStory
         }
-    }
-}
-
-extension Stories.Fetch.ViewModel {
-    static func previewViewModel() -> Stories.Fetch.ViewModel {
-        var vm = Stories.Fetch.ViewModel(success: true)
-        vm.stories = []
-        for _ in 0..<30 {
-            vm.stories?.append(DisplayedStory(story: Story.previewStory,
-                                            timePosted: RelativeTimeFormatter.relativeTime(fromInterval: Double.random(in: 1...100),
-                                                                                           relativeTo: .now) ))
-        }
-        return vm
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 
 final class StoriesViewTests: XCTestCase {
     
-    var sut: StoriesView!
+    var sut: StoriesView<StoriesRouter>!
     var interactorSpy: StoriesInteractorSpy!
 
     override func setUpWithError() throws {
