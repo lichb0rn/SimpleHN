@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+@MainActor
 class StoriesDataStore: ObservableObject {
     @Published var stories: [Stories.Fetch.ViewModel.DisplayStory] = []
     @Published var error: String?

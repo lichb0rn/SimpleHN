@@ -20,6 +20,8 @@
 		895523E1292F48E20052DAD6 /* StoriesDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E0292F48E20052DAD6 /* StoriesDataStore.swift */; };
 		895523E4292F4B490052DAD6 /* StoriesListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E3292F4B490052DAD6 /* StoriesListRowView.swift */; };
 		895523E6292F6ABE0052DAD6 /* StoriesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */; };
+		895523E8292F6BBE0052DAD6 /* StoriesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */; };
+		895523EA292F6C4E0052DAD6 /* StoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E9292F6C4E0052DAD6 /* StoryDetailView.swift */; };
 		89F28B13292DFDFD00D7E7D8 /* SImpleHNApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B12292DFDFD00D7E7D8 /* SImpleHNApp.swift */; };
 		89F28B17292DFDFE00D7E7D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89F28B16292DFDFE00D7E7D8 /* Assets.xcassets */; };
 		89F28B1A292DFDFE00D7E7D8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89F28B19292DFDFE00D7E7D8 /* Preview Assets.xcassets */; };
@@ -57,6 +59,8 @@
 		895523E0292F48E20052DAD6 /* StoriesDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesDataStore.swift; sourceTree = "<group>"; };
 		895523E3292F4B490052DAD6 /* StoriesListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesListRowView.swift; sourceTree = "<group>"; };
 		895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesConfigurator.swift; sourceTree = "<group>"; };
+		895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesRouter.swift; sourceTree = "<group>"; };
+		895523E9292F6C4E0052DAD6 /* StoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailView.swift; sourceTree = "<group>"; };
 		89F28B0F292DFDFD00D7E7D8 /* SImpleHN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SImpleHN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F28B12292DFDFD00D7E7D8 /* SImpleHNApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SImpleHNApp.swift; sourceTree = "<group>"; };
 		89F28B16292DFDFE00D7E7D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 				895523D4292F42500052DAD6 /* StoriesView.swift */,
 				895523E2292F4B310052DAD6 /* Subviews */,
 				895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */,
+				895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */,
 			);
 			path = "Stories List";
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 		89F28B26292DFF9F00D7E7D8 /* Story Detail */ = {
 			isa = PBXGroup;
 			children = (
+				895523E9292F6C4E0052DAD6 /* StoryDetailView.swift */,
 			);
 			path = "Story Detail";
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				895523E6292F6ABE0052DAD6 /* StoriesConfigurator.swift in Sources */,
+				895523E8292F6BBE0052DAD6 /* StoriesRouter.swift in Sources */,
 				89F28B42292E637300D7E7D8 /* Story.swift in Sources */,
 				895523E1292F48E20052DAD6 /* StoriesDataStore.swift in Sources */,
 				89F28B49292E65C100D7E7D8 /* WorkerError.swift in Sources */,
@@ -381,6 +388,7 @@
 				895523D1292F42390052DAD6 /* StoriesPresenter.swift in Sources */,
 				89F28B40292E634800D7E7D8 /* StoryRequest.swift in Sources */,
 				89F28B46292E645E00D7E7D8 /* NetworkWorker.swift in Sources */,
+				895523EA292F6C4E0052DAD6 /* StoryDetailView.swift in Sources */,
 				895523D5292F42510052DAD6 /* StoriesView.swift in Sources */,
 				89F28B3E292E632900D7E7D8 /* URL+Extension.swift in Sources */,
 				89F28B13292DFDFD00D7E7D8 /* SImpleHNApp.swift in Sources */,

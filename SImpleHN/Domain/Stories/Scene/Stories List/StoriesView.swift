@@ -13,10 +13,14 @@ protocol StoriesDisplayLogic {
 
 extension StoriesView: StoriesDisplayLogic {
     func displayStories(viewModel: Stories.Fetch.ViewModel) {
-        if viewModel.success, let stories = viewModel.stories {
-            storiesDataStore.update(stories)
-        } else if let errorMessage = viewModel.errorMessage {
-            storiesDataStore.showError(errorMessage)
+        Task {
+            await MainActor.run {
+                if viewModel.success, let stories = viewModel.stories {
+                    storiesDataStore.update(stories)
+                } else if let errorMessage = viewModel.errorMessage {
+                    storiesDataStore.showError(errorMessage)
+                }
+            }
         }
     }
 }
