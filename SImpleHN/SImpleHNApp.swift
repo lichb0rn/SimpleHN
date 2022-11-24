@@ -11,7 +11,7 @@ import SwiftUI
 struct SImpleHNApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StoriesView()
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  StoryService.swift
+//  StoriesService.swift
 //  SImpleHN
 //
 //  Created by Miroslav Taleiko on 23.11.2022.
@@ -14,7 +14,7 @@ protocol Service {
     func fetch(by ids: [Story.ID]) async throws -> [Story]
 }
 
-actor StoriesRepository: Service {
+actor StoriesService: Service {
     private let networkWorker:Networking = NetworkWorker()
     
     private var cache: [Story.ID:Story] = [:]
