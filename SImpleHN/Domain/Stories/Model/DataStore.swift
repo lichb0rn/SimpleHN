@@ -9,7 +9,7 @@ import SwiftUI
 
 
 @MainActor
-class StoriesDataStore: ObservableObject {
+class DataStore: ObservableObject {
     @Published var stories: [Stories.Fetch.ViewModel.DisplayStory] = []
     @Published var error: String?
     

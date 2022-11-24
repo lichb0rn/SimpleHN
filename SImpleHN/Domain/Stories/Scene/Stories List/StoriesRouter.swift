@@ -9,13 +9,18 @@ import SwiftUI
 
 protocol StoriesRoutingLogic {
     associatedtype View: SwiftUI.View
-    @ViewBuilder func makeDetailView() -> View
+    func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayStory.ID) -> View
 }
 
-class StoriesRouter: StoriesRoutingLogic {
+protocol StoriesDataPassing {
+    var store: StoriesStore? { get set }
+}
+
+class StoriesRouter: StoriesRoutingLogic, StoriesDataPassing {
+    var store: StoriesStore?
     
-    @ViewBuilder
-    func makeDetailView() -> some View {
-        
+    func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayStory.ID) -> StoryDetailView {
+        let story = store?.stories?.first(where: { $0.id == id })
+        return StoryDetailView(story: story!)
     }
 }

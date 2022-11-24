@@ -17,7 +17,7 @@
 		895523DB292F44520052DAD6 /* Seeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523DA292F44520052DAD6 /* Seeds.swift */; };
 		895523DD292F47020052DAD6 /* StoriesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523DC292F47020052DAD6 /* StoriesPresenterTests.swift */; };
 		895523DF292F47B50052DAD6 /* StoriesViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523DE292F47B50052DAD6 /* StoriesViewTests.swift */; };
-		895523E1292F48E20052DAD6 /* StoriesDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E0292F48E20052DAD6 /* StoriesDataStore.swift */; };
+		895523E1292F48E20052DAD6 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E0292F48E20052DAD6 /* DataStore.swift */; };
 		895523E4292F4B490052DAD6 /* StoriesListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E3292F4B490052DAD6 /* StoriesListRowView.swift */; };
 		895523E6292F6ABE0052DAD6 /* StoriesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */; };
 		895523E8292F6BBE0052DAD6 /* StoriesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */; };
@@ -56,7 +56,7 @@
 		895523DA292F44520052DAD6 /* Seeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seeds.swift; sourceTree = "<group>"; };
 		895523DC292F47020052DAD6 /* StoriesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesPresenterTests.swift; sourceTree = "<group>"; };
 		895523DE292F47B50052DAD6 /* StoriesViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewTests.swift; sourceTree = "<group>"; };
-		895523E0292F48E20052DAD6 /* StoriesDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesDataStore.swift; sourceTree = "<group>"; };
+		895523E0292F48E20052DAD6 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		895523E3292F4B490052DAD6 /* StoriesListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesListRowView.swift; sourceTree = "<group>"; };
 		895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesConfigurator.swift; sourceTree = "<group>"; };
 		895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesRouter.swift; sourceTree = "<group>"; };
@@ -174,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				89F28B41292E637300D7E7D8 /* Story.swift */,
+				895523E0292F48E20052DAD6 /* DataStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,7 +191,6 @@
 		89F28B25292DFF9500D7E7D8 /* Stories List */ = {
 			isa = PBXGroup;
 			children = (
-				895523E0292F48E20052DAD6 /* StoriesDataStore.swift */,
 				895523CE292F422F0052DAD6 /* StoriesInteractor.swift */,
 				895523D2292F42420052DAD6 /* StoriesModel.swift */,
 				895523D0292F42390052DAD6 /* StoriesPresenter.swift */,
@@ -376,7 +376,7 @@
 				895523E6292F6ABE0052DAD6 /* StoriesConfigurator.swift in Sources */,
 				895523E8292F6BBE0052DAD6 /* StoriesRouter.swift in Sources */,
 				89F28B42292E637300D7E7D8 /* Story.swift in Sources */,
-				895523E1292F48E20052DAD6 /* StoriesDataStore.swift in Sources */,
+				895523E1292F48E20052DAD6 /* DataStore.swift in Sources */,
 				89F28B49292E65C100D7E7D8 /* WorkerError.swift in Sources */,
 				895523D3292F42420052DAD6 /* StoriesModel.swift in Sources */,
 				895523CD292F421D0052DAD6 /* StoriesListView.swift in Sources */,

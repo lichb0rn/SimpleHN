@@ -9,12 +9,15 @@ import SwiftUI
 
 enum StoriesViewConfigurator {
     static func storiesView() -> some View {
-        var view = StoriesView()
+        var view = StoriesView<StoriesRouter>()
         let interactor = StoriesInteractor()
         let presenter = StoriesPresenter()
+        let router = StoriesRouter()
         view.interactor = interactor
         interactor.presenter = presenter
         presenter.view = view
+        view.router = router
+        router.store = interactor
         return view
     }
 }

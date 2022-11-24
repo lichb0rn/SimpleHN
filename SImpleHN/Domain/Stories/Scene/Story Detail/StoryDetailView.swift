@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct StoryDetailView: View {
+    
+    let story: Story
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(story.title)
     }
 }
 
 struct StoryDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryDetailView()
+        StoryDetailView(story: Story.previewStory)
     }
 }
