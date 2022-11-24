@@ -41,3 +41,16 @@ enum Stories {
         }
     }
 }
+
+extension Stories.Fetch.ViewModel {
+    static func previewViewModel() -> Stories.Fetch.ViewModel {
+        var vm = Stories.Fetch.ViewModel(success: true)
+        vm.stories = []
+        for _ in 0..<30 {
+            vm.stories?.append(DisplayStory(story: Story.previewStory,
+                                            timePosted: RelativeTimeFormatter.relativeTime(fromInterval: Double.random(in: 1...100),
+                                                                                           relativeTo: .now) ))
+        }
+        return vm
+    }
+}

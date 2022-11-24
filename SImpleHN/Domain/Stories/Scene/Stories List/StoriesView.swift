@@ -31,7 +31,10 @@ struct StoriesView: View {
     
     var body: some View {
         NavigationSplitView {
-            StoriesListView()
+            StoriesListView(stories: storiesDataStore.stories, selectedStory: $selected)
+                .navigationTitle("HN")
+                .toolbarBackground(Color("MainColor"), for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
         } detail: {
             Text("Select a story")
         }
@@ -47,7 +50,12 @@ struct StoriesView: View {
 }
 
 struct StoriesView_Previews: PreviewProvider {
+    static var previewStore:StoriesDataStore = {
+        let store = StoriesDataStore()
+        store.update(Stories.Fetch.ViewModel.previewViewModel().stories ?? [])
+        return store
+    }()
     static var previews: some View {
-        StoriesView()
+        return StoriesView(storiesDataStore: previewStore)
     }
 }

@@ -22,14 +22,11 @@ extension Story: Hashable {}
 
 
 extension Story {
-    static func previewStory() -> Story {
-        let story = Story(id: Int.random(in: 1000...999999),
-                         title: "Venture Capital in the 1980s",
-                         by: "theyeti",
-                          descendants: Int.random(in: 0...100),
-                          score: Int.random(in: 0...100),
-                         time: 1425261906,
-                         url: URL(string: "http://reactionwheel.net/2015/01/80s-vc.html")!)
-        return story
-    }
+    static var previewStory = Story(id: Int.random(in: 1000...999999),
+                                    title: "Venture Capital in the 1980s",
+                                    by: "theyeti",
+                                    descendants: Int.random(in: 0...100),
+                                    score: Int.random(in: 0...100),
+                                    time: 1425261906,
+                                    url: URL(string: "http://reactionwheel.net/2015/01/80s-vc.html")!)
 }
