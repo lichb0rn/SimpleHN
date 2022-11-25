@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8929915529309A1300666E8F /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929915429309A1300666E8F /* Comment.swift */; };
-		8929915729309AE300666E8F /* StoryDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929915629309AE300666E8F /* StoryDetailHeaderView.swift */; };
 		892991592931002C00666E8F /* MetaInforamtionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892991582931002C00666E8F /* MetaInforamtionView.swift */; };
 		895523CD292F421D0052DAD6 /* StoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523CC292F421D0052DAD6 /* StoriesListView.swift */; };
 		895523CF292F422F0052DAD6 /* StoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523CE292F422F0052DAD6 /* StoriesInteractor.swift */; };
@@ -58,7 +57,6 @@
 
 /* Begin PBXFileReference section */
 		8929915429309A1300666E8F /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		8929915629309AE300666E8F /* StoryDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailHeaderView.swift; sourceTree = "<group>"; };
 		892991582931002C00666E8F /* MetaInforamtionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaInforamtionView.swift; sourceTree = "<group>"; };
 		895523CC292F421D0052DAD6 /* StoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesListView.swift; sourceTree = "<group>"; };
 		895523CE292F422F0052DAD6 /* StoriesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesInteractor.swift; sourceTree = "<group>"; };
@@ -243,7 +241,6 @@
 				895523EF292F9F170052DAD6 /* StoryDetailModel.swift */,
 				895523F3292FDCAC0052DAD6 /* StoryDetailConfigurator.swift */,
 				895523F9292FE5610052DAD6 /* StoryDetailViewStore.swift */,
-				8929915629309AE300666E8F /* StoryDetailHeaderView.swift */,
 			);
 			path = "Story Detail";
 			sourceTree = "<group>";
@@ -434,7 +431,6 @@
 				895523F4292FDCAC0052DAD6 /* StoryDetailConfigurator.swift in Sources */,
 				895523D1292F42390052DAD6 /* StoriesPresenter.swift in Sources */,
 				89F28B40292E634800D7E7D8 /* StoryRequest.swift in Sources */,
-				8929915729309AE300666E8F /* StoryDetailHeaderView.swift in Sources */,
 				89F28B46292E645E00D7E7D8 /* NetworkWorker.swift in Sources */,
 				895523EA292F6C4E0052DAD6 /* StoryDetailView.swift in Sources */,
 				8929915529309A1300666E8F /* Comment.swift in Sources */,

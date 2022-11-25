@@ -27,10 +27,18 @@ enum StoryDetail {
                 init(story: Story, timePosted: String) {
                     self.id = story.id
                     self.title = story.title
-                    self.score = "\(story.score) points"
+                    self.score = "\(story.score)"
                     self.author = story.by
-                    self.commentsCount = "\(story.descendants) comments"
+                    self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
+                }
+                init() {
+                    id = -1
+                    title = ""
+                    score = ""
+                    author = ""
+                    commentsCount = ""
+                    timePosted = ""
                 }
             }
             

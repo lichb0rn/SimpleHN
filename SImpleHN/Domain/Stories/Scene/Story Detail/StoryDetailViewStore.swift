@@ -8,9 +8,9 @@
 import SwiftUI
 
 class StoryDetailViewStore: ObservableObject {
-    @Published var displayedStory: StoryDetail.GetStory.ViewModel.DisplayedStory?
+    @Published var story: StoryDetail.GetStory.ViewModel.DisplayedStory = .init()
     
     func update(viewModel: StoryDetail.GetStory.ViewModel) {
-        self.displayedStory = viewModel.displayedStory
+        story = viewModel.displayedStory
     }
 }
