@@ -202,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				89F28B41292E637300D7E7D8 /* Story.swift */,
-				895523E0292F48E20052DAD6 /* DataStore.swift */,
 				8929915429309A1300666E8F /* Comment.swift */,
 			);
 			path = Model;
@@ -221,6 +220,7 @@
 		89F28B25292DFF9500D7E7D8 /* Stories List */ = {
 			isa = PBXGroup;
 			children = (
+				895523E0292F48E20052DAD6 /* DataStore.swift */,
 				895523CE292F422F0052DAD6 /* StoriesInteractor.swift */,
 				895523D2292F42420052DAD6 /* StoriesModel.swift */,
 				895523D0292F42390052DAD6 /* StoriesPresenter.swift */,

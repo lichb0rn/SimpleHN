@@ -14,12 +14,14 @@ struct StoriesListView: View {
     
     var body: some View {
         List(stories, selection: $selectedStory) { story in
-            StoryView(title: story.title,
-                             score: story.score,
-                             author: story.author,
-                             commentsCount: story.commentsCount,
-                             timePosted: story.timePosted,
-                             link: story.url)
+            let viewModel = StoryViewModel(id: story.id,
+                                           title: story.title,
+                                           score: story.score,
+                                           author: story.author,
+                                           commentsCount: story.commentsCount,
+                                           timePosted: story.timePosted,
+                                           link: story.url)
+            StoryView(viewModel: viewModel)
         }
         .listStyle(.plain)
     }

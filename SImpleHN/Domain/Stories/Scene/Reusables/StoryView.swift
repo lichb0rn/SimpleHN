@@ -7,37 +7,47 @@
 
 import SwiftUI
 
-struct StoryView: View {
-    
+struct StoryViewModel {
+    let id: Int
     let title: String
     let score: String
     let author: String
     let commentsCount: String
     let timePosted: String
     let link: String?
+}
+
+struct StoryView: View {
+    
+    let viewModel: StoryViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(title)
+            Text(viewModel.title)
                 .font(.headline)
             
-            MetaInforamtionView(score: score, author: author, posted: timePosted, commentsCount: commentsCount)
-                .font(.caption)
-                .foregroundColor(.gray)
+            MetaInforamtionView(score: viewModel.score,
+                                author: viewModel.author,
+                                posted: viewModel.timePosted,
+                                commentsCount: viewModel.commentsCount)
+            .font(.caption)
+            .foregroundColor(.gray)
         }
     }
 }
 
 struct StoryListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        StoryView(title: "PR that converts the TypeScript repo from namespaces to modules",
-                         score: "315",
-                         author: "paprika",
-                         commentsCount: "170",
-                         timePosted: "1 min. ago",
-                         link: "(theverge.com)")
-        .previewLayout(.sizeThatFits)
-        .padding()
+        let story = Story.previewStory
+        let previewViewModel = StoryViewModel(id: story.id,
+                                              title: story.title,
+                                              score: String(story.score),
+                                              author: story.by,
+                                              commentsCount: String(story.descendants),
+                                              timePosted: "1 min. ago",
+                                              link: "(theverge.com)")
+        return StoryView(viewModel: previewViewModel)
+            .previewLayout(.sizeThatFits)
+            .padding()
     }
 }

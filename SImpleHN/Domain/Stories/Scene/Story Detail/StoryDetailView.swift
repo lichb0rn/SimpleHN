@@ -23,16 +23,11 @@ struct StoryDetailView: View {
     var interactor: StoryDetailLogic?
     
     var body: some View {
-        StoryView(title: store.story.title,
-                  score: store.story.score,
-                  author: store.story.author,
-                  commentsCount: store.story.commentsCount,
-                  timePosted: store.story.timePosted,
-                  link: nil)
+        StoryView(viewModel: store.viewModel)
             .onAppear {
                 getStory()
             }
-            .id(store.story.id)
+            .id(store.viewModel.id)
     }
     
     func getStory() {
