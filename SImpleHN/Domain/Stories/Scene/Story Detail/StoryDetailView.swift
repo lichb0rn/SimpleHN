@@ -23,10 +23,11 @@ struct StoryDetailView: View {
     var interactor: StoryDetailLogic?
     
     var body: some View {
-        Text(storyDetailStore.displayedStory?.title ?? "")
+        Text(storyDetailStore.displayedStory?.title ?? "=(")
             .onAppear {
                 getStory()
             }
+            .id(storyDetailStore.displayedStory?.id)
     }
     
     func getStory() {

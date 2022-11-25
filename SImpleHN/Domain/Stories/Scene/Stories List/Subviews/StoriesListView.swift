@@ -18,7 +18,6 @@ struct StoriesListView: View {
                              score: story.score,
                              commentsCount: story.commentsCount,
                              timePosted: story.timePosted)
-            .listRowBackground(Color("RowBackgroundColor"))
         }
         .listStyle(.plain)
     }
