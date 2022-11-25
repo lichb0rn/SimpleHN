@@ -21,7 +21,7 @@
 		895523DD292F47020052DAD6 /* StoriesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523DC292F47020052DAD6 /* StoriesPresenterTests.swift */; };
 		895523DF292F47B50052DAD6 /* StoriesViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523DE292F47B50052DAD6 /* StoriesViewTests.swift */; };
 		895523E1292F48E20052DAD6 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E0292F48E20052DAD6 /* DataStore.swift */; };
-		895523E4292F4B490052DAD6 /* StoriesListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E3292F4B490052DAD6 /* StoriesListRowView.swift */; };
+		895523E4292F4B490052DAD6 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E3292F4B490052DAD6 /* StoryView.swift */; };
 		895523E6292F6ABE0052DAD6 /* StoriesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */; };
 		895523E8292F6BBE0052DAD6 /* StoriesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */; };
 		895523EA292F6C4E0052DAD6 /* StoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E9292F6C4E0052DAD6 /* StoryDetailView.swift */; };
@@ -71,7 +71,7 @@
 		895523DC292F47020052DAD6 /* StoriesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesPresenterTests.swift; sourceTree = "<group>"; };
 		895523DE292F47B50052DAD6 /* StoriesViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewTests.swift; sourceTree = "<group>"; };
 		895523E0292F48E20052DAD6 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
-		895523E3292F4B490052DAD6 /* StoriesListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesListRowView.swift; sourceTree = "<group>"; };
+		895523E3292F4B490052DAD6 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesConfigurator.swift; sourceTree = "<group>"; };
 		895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesRouter.swift; sourceTree = "<group>"; };
 		895523E9292F6C4E0052DAD6 /* StoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailView.swift; sourceTree = "<group>"; };
@@ -116,12 +116,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8929915A2931088F00666E8F /* Reusables */ = {
+			isa = PBXGroup;
+			children = (
+				895523E3292F4B490052DAD6 /* StoryView.swift */,
+				892991582931002C00666E8F /* MetaInforamtionView.swift */,
+			);
+			path = Reusables;
+			sourceTree = "<group>";
+		};
 		895523E2292F4B310052DAD6 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
 				895523CC292F421D0052DAD6 /* StoriesListView.swift */,
-				895523E3292F4B490052DAD6 /* StoriesListRowView.swift */,
-				892991582931002C00666E8F /* MetaInforamtionView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -206,6 +213,7 @@
 		89F28B24292DFF5C00D7E7D8 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				8929915A2931088F00666E8F /* Reusables */,
 				89F28B26292DFF9F00D7E7D8 /* Story Detail */,
 				89F28B25292DFF9500D7E7D8 /* Stories List */,
 			);
@@ -422,7 +430,7 @@
 				89F28B39292E627B00D7E7D8 /* Request.swift in Sources */,
 				895523D7292F43CC0052DAD6 /* RelativeTimeFormatter.swift in Sources */,
 				89F28B3B292E630900D7E7D8 /* NewStoriesRequest.swift in Sources */,
-				895523E4292F4B490052DAD6 /* StoriesListRowView.swift in Sources */,
+				895523E4292F4B490052DAD6 /* StoryView.swift in Sources */,
 				895523F4292FDCAC0052DAD6 /* StoryDetailConfigurator.swift in Sources */,
 				895523D1292F42390052DAD6 /* StoriesPresenter.swift in Sources */,
 				89F28B40292E634800D7E7D8 /* StoryRequest.swift in Sources */,

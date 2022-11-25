@@ -14,7 +14,7 @@ struct StoriesListView: View {
     
     var body: some View {
         List(stories, selection: $selectedStory) { story in
-            StoryListRowView(title: story.title,
+            StoryView(title: story.title,
                              score: story.score,
                              author: story.author,
                              commentsCount: story.commentsCount,

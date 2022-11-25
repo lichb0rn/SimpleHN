@@ -1,5 +1,5 @@
 //
-//  StoriesListRowView.swift
+//  StoryView.swift
 //  SImpleHN
 //
 //  Created by Miroslav Taleiko on 24.11.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StoryListRowView: View {
+struct StoryView: View {
     
     let title: String
     let score: String
@@ -31,11 +31,11 @@ struct StoryListRowView: View {
 struct StoryListRowView_Previews: PreviewProvider {
     static var previews: some View {
         
-        StoryListRowView(title: "PR that converts the TypeScript repo from namespaces to modules",
-                         score: "315 points",
-                         author: "by paprika",
-                         commentsCount: "170 comments",
-                         timePosted: "Posted 1 minute ago",
+        StoryView(title: "PR that converts the TypeScript repo from namespaces to modules",
+                         score: "315",
+                         author: "paprika",
+                         commentsCount: "170",
+                         timePosted: "1 min. ago",
                          link: "(theverge.com)")
         .previewLayout(.sizeThatFits)
         .padding()
