@@ -24,14 +24,20 @@ enum Stories {
                 let author: String
                 let commentsCount: String
                 let timePosted: String
+                let url: String?
                 
                 init(story: Story, timePosted: String) {
                     self.id = story.id
                     self.title = story.title
-                    self.score = "\(story.score) points"
-                    self.author = story.by
-                    self.commentsCount = "\(story.descendants) comments"
+                    self.score = "\(story.score)"
+                    self.author = "\(story.by)"
+                    self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
+                    if let host = story.url.host() {
+                        self.url = "(\(host))"
+                    } else {
+                        self.url = nil
+                    }
                 }
             }
             
@@ -48,8 +54,8 @@ extension Stories.Fetch.ViewModel {
         vm.stories = []
         for _ in 0..<30 {
             vm.stories?.append(DisplayedStory(story: Story.previewStory,
-                                            timePosted: RelativeTimeFormatter.relativeTime(fromInterval: Double.random(in: 1...100),
-                                                                                           relativeTo: .now) ))
+                                              timePosted: RelativeTimeFormatter.relativeTime(fromInterval: Double.random(in: 1...100),
+                                                                                             relativeTo: .now) ))
         }
         return vm
     }

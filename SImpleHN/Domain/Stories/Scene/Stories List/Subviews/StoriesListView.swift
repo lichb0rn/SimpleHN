@@ -16,8 +16,10 @@ struct StoriesListView: View {
         List(stories, selection: $selectedStory) { story in
             StoryListRowView(title: story.title,
                              score: story.score,
+                             author: story.author,
                              commentsCount: story.commentsCount,
-                             timePosted: story.timePosted)
+                             timePosted: story.timePosted,
+                             link: story.url)
         }
         .listStyle(.plain)
     }
