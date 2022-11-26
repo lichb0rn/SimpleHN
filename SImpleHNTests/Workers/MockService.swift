@@ -10,6 +10,7 @@ import Foundation
 
 actor MockService: Service {
     let mustFail: Bool
+    let story = Story.previewStory
     
     init(mustFail: Bool = false) {
         self.mustFail = mustFail
@@ -17,22 +18,22 @@ actor MockService: Service {
     
     func fetchLatest() async throws -> [Story.ID] {
         try failIfMust()
-        return [Seeds.story.id]
+        return [story.id]
     }
     
     func fetch(by id: Story.ID) async throws -> Story {
         try failIfMust()
-        return Seeds.story
+        return story
     }
     
     func fetch(by ids: [Story.ID]) async throws -> [Story] {
         try failIfMust()
-        return Seeds.stories
+        return [story]
     }
     
     private func failIfMust() throws {
         if mustFail {
-            throw URLError(.badServerResponse)
+            throw NetworkError.badServerResponse
         }
     }
 }

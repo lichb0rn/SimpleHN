@@ -12,6 +12,7 @@ struct Story: Codable {
     let title: String
     let by: String
     let descendants: Int
+    let kids: [Int]
     let score: Int
     let time: TimeInterval
     let url: URL
@@ -26,6 +27,7 @@ extension Story {
                                     title: "Venture Capital in the 1980s",
                                     by: "theyeti",
                                     descendants: Int.random(in: 0...100),
+                                    kids: [],
                                     score: Int.random(in: 0...100),
                                     time: 1425261906,
                                     url: URL(string: "http://reactionwheel.net/2015/01/80s-vc.html")!)

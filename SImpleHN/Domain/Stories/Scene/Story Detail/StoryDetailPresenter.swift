@@ -21,7 +21,7 @@ extension StoryDetailPresenter: StoryDetailPresentationLogic {
         let timePosted = RelativeTimeFormatter.formatTimeString(timeInterval: story.time)
         let displayedStory = StoryDetail.GetStory.ViewModel.DisplayedStory(story: story,
                                                                       timePosted: timePosted)
-        let viewModel = StoryDetail.GetStory.ViewModel(displayedStory: displayedStory)
+        let viewModel = StoryDetail.GetStory.ViewModel(displayedStory: displayedStory, commentIds: story.kids)
         view?.displayStory(viewModel: viewModel)
     }
 }

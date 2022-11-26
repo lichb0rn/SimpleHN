@@ -13,7 +13,11 @@ protocol StoryDetailDisplayLogic {
 
 extension StoryDetailView: StoryDetailDisplayLogic {
     func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
-        self.store.update(viewModel: viewModel)
+        Task {
+            await MainActor.run {
+                self.store.update(viewModel: viewModel)
+            }
+        }
     }
 }
 
@@ -38,9 +42,16 @@ struct StoryDetailView: View {
 
 struct StoryDetailView_Previews: PreviewProvider {
     static var previews: some View {
+        let viewModel: StoryDetail
+            .GetStory
+            .ViewModel = .init(
+                displayedStory: .init(story: Story.previewStory,
+                                      timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Story.previewStory.time)),
+                commentIds: [123, 321, 123])
+        
         let previewStore = StoryDetailViewStore()
-        previewStore.update(viewModel: .init(displayedStory: .init(story: Story.previewStory,
-                                                                   timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Story.previewStory.time))))
+        previewStore.update(viewModel: viewModel)
+        
         return StoryDetailView(store: previewStore)
     }
 }

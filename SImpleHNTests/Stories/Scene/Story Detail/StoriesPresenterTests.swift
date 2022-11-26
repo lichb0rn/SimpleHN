@@ -13,6 +13,7 @@ final class StoriesPresenterTests: XCTestCase {
     
     var sut: StoriesPresenter!
     var viewSpy: StoriesViewSpy!
+    var story = Story.previewStory
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -42,9 +43,9 @@ final class StoriesPresenterTests: XCTestCase {
     // MARK: - Tests
     
     func test_presentStories_passSuccessViewModelToView() throws {
-        let repsonse = Stories.Fetch.Response(stories: Seeds.stories)
+        let repsonse = Stories.Fetch.Response(stories: [story])
         var viewModel = Stories.Fetch.ViewModel(success: true)
-        viewModel.stories = Seeds.stories.map {
+        viewModel.stories = [story].map {
             Stories.Fetch.ViewModel.DisplayedStory(story: $0, timePosted: "")
         }
         

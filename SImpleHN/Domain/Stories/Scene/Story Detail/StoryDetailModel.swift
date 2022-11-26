@@ -43,6 +43,7 @@ enum StoryDetail {
             }
             
             var displayedStory: DisplayedStory
+            var commentIds: [Int]
         }
     }
 }

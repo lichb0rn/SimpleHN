@@ -12,6 +12,7 @@ final class StoriesInteractorTests: XCTestCase {
     
     var sut: StoriesInteractor!
     var presenterSpy: StoriesPresenterSpy!
+    var story = Story.previewStory
     
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -42,7 +43,7 @@ final class StoriesInteractorTests: XCTestCase {
     func test_successFetch_callsPresenter_withNonEmptyRepsonse() async {
         sut = StoriesInteractor(worker: MockService())
         sut.presenter = presenterSpy
-        let stories = Seeds.stories
+        let stories = [story]
         
         let request = Stories.Fetch.Request()
         await sut.fetch(request: request)

@@ -13,7 +13,7 @@ final class StoryDetailInteractorTests: XCTestCase {
     var sut: StoryDetailInteractor!
     var presenterSpy: StoryDetailPresenterSpy!
     var worker: MockService!
-    var story = Seeds.story
+    var story = Story.previewStory
     
     override func setUpWithError() throws {
         try super.setUpWithError()
