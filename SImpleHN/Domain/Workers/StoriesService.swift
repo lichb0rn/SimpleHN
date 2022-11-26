@@ -30,7 +30,7 @@ actor StoriesService: Service {
             return story
         }
         
-        guard let request = StoryRequest(from: id) else {
+        guard let request = ItemRequest<Story>(from: id) else {
             throw NetworkError.badRequest(id)
         }
         let story = try await networkWorker.fetch(request)
