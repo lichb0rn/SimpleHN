@@ -12,11 +12,13 @@ final class StoryDetailInteractorTests: XCTestCase {
 
     var sut: StoryDetailInteractor!
     var presenterSpy: StoryDetailPresenterSpy!
+    var worker: MockService!
     var story = Seeds.story
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = StoryDetailInteractor(story: story)
+        worker = MockService()
+        sut = StoryDetailInteractor(story: story, worker: worker)
         presenterSpy = StoryDetailPresenterSpy()
         sut.presenter = presenterSpy
     }
@@ -24,6 +26,7 @@ final class StoryDetailInteractorTests: XCTestCase {
     override func tearDownWithError() throws {
         sut = nil
         presenterSpy = nil
+        worker = nil
         try super.tearDownWithError()
     }
 
@@ -38,12 +41,13 @@ final class StoryDetailInteractorTests: XCTestCase {
         }
     }
     
+    
     // MARK: Tests
     
-    func test_presentStoryCalled_withCorrectResponse() {
+    func test_presentStoryCalled_withCorrectResponse() async {
         let dummyRequest = StoryDetail.GetStory.Request()
         
-        sut.getStory(request: dummyRequest)
+        await sut.getStory(request: dummyRequest)
         
         XCTAssertTrue(presenterSpy.presentCalled)
         XCTAssertEqual(sut.story, presenterSpy.response?.story)

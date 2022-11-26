@@ -31,15 +31,15 @@ final class StoryDetailViewTests: XCTestCase {
     class StoryDetailInteractorSpy: StoryDetailLogic {
         var getStoryCalled: Bool = false
         
-        func getStory(request: StoryDetail.GetStory.Request) {
+        func getStory(request: StoryDetail.GetStory.Request) async {
             getStoryCalled = true
         }
     }
     
     // MARK: Tests
     
-    func test_viewCalls_interactor() {
-        sut.getStory()
+    func test_viewCalls_interactor() async {
+        await sut.getStory()
         
         XCTAssertTrue(interactorySpy.getStoryCalled)
     }

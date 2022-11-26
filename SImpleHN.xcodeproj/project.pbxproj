@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		891CF1F42931D1B9007AC197 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891CF1F32931D1B9007AC197 /* MockService.swift */; };
 		8929915529309A1300666E8F /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929915429309A1300666E8F /* Comment.swift */; };
 		892991592931002C00666E8F /* MetaInforamtionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892991582931002C00666E8F /* MetaInforamtionView.swift */; };
 		895523CD292F421D0052DAD6 /* StoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523CC292F421D0052DAD6 /* StoriesListView.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		891CF1F32931D1B9007AC197 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		8929915429309A1300666E8F /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		892991582931002C00666E8F /* MetaInforamtionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaInforamtionView.swift; sourceTree = "<group>"; };
 		895523CC292F421D0052DAD6 /* StoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesListView.swift; sourceTree = "<group>"; };
@@ -114,6 +116,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		891CF1F52931D1D4007AC197 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				891CF1F32931D1B9007AC197 /* MockService.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
 		8929915A2931088F00666E8F /* Reusables */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +258,7 @@
 		89F28B2C292E618000D7E7D8 /* SImpleHNTests */ = {
 			isa = PBXGroup;
 			children = (
+				891CF1F52931D1D4007AC197 /* Workers */,
 				89F28B34292E61ED00D7E7D8 /* Stories */,
 			);
 			path = SImpleHNTests;
@@ -452,6 +463,7 @@
 				895523D9292F44050052DAD6 /* StoriesInteractorTests.swift in Sources */,
 				895523F2292FDBDB0052DAD6 /* StoryDetailViewTests.swift in Sources */,
 				895523F8292FE24E0052DAD6 /* StoryDetailPresenterTests.swift in Sources */,
+				891CF1F42931D1B9007AC197 /* MockService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

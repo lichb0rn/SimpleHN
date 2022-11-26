@@ -24,15 +24,15 @@ struct StoryDetailView: View {
     
     var body: some View {
         StoryView(viewModel: store.viewModel)
-            .onAppear {
-                getStory()
+            .task {
+                await getStory()
             }
             .id(store.viewModel.id)
     }
     
-    func getStory() {
+    func getStory() async{
         let request = StoryDetail.GetStory.Request()
-        interactor?.getStory(request: request)
+        await interactor?.getStory(request: request)
     }
 }
 
