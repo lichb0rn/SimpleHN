@@ -1,5 +1,5 @@
 //
-//  WorkerError.swift
+//  NetworkError.swift
 //  SImpleHN
 //
 //  Created by Miroslav Taleiko on 23.11.2022.

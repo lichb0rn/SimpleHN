@@ -21,7 +21,7 @@ class StoriesRouter: StoriesRoutingLogic, StoriesDataPassing {
     
     func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> StoryDetailView {
         let story = store?.stories?.first(where: { $0.id == id })
-        let detailView = StoryDetailConfigurator.storyDetail(for: story!, worker: StoriesService())
+        let detailView = StoryDetailConfigurator.storyDetail(for: story!, worker: NetworkService())
         return detailView as! StoryDetailView
     }
 }

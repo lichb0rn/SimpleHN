@@ -9,7 +9,8 @@ import SwiftUI
 
 @MainActor
 class StoryDetailViewStore: ObservableObject {
-    @Published var viewModel: StoryViewModel = .init(id: -1, title: "", score: "", author: "", commentsCount: "", timePosted: "", link: nil)
+    @Published var storyViewModel: StoryViewModel = .init(id: -1, title: "", score: "", author: "", commentsCount: "", timePosted: "", link: nil)
+    @Published var commentViewModels: [StoryDetail.GetCommentsList.ViewModel.DisplayedComment] = []
     
     func update(viewModel: StoryDetail.GetStory.ViewModel) {
         let displayedViewModel = StoryViewModel(id: viewModel.displayedStory.id,
@@ -19,6 +20,14 @@ class StoryDetailViewStore: ObservableObject {
                                                 commentsCount: viewModel.displayedStory.commentsCount,
                                                 timePosted: viewModel.displayedStory.timePosted,
                                                 link: nil)
-        self.viewModel = displayedViewModel
+        self.storyViewModel = displayedViewModel
+    }
+    
+    func addComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
+        if let displayedComments = viewModel.displayedComments {
+            displayedComments.forEach {
+                print($0.text)
+            }
+        }
     }
 }

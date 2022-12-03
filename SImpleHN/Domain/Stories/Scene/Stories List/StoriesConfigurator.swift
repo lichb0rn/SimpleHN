@@ -10,7 +10,7 @@ import SwiftUI
 enum StoriesViewConfigurator {
     static func storiesView() -> some View {
         var view = StoriesView<StoriesRouter>()
-        let interactor = StoriesInteractor()
+        let interactor = StoriesInteractor(worker: NetworkService())
         let presenter = StoriesPresenter()
         let router = StoriesRouter()
         view.interactor = interactor

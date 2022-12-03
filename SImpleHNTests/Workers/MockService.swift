@@ -8,9 +8,11 @@
 import Foundation
 @testable import SImpleHN
 
-actor MockService: Service {
+
+struct MockService: Service {
     let mustFail: Bool
     let story = Story.previewStory
+    let item = HNItem.previewItem
     
     init(mustFail: Bool = false) {
         self.mustFail = mustFail
@@ -21,14 +23,14 @@ actor MockService: Service {
         return [story.id]
     }
     
-    func fetch(by id: Story.ID) async throws -> Story {
+    func fetch(by id: Int) async throws -> HNItem {
         try failIfMust()
-        return story
+        return item
     }
     
-    func fetch(by ids: [Story.ID]) async throws -> [Story] {
+    func fetch(by ids: [Int]) async throws -> [HNItem] {
         try failIfMust()
-        return [story]
+        return [item]
     }
     
     private func failIfMust() throws {
@@ -37,3 +39,5 @@ actor MockService: Service {
         }
     }
 }
+
+extension MockService: StoriesService {}

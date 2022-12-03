@@ -12,6 +12,7 @@ final class StoryDetailPresenterTests: XCTestCase {
 
     var sut: StoryDetailPresenter!
     var viewSpy: StoryDetailViewSpy!
+    var comments = [Comment(hnItem: HNItem.previewItem)]
     
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -29,11 +30,17 @@ final class StoryDetailPresenterTests: XCTestCase {
     // MARK: Test doubles
     class StoryDetailViewSpy: StoryDetailDisplayLogic {
         var displayCalled: Bool = false
-        var viewModel: StoryDetail.GetStory.ViewModel?
+        var storyViewModel: StoryDetail.GetStory.ViewModel?
+        var commentsViewModel: StoryDetail.GetCommentsList.ViewModel?
         
         func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
             displayCalled = true
-            self.viewModel = viewModel
+            self.storyViewModel = viewModel
+        }
+        
+        func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
+            displayCalled = true
+            self.commentsViewModel = viewModel
         }
     }
     
@@ -45,6 +52,15 @@ final class StoryDetailPresenterTests: XCTestCase {
         sut.presentStory(response: response)
         
         XCTAssertTrue(viewSpy.displayCalled)
-        XCTAssertEqual(response.story.id, viewSpy.viewModel?.displayedStory.id)
+        XCTAssertEqual(response.story.id, viewSpy.storyViewModel?.displayedStory.id)
+    }
+    
+    func test_displayCommentsCalled() {
+        let response = StoryDetail.GetCommentsList.Respose(result: .success(comments))
+        
+        sut.presentComments(response: response)
+        
+        XCTAssertTrue(viewSpy.displayCalled)
+        
     }
 }

@@ -29,11 +29,11 @@ final class StoriesInteractorTests: XCTestCase {
     
     // MARK: - Test doubles
     class StoriesPresenterSpy: StoriesPresentationLogic {
-        var presentTopStoriesCalled: Bool = false
+        var presentCalled: Bool = false
         var stories: [Story]?
         
         func presentStories(response: Stories.Fetch.Response) {
-            presentTopStoriesCalled = true
+            presentCalled = true
             stories = response.stories
         }
     }
@@ -48,7 +48,7 @@ final class StoriesInteractorTests: XCTestCase {
         let request = Stories.Fetch.Request()
         await sut.fetch(request: request)
         
-        XCTAssertTrue(presenterSpy.presentTopStoriesCalled)
+        XCTAssertTrue(presenterSpy.presentCalled)
         XCTAssertEqual(presenterSpy.stories, stories)
     }
     
@@ -60,7 +60,9 @@ final class StoriesInteractorTests: XCTestCase {
         let request = Stories.Fetch.Request()
         await sut.fetch(request: request)
         
-        XCTAssertTrue(presenterSpy.presentTopStoriesCalled)
+        XCTAssertTrue(presenterSpy.presentCalled)
         XCTAssertNil(presenterSpy.stories)
     }
+    
+
 }

@@ -17,7 +17,7 @@ struct StoryViewModel {
     let link: String?
 }
 
-struct StoryView: View {
+struct StoryHeaderView: View {
     
     let viewModel: StoryViewModel
     
@@ -46,8 +46,6 @@ struct StoryListRowView_Previews: PreviewProvider {
                                               commentsCount: String(story.descendants),
                                               timePosted: "1 min. ago",
                                               link: "(theverge.com)")
-        return StoryView(viewModel: previewViewModel)
-            .previewLayout(.sizeThatFits)
-            .padding()
+        return StoryHeaderView(viewModel: previewViewModel)
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 protocol StoryDetailDisplayLogic {
     func displayStory(viewModel: StoryDetail.GetStory.ViewModel)
+    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel)
 }
 
 extension StoryDetailView: StoryDetailDisplayLogic {
@@ -19,24 +20,47 @@ extension StoryDetailView: StoryDetailDisplayLogic {
             }
         }
     }
+    
+    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
+        Task {
+            await MainActor.run {
+                self.store.addComments(viewModel: viewModel)
+            }
+        }
+    }
 }
 
 struct StoryDetailView: View {
-
+    
     @ObservedObject var store = StoryDetailViewStore()
     var interactor: StoryDetailLogic?
-    
+        
     var body: some View {
-        StoryView(viewModel: store.viewModel)
-            .task {
-                await getStory()
+        ScrollView(.vertical) {
+            StoryHeaderView(viewModel: store.storyViewModel)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .task {
+                    await getStory()
+                    await getComments()
+                }
+            
+            LazyVStack {
+                ForEach(store.commentViewModels) { comment in
+                    Text(comment.text)
+                }
             }
-            .id(store.viewModel.id)
+        }
+        .padding()
     }
     
-    func getStory() async{
+    func getStory() async {
         let request = StoryDetail.GetStory.Request()
         await interactor?.getStory(request: request)
+    }
+    
+    func getComments() async {
+        let request = StoryDetail.GetCommentsList.Request()
+        await interactor?.getComments(request: request)
     }
 }
 
@@ -46,8 +70,10 @@ struct StoryDetailView_Previews: PreviewProvider {
             .GetStory
             .ViewModel = .init(
                 displayedStory: .init(story: Story.previewStory,
-                                      timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Story.previewStory.time)),
-                commentIds: [123, 321, 123])
+                                      timePosted:
+                                        RelativeTimeFormatter.formatTimeString(
+                                            timeInterval: Story.previewStory.time)),
+                commentIds: [123, 321, 246])
         
         let previewStore = StoryDetailViewStore()
         previewStore.update(viewModel: viewModel)

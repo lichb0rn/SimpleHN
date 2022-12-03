@@ -18,16 +18,19 @@ protocol StoriesStore {
 class StoriesInteractor {
     var presenter: StoriesPresentationLogic?
     
-    var stories: [Story]?
-    private let worker: Service
+    var stories: [Story]? = []
+    
+    private let worker: StoriesService
     private let maxStories = 30
     
-    init(worker: Service = StoriesService()) {
+    init(worker: StoriesService = NetworkService()) {
         self.worker = worker
     }
 }
 
-extension StoriesInteractor: StoriesStore {}
+extension StoriesInteractor: StoriesStore {
+
+}
 
 extension StoriesInteractor: StoriesLogic {
     func fetch(request: Stories.Fetch.Request) async {
@@ -47,11 +50,11 @@ extension StoriesInteractor: StoriesLogic {
     private func fetchStories(withIds ids: [Story.ID]) async -> [Story] {
         let maxStories = Array(ids.prefix(maxStories))
         do {
-            let stories = try await worker.fetch(by: maxStories)
+            let hnItems = try await worker.fetch(by: maxStories)
+            let stories = hnItems.map(Story.init)
             return stories
         } catch {
             return []
         }
     }
-    
 }

@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+protocol CommentsPresentationLogic {
+    func presentComments(response: Comments.GetCommentsList.Respose)
+}
+
+class CommentsPresenter {
+    var view: CommentsDisplayLogic?
+}
+
+
+extension CommentsPresenter: CommentsPresentationLogic {
+    func presentComments(response: Comments.GetCommentsList.Respose) {
+        
+    }
+}

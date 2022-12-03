@@ -46,4 +46,34 @@ enum StoryDetail {
             var commentIds: [Int]
         }
     }
+    
+    enum GetCommentsList {
+        struct Request {}
+        
+        struct Respose {
+            var result: Result<[Comment], Error>
+        }
+        
+        struct ViewModel {
+            struct DisplayedComment: Identifiable {
+                let id: Int
+                let author: String
+                let answers: [Comment]
+                let text: String
+                let timePosted: String
+                
+                init(comment: Comment, timePosted: String) {
+                    self.id = comment.id
+                    self.author = comment.by
+                    self.answers = []
+                    self.text = comment.text
+                    self.timePosted = timePosted
+                }
+            }
+            
+            var succes: Bool
+            var displayedComments: [DisplayedComment]?
+            var error: String?
+        }
+    }
 }
