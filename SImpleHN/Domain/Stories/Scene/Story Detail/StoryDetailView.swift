@@ -14,11 +14,7 @@ protocol StoryDetailDisplayLogic {
 
 extension StoryDetailView: StoryDetailDisplayLogic {
     func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
-        Task {
-            await MainActor.run {
-                self.store.update(viewModel: viewModel)
-            }
-        }
+        self.store.update(viewModel: viewModel)
     }
     
     func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
@@ -40,7 +36,6 @@ struct StoryDetailView: View {
             StoryHeaderView(viewModel: store.storyViewModel)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .task {
-                    await getStory()
                     await getComments()
                 }
             
@@ -51,11 +46,14 @@ struct StoryDetailView: View {
             }
         }
         .padding()
+        .onAppear {
+            getStory()
+        }
     }
     
-    func getStory() async {
+    func getStory() {
         let request = StoryDetail.GetStory.Request()
-        await interactor?.getStory(request: request)
+        interactor?.getStory(request: request)
     }
     
     func getComments() async {

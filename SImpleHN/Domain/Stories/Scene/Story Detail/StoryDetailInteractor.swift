@@ -9,7 +9,7 @@ import Foundation
 
 
 protocol StoryDetailLogic {
-    func getStory(request: StoryDetail.GetStory.Request) async
+    func getStory(request: StoryDetail.GetStory.Request)
     func getComments(request: StoryDetail.GetCommentsList.Request) async
 }
 
@@ -26,7 +26,7 @@ class StoryDetailInteractor {
 }
 
 extension StoryDetailInteractor: StoryDetailLogic {
-    func getStory(request: StoryDetail.GetStory.Request) async {
+    func getStory(request: StoryDetail.GetStory.Request) {
         let response = StoryDetail.GetStory.Response(story: story)
         presenter?.presentStory(response: response)
     }
@@ -35,6 +35,7 @@ extension StoryDetailInteractor: StoryDetailLogic {
         let commentIdsToFetch = story.kids
         do {
             let hnItems = try await worker.fetch(by: commentIdsToFetch)
+            print(hnItems)
             let comments = hnItems.map(Comment.init)
             let response = StoryDetail.GetCommentsList.Respose(result: .success(comments))
             presenter?.presentComments(response: response)

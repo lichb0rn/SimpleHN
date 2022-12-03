@@ -16,7 +16,7 @@ struct HNItem: Decodable {
     
     // Common keys
     let id: Int
-    let type: String
+    let type: ItemType
     
     let by: String?
     let time: TimeInterval?
@@ -36,10 +36,22 @@ struct HNItem: Decodable {
     let text: String?
 }
 
+extension HNItem {
+    enum ItemType: String, CustomStringConvertible, Decodable {
+        case job = "job"
+        case story = "story"
+        case comment = "comment"
+        case poll = "poll"
+        case pollopt = "pollopt"
+        
+        var description: String { rawValue }
+    }
+}
+
 
 extension HNItem {
     static let previewItem = HNItem(id: 1000,
-                                    type: "story",
+                                    type: .story,
                                     by: "theyeti",
                                     time: 1425261906,
                                     kids: [1001, 1002],
