@@ -12,7 +12,6 @@ import Foundation
 struct HNItem: Decodable {
     /// All HN items share two common keys, others are optonal
     /// So I declared all the keys for Story and Comment here
-    /// Then pass to a proper model in init
     
     // Common keys
     let id: Int
@@ -54,7 +53,7 @@ extension HNItem {
                                     type: .story,
                                     by: "theyeti",
                                     time: 1425261906,
-                                    kids: [1001, 1002],
+                                    kids: [1, 2],
                                     title: "Venture Capital in the 1980s",
                                     descendants: 100,
                                     score: 100,

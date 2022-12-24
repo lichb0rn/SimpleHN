@@ -9,17 +9,19 @@ import SwiftUI
 
 struct MetaInforamtionView: View {
     
-    let score: String
-    let author: String
-    let posted: String
-    let commentsCount: String
+    var author: String
+    var posted: String
+    var repliesCount: String
+    var score: String? = nil
     
     var body: some View {
         HStack(spacing: 12) {
-            glyph(name: "plusminus", label: score)
+            if let score {
+                glyph(name: "plusminus", label: score)
+            }
             glyph(name: "person.fill", label: author)
             glyph(name: "clock.arrow.circlepath", label: posted)
-            glyph(name: "bubble.left.fill", label: commentsCount)
+            glyph(name: "bubble.left.fill", label: repliesCount)
         }
     }
     
@@ -34,10 +36,10 @@ struct MetaInforamtionView: View {
 struct MetaInforamtionView_Previews: PreviewProvider {
     static var previews: some View {
         MetaInforamtionView(
-            score: "315",
             author: "paprika",
             posted: "1 minute ago",
-            commentsCount: "170"
+            repliesCount: "170",
+            score: "315"
         )
     }
 }

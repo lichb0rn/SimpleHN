@@ -25,12 +25,13 @@ struct MockService: Service {
     
     func fetch(by id: Int) async throws -> HNItem {
         try failIfMust()
-        return item
+        return findItem(id)
     }
     
     func fetch(by ids: [Int]) async throws -> [HNItem] {
         try failIfMust()
-        return [item]
+        let items = TestDTO.allDTO.filter({ ids.contains($0.id) })
+        return items
     }
     
     private func failIfMust() throws {
@@ -38,6 +39,13 @@ struct MockService: Service {
             throw NetworkError.badServerResponse
         }
     }
+    
+    private func findItem(_ id: Int) -> HNItem {
+        TestDTO.allDTO.first(where: { $0.id == id }) ?? TestDTO.story
+    }
 }
 
 extension MockService: StoriesService {}
+
+
+

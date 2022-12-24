@@ -27,7 +27,9 @@ actor NetworkService: Service {
     private var cache: [Int: State] = [:]
     
     func fetchLatest() async throws -> [Story.ID] {
-        let newStoriesRequest = NewStoriesRequest()
+//        let newStoriesRequest = NewStoriesRequest()
+        #warning("Return back to new stories")
+        let newStoriesRequest = TopStoriesRequest()
         let newStoriesIds = try await networking.fetch(newStoriesRequest)
         return newStoriesIds
     }

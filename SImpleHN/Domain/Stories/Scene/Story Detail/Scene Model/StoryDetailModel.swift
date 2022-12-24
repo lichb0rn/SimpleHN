@@ -12,13 +12,13 @@ enum StoryDetail {
         struct Request {}
         
         struct Response {
-            var story: Story
+            var result: Result<Story, Error>
         }
         
         struct ViewModel {
-            struct DisplayedStory: Identifiable, Hashable {
+            struct DisplayedStory: Identifiable {
                 let id: Int
-                var title: String
+                let title: String
                 let score: String
                 let author: String
                 let commentsCount: String
@@ -31,6 +31,7 @@ enum StoryDetail {
                     self.author = story.by
                     self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
+                    
                 }
                 init() {
                     id = -1
@@ -42,38 +43,31 @@ enum StoryDetail {
                 }
             }
             
-            var displayedStory: DisplayedStory
-            var commentIds: [Int]
-        }
-    }
-    
-    enum GetCommentsList {
-        struct Request {}
-        
-        struct Respose {
-            var result: Result<[Comment], Error>
-        }
-        
-        struct ViewModel {
-            struct DisplayedComment: Identifiable {
-                let id: Int
-                let author: String
-                let answers: [Comment]
-                let text: String
-                let timePosted: String
-                
-                init(comment: Comment, timePosted: String) {
-                    self.id = comment.id
-                    self.author = comment.by
-                    self.answers = []
-                    self.text = comment.text
-                    self.timePosted = timePosted
-                }
-            }
-            
-            var succes: Bool
-            var displayedComments: [DisplayedComment]?
+            var displayedStory: DisplayedStory?
             var error: String?
+            
+            init(displayedStory: DisplayedStory? = nil, error: String? = nil) {
+                self.displayedStory = displayedStory
+                self.error = error
+            }
         }
     }
 }
+
+extension StoryDetail.GetStory.ViewModel {
+    static var previewViewModel: StoryDetail.GetStory.ViewModel = {
+        var viewModel = StoryDetail.GetStory.ViewModel()
+        viewModel.displayedStory = previewDisplayedStory
+        return viewModel
+    }()
+    
+    static var previewDisplayedStory: StoryDetail.GetStory.ViewModel.DisplayedStory = {
+        let story = StoryDetail.GetStory.ViewModel.DisplayedStory(
+            story: Story.previewStory,
+            timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Story.previewStory.time)
+        )
+        return story
+    }()
+}
+
+

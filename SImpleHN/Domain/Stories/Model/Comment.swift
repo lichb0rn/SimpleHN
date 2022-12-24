@@ -11,18 +11,24 @@ import Foundation
 struct Comment  {
     let by: String
     let id: Int
-    let kids: [Int]
+    let kids: [Int]?
     let parent: Int?
     let text: String
     let time: TimeInterval
+    var replies: [Comment]
     
     init(hnItem item: HNItem) {
         self.by = item.by ?? ""
         self.id = item.id
-        self.kids = item.kids ?? []
         self.parent = item.parent
         self.text = item.text ?? ""
         self.time = item.time ?? Date().timeIntervalSinceNow
+        self.kids = item.kids
+        self.replies = []
+    }
+    
+    mutating func addReplies(_ replies: [Comment]) {
+        self.replies.append(contentsOf: replies)
     }
 }
 
@@ -31,5 +37,5 @@ extension Comment: Hashable {}
 
 
 extension Comment {
-    static let previewComment: Comment = Comment(hnItem: HNItem.previewItem)
+    static var previewComment: Comment = Comment(hnItem: HNItem.previewItem)
 }

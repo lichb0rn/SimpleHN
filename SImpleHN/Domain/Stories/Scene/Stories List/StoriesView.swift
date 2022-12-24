@@ -40,6 +40,9 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
                 .navigationTitle("HN")
                 .toolbarBackground(Color("MainColor"), for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
+                .refreshable {
+                    await fetch()
+                }
         } detail: {
             if let selected {
                 router?.makeDetailView(for: selected)

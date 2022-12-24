@@ -17,7 +17,7 @@ struct StoryViewModel {
     let link: String?
 }
 
-struct StoryHeaderView: View {
+struct StoryView: View {
     
     let viewModel: StoryViewModel
     
@@ -26,10 +26,10 @@ struct StoryHeaderView: View {
             Text(viewModel.title)
                 .font(.headline)
             
-            MetaInforamtionView(score: viewModel.score,
-                                author: viewModel.author,
+            MetaInforamtionView(author: viewModel.author,
                                 posted: viewModel.timePosted,
-                                commentsCount: viewModel.commentsCount)
+                                repliesCount: viewModel.commentsCount,
+                                score: viewModel.score)
             .font(.caption)
             .foregroundColor(.gray)
         }
@@ -46,6 +46,6 @@ struct StoryListRowView_Previews: PreviewProvider {
                                               commentsCount: String(story.descendants),
                                               timePosted: "1 min. ago",
                                               link: "(theverge.com)")
-        return StoryHeaderView(viewModel: previewViewModel)
+        return StoryView(viewModel: previewViewModel)
     }
 }

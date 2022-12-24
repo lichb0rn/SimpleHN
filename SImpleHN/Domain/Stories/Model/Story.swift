@@ -13,20 +13,22 @@ struct Story  {
     let title: String
     let by: String
     let descendants: Int
-    let kids: [Int]
+    let kids: [Int]?
     let score: Int
     let time: TimeInterval
     let link: String
+    var replies: [Comment]
     
     init(hnItem item: HNItem) {
         self.id = item.id
         self.time = item.time ?? Date().timeIntervalSinceNow
         self.by = item.by ?? ""
         self.descendants = item.descendants ?? 0
-        self.kids = item.kids ?? []
+        self.kids = item.kids
         self.score = item.score ?? 0
         self.link = item.url?.absoluteString ?? ""
         self.title = item.title ?? ""
+        self.replies = []
     }
 }
 

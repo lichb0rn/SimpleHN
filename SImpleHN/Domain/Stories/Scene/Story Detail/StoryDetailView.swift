@@ -14,7 +14,11 @@ protocol StoryDetailDisplayLogic {
 
 extension StoryDetailView: StoryDetailDisplayLogic {
     func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
-        self.store.update(viewModel: viewModel)
+        Task {
+            await MainActor.run {
+                self.store.update(viewModel: viewModel)
+            }
+        }
     }
     
     func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
@@ -26,34 +30,62 @@ extension StoryDetailView: StoryDetailDisplayLogic {
     }
 }
 
+
 struct StoryDetailView: View {
     
     @ObservedObject var store = StoryDetailViewStore()
     var interactor: StoryDetailLogic?
-        
+    
+    @State private var id = 0
+    
     var body: some View {
-        ScrollView(.vertical) {
-            StoryHeaderView(viewModel: store.storyViewModel)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .task {
-                    await getComments()
-                }
-            
-            LazyVStack {
-                ForEach(store.commentViewModels) { comment in
-                    Text(comment.text)
-                }
+        VStack {
+            VStack {
+                headerSection
+                    .padding(.horizontal)
+                Divider()
+            }
+            .background(Color("MainColor"))
+            .task {
+                await getComments()
+            }
+
+
+            CommentsListView(data: store.comments, children: \.replies) { reply in
+                CommentView(viewModel: reply)
             }
         }
-        .padding()
-        .onAppear {
-            getStory()
+        .id(id)
+        .task {
+            await getStory()
+        }
+        .refreshable {
+            await getStory()
+            id += 1
         }
     }
     
-    func getStory() {
+    private var headerSection: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(store.story.title)
+                    .font(.body)
+                    .fontWeight(.semibold)
+                
+                MetaInforamtionView(author: store.story.author,
+                                    posted: store.story.timePosted,
+                                    repliesCount: store.story.commentsCount,
+                                    score: store.story.score)
+                .font(.caption)
+            }
+            
+            Spacer()
+        }
+    }
+    
+    func getStory() async {
         let request = StoryDetail.GetStory.Request()
-        interactor?.getStory(request: request)
+        await interactor?.getStory(request: request)
     }
     
     func getComments() async {
@@ -64,17 +96,17 @@ struct StoryDetailView: View {
 
 struct StoryDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel: StoryDetail
-            .GetStory
-            .ViewModel = .init(
-                displayedStory: .init(story: Story.previewStory,
-                                      timePosted:
-                                        RelativeTimeFormatter.formatTimeString(
-                                            timeInterval: Story.previewStory.time)),
-                commentIds: [123, 321, 246])
+        let viewModel = StoryDetail.GetStory.ViewModel.previewViewModel
+        
+        let commentsViewModel: StoryDetail
+            .GetCommentsList
+            .ViewModel = .init(displayedComments:
+                                [StoryDetail.GetCommentsList.ViewModel.DisplayedComment.preview]
+            )
         
         let previewStore = StoryDetailViewStore()
         previewStore.update(viewModel: viewModel)
+        previewStore.addComments(viewModel: commentsViewModel)
         
         return StoryDetailView(store: previewStore)
     }

@@ -8,11 +8,12 @@
 import XCTest
 @testable import SImpleHN
 
+
 final class StoryDetailViewTests: XCTestCase {
     
     var sut: StoryDetailView!
     var interactorySpy: StoryDetailInteractorSpy!
-    var story = Story.previewStory
+    var story = Story(hnItem: TestDTO.story)
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -30,9 +31,11 @@ final class StoryDetailViewTests: XCTestCase {
     // MARK: Test doubles
     class StoryDetailInteractorSpy: StoryDetailLogic {
         var getCalled: Bool = false
+        var storyRequest: StoryDetail.GetStory.Request?
         
-        func getStory(request: StoryDetail.GetStory.Request) async {
+        func getStory(request: StoryDetail.GetStory.Request) {
             getCalled = true
+            storyRequest = request
         }
         
         func getComments(request: StoryDetail.GetCommentsList.Request) async {
@@ -46,6 +49,7 @@ final class StoryDetailViewTests: XCTestCase {
         await sut.getStory()
         
         XCTAssertTrue(interactorySpy.getCalled)
+        XCTAssertNotNil(interactorySpy.storyRequest)
     }
     
     func test_viewCalls_interactor_getComments() async {
@@ -54,3 +58,4 @@ final class StoryDetailViewTests: XCTestCase {
         XCTAssertTrue(interactorySpy.getCalled)
     }
 }
+

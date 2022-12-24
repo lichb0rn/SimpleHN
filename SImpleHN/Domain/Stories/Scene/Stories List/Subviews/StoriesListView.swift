@@ -21,7 +21,7 @@ struct StoriesListView: View {
                                            commentsCount: story.commentsCount,
                                            timePosted: story.timePosted,
                                            link: story.url)
-            StoryHeaderView(viewModel: viewModel)
+            StoryView(viewModel: viewModel)
                 .padding(.vertical, 4)
         }
         .listStyle(.plain)
