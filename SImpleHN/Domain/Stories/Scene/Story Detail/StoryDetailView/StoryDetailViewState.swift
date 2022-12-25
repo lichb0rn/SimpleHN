@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+protocol StoryDetailDisplayLogic {
+    func displayStory(viewModel: StoryDetail.GetStory.ViewModel)
+    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel)
+}
+
 @MainActor
 class StoryDetailViewState: ObservableObject {
     var interactor: StoryDetailLogic?

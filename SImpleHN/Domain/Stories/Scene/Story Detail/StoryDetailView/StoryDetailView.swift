@@ -7,33 +7,7 @@
 
 import SwiftUI
 
-protocol StoryDetailDisplayLogic {
-    func displayStory(viewModel: StoryDetail.GetStory.ViewModel)
-    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) 
-}
-
-//extension StoryDetailView: StoryDetailDisplayLogic {
-//    func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
-//        Task {
-//            await MainActor.run {
-//                self.store.update(viewModel: viewModel)
-//            }
-//        }
-//    }
-//
-//    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
-//        Task {
-//            await MainActor.run {
-//                self.store.addComments(viewModel: viewModel)
-//            }
-//        }
-//    }
-//}
-
-
 struct StoryDetailView: View {
-    
-//    @ObservedObject var store = StoryDetailViewStore()
     @ObservedObject var viewState: StoryDetailViewState
     var interactor: StoryDetailLogic?
     
@@ -105,9 +79,6 @@ struct StoryDetailView_Previews: PreviewProvider {
                                 [StoryDetail.GetCommentsList.ViewModel.DisplayedComment.preview]
             )
         
-//        let previewStore = StoryDetailViewStore()
-//        previewStore.update(viewModel: viewModel)
-//        previewStore.addComments(viewModel: commentsViewModel)
         let viewState = StoryDetailViewState()
         let view = StoryDetailView(viewState: viewState)
         viewState.displayStory(viewModel: viewModel)
