@@ -38,19 +38,27 @@ class StoryDetailViewState: ObservableObject {
 extension StoryDetailViewState: StoryDetailDisplayLogic {
     
     func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
-        if let displayedStory = viewModel.displayedStory {
-            self.story = displayedStory
-        } else if let error = viewModel.error {
-            self.error = error
+        Task {
+            await MainActor.run {
+                if let displayedStory = viewModel.displayedStory {
+                    self.story = displayedStory
+                } else if let error = viewModel.error {
+                    self.error = error
+                }
+            }
         }
     }
     
     func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
-        inProgress = false
-        if let displayedComments = viewModel.displayedComments {
-            self.comments = displayedComments
-        } else if let error = viewModel.error {
-            self.error = error
+        Task {
+            await MainActor.run {
+                inProgress = false
+                if let displayedComments = viewModel.displayedComments {
+                    self.comments = displayedComments
+                } else if let error = viewModel.error {
+                    self.error = error
+                }
+            }
         }
     }
     
