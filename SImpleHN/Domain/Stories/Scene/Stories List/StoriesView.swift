@@ -19,9 +19,7 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
     var body: some View {
         NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
             renderState(viewState.status)
-                .navigationTitle("HN")
-                .toolbarBackground(Color("MainColor"), for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
+
         } detail: {
             if let selected {
                 router?.makeDetailView(for: selected)
@@ -46,6 +44,9 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
                 Text(error)
             case .fetched(let stories):
                 StoriesListView(stories: stories, selectedStory: $selected)
+                    .navigationTitle("HN")
+                    .toolbarBackground(Color("MainColor"), for: .navigationBar)
+                    .toolbarBackground(.visible, for: .navigationBar)
                     .refreshable {
                         await viewState.getStories()
                     }
@@ -57,6 +58,11 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
 struct StoriesView_Previews: PreviewProvider {
     static var previews: some View {
         let viewState = StoryListViewState()
-        return StoriesView<StoriesRouter>(viewState: viewState)
+        let view = StoriesView<StoriesRouter>(viewState: viewState)
+        var viewModel = Stories.Fetch.ViewModel(success: true)
+        viewModel.stories = Array(repeating: .init(story: Story.previewStory,
+                                                   timePosted: "2 days ago"), count: 10)
+        viewState.displayStories(viewModel: viewModel)
+        return view
     }
 }

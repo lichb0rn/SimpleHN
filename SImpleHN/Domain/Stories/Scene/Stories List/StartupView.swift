@@ -9,7 +9,26 @@ import SwiftUI
 
 struct StartupView: View {
     var body: some View {
-        Text("Soon(TM)...")
+        ZStack {
+            Color("RowBackgroundColor")
+                .ignoresSafeArea(.all)
+            
+            Text("Y")
+                .font(.custom("Helvetica", size: 128, relativeTo: .title))
+                .padding()
+                .foregroundColor(.white)
+                .background {
+                    Rectangle()
+                        .aspectRatio(contentMode: .fill)
+                        .foregroundColor(Color("MainColor"))
+                        .border(Color.white, width: 10)
+                        .overlay {
+                            Rectangle()
+                                .foregroundColor(.clear)
+                                .border(Color("MainColor"), width: 4)
+                        }
+                }
+        }
     }
 }
 
