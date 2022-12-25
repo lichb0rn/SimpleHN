@@ -24,11 +24,19 @@ struct StoryDetailView: View {
             .task {
                 await viewState.getComments()
             }
-
-
-            CommentsListView(data: viewState.comments, children: \.replies) { reply in
-                CommentView(viewModel: reply)
+            
+            Group {
+                if !viewState.inProgress {
+                    CommentsListView(data: viewState.comments, children: \.replies) { reply in
+                        CommentView(viewModel: reply)
+                    }
+                } else {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                }
             }
+            
         }
         .id(id)
         .task {
