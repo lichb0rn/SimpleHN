@@ -1,0 +1,20 @@
+//
+//  StartupView.swift
+//  SImpleHN
+//
+//  Created by Miroslav Taleiko on 25.12.2022.
+//
+
+import SwiftUI
+
+struct StartupView: View {
+    var body: some View {
+        Text("Soon(TM)...")
+    }
+}
+
+struct StartupView_Previews: PreviewProvider {
+    static var previews: some View {
+        StartupView()
+    }
+}

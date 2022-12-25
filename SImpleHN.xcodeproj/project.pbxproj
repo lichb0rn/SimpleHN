@@ -26,8 +26,7 @@
 		895523D7292F43CC0052DAD6 /* RelativeTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523D6292F43CC0052DAD6 /* RelativeTimeFormatter.swift */; };
 		895523D9292F44050052DAD6 /* StoriesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523D8292F44050052DAD6 /* StoriesInteractorTests.swift */; };
 		895523DD292F47020052DAD6 /* StoriesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523DC292F47020052DAD6 /* StoriesPresenterTests.swift */; };
-		895523DF292F47B50052DAD6 /* StoriesViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523DE292F47B50052DAD6 /* StoriesViewTests.swift */; };
-		895523E1292F48E20052DAD6 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E0292F48E20052DAD6 /* DataStore.swift */; };
+		895523E1292F48E20052DAD6 /* StoryListViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E0292F48E20052DAD6 /* StoryListViewState.swift */; };
 		895523E4292F4B490052DAD6 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E3292F4B490052DAD6 /* StoryView.swift */; };
 		895523E6292F6ABE0052DAD6 /* StoriesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */; };
 		895523E8292F6BBE0052DAD6 /* StoriesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */; };
@@ -38,6 +37,8 @@
 		895523F4292FDCAC0052DAD6 /* StoryDetailConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523F3292FDCAC0052DAD6 /* StoryDetailConfigurator.swift */; };
 		895523F6292FE12A0052DAD6 /* StoryDetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523F5292FE12A0052DAD6 /* StoryDetailInteractorTests.swift */; };
 		895523F8292FE24E0052DAD6 /* StoryDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895523F7292FE24E0052DAD6 /* StoryDetailPresenterTests.swift */; };
+		89D4418829583749005B4F0F /* StoryListViewStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4418729583749005B4F0F /* StoryListViewStateTests.swift */; };
+		89D4418A29584768005B4F0F /* StartupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D4418929584768005B4F0F /* StartupView.swift */; };
 		89D48796294A14460050E493 /* StoryDetailCommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D48795294A14460050E493 /* StoryDetailCommentsModel.swift */; };
 		89EB4D06294597B8005AD651 /* TopStoriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EB4D05294597B8005AD651 /* TopStoriesRequest.swift */; };
 		89F28B13292DFDFD00D7E7D8 /* SImpleHNApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F28B12292DFDFD00D7E7D8 /* SImpleHNApp.swift */; };
@@ -82,8 +83,7 @@
 		895523D6292F43CC0052DAD6 /* RelativeTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeTimeFormatter.swift; sourceTree = "<group>"; };
 		895523D8292F44050052DAD6 /* StoriesInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesInteractorTests.swift; sourceTree = "<group>"; };
 		895523DC292F47020052DAD6 /* StoriesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesPresenterTests.swift; sourceTree = "<group>"; };
-		895523DE292F47B50052DAD6 /* StoriesViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewTests.swift; sourceTree = "<group>"; };
-		895523E0292F48E20052DAD6 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		895523E0292F48E20052DAD6 /* StoryListViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewState.swift; sourceTree = "<group>"; };
 		895523E3292F4B490052DAD6 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
 		895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesConfigurator.swift; sourceTree = "<group>"; };
 		895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesRouter.swift; sourceTree = "<group>"; };
@@ -94,6 +94,8 @@
 		895523F3292FDCAC0052DAD6 /* StoryDetailConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailConfigurator.swift; sourceTree = "<group>"; };
 		895523F5292FE12A0052DAD6 /* StoryDetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailInteractorTests.swift; sourceTree = "<group>"; };
 		895523F7292FE24E0052DAD6 /* StoryDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailPresenterTests.swift; sourceTree = "<group>"; };
+		89D4418729583749005B4F0F /* StoryListViewStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewStateTests.swift; sourceTree = "<group>"; };
+		89D4418929584768005B4F0F /* StartupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupView.swift; sourceTree = "<group>"; };
 		89D48795294A14460050E493 /* StoryDetailCommentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDetailCommentsModel.swift; sourceTree = "<group>"; };
 		89EB4D05294597B8005AD651 /* TopStoriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopStoriesRequest.swift; sourceTree = "<group>"; };
 		89F28B0F292DFDFD00D7E7D8 /* SImpleHN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SImpleHN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,7 +281,7 @@
 		89F28B25292DFF9500D7E7D8 /* Stories List */ = {
 			isa = PBXGroup;
 			children = (
-				895523E0292F48E20052DAD6 /* DataStore.swift */,
+				895523E0292F48E20052DAD6 /* StoryListViewState.swift */,
 				895523CE292F422F0052DAD6 /* StoriesInteractor.swift */,
 				895523D2292F42420052DAD6 /* StoriesModel.swift */,
 				895523D0292F42390052DAD6 /* StoriesPresenter.swift */,
@@ -287,6 +289,7 @@
 				895523E2292F4B310052DAD6 /* Subviews */,
 				895523E5292F6ABE0052DAD6 /* StoriesConfigurator.swift */,
 				895523E7292F6BBE0052DAD6 /* StoriesRouter.swift */,
+				89D4418929584768005B4F0F /* StartupView.swift */,
 			);
 			path = "Stories List";
 			sourceTree = "<group>";
@@ -336,7 +339,7 @@
 			children = (
 				895523D8292F44050052DAD6 /* StoriesInteractorTests.swift */,
 				895523DC292F47020052DAD6 /* StoriesPresenterTests.swift */,
-				895523DE292F47B50052DAD6 /* StoriesViewTests.swift */,
+				89D4418729583749005B4F0F /* StoryListViewStateTests.swift */,
 			);
 			path = "Stories List";
 			sourceTree = "<group>";
@@ -480,7 +483,7 @@
 				891CF1F92931D3B0007AC197 /* CommentsListView.swift in Sources */,
 				89EB4D06294597B8005AD651 /* TopStoriesRequest.swift in Sources */,
 				89F28B42292E637300D7E7D8 /* Story.swift in Sources */,
-				895523E1292F48E20052DAD6 /* DataStore.swift in Sources */,
+				895523E1292F48E20052DAD6 /* StoryListViewState.swift in Sources */,
 				89F28B49292E65C100D7E7D8 /* NetworkError.swift in Sources */,
 				891D7D732957631800A2EB42 /* StoryDetailViewState.swift in Sources */,
 				891CF2012932206A007AC197 /* ItemRequest.swift in Sources */,
@@ -496,6 +499,7 @@
 				895523E4292F4B490052DAD6 /* StoryView.swift in Sources */,
 				890FADB6293701B0008D9528 /* HNItem.swift in Sources */,
 				895523F4292FDCAC0052DAD6 /* StoryDetailConfigurator.swift in Sources */,
+				89D4418A29584768005B4F0F /* StartupView.swift in Sources */,
 				895523D1292F42390052DAD6 /* StoriesPresenter.swift in Sources */,
 				891CF1FF2931D3D2007AC197 /* StoryDetailRouter.swift in Sources */,
 				89F28B46292E645E00D7E7D8 /* NetworkWorker.swift in Sources */,
@@ -514,7 +518,7 @@
 			files = (
 				891D7D702957625000A2EB42 /* StoryDetailViewStateTests.swift in Sources */,
 				895523F6292FE12A0052DAD6 /* StoryDetailInteractorTests.swift in Sources */,
-				895523DF292F47B50052DAD6 /* StoriesViewTests.swift in Sources */,
+				89D4418829583749005B4F0F /* StoryListViewStateTests.swift in Sources */,
 				895523DD292F47020052DAD6 /* StoriesPresenterTests.swift in Sources */,
 				8941C2C0294DBA7D00D2ED57 /* TestDTOs.swift in Sources */,
 				895523D9292F44050052DAD6 /* StoriesInteractorTests.swift in Sources */,

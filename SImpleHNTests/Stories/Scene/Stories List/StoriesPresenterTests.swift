@@ -53,7 +53,6 @@ final class StoriesPresenterTests: XCTestCase {
         
         let receivedViewModel = try XCTUnwrap(viewSpy.viewModel)
         XCTAssertTrue(viewSpy.displayTopStoriesCalled)
-        XCTAssertTrue(receivedViewModel.success)
         XCTAssertEqual(viewModel.stories?.count, viewSpy.viewModel?.stories?.count)
     }
     
@@ -63,8 +62,6 @@ final class StoriesPresenterTests: XCTestCase {
         sut.presentStories(response: repsonse)
         
         let viewModel = try XCTUnwrap(viewSpy.viewModel)
-        XCTAssertFalse(viewModel.success)
         XCTAssertNotNil(viewModel.errorMessage)
     }
-    
 }

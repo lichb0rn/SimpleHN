@@ -37,8 +37,8 @@ enum Stories {
                 }
             }
             
-            var stories: [DisplayedStory]?
             var success: Bool
+            var stories: [DisplayedStory]?
             var errorMessage: String?
         }
     }

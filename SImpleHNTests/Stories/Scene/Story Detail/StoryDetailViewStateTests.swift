@@ -26,6 +26,7 @@ final class StoryDetailViewStateTests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
+        cancellables.removeAll()
         sut = nil
         interactorySpy = nil
         try super.tearDownWithError()
