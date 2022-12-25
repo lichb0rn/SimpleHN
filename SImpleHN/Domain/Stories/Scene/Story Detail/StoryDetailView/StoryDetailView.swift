@@ -9,31 +9,32 @@ import SwiftUI
 
 protocol StoryDetailDisplayLogic {
     func displayStory(viewModel: StoryDetail.GetStory.ViewModel)
-    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel)
+    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) 
 }
 
-extension StoryDetailView: StoryDetailDisplayLogic {
-    func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
-        Task {
-            await MainActor.run {
-                self.store.update(viewModel: viewModel)
-            }
-        }
-    }
-    
-    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
-        Task {
-            await MainActor.run {
-                self.store.addComments(viewModel: viewModel)
-            }
-        }
-    }
-}
+//extension StoryDetailView: StoryDetailDisplayLogic {
+//    func displayStory(viewModel: StoryDetail.GetStory.ViewModel) {
+//        Task {
+//            await MainActor.run {
+//                self.store.update(viewModel: viewModel)
+//            }
+//        }
+//    }
+//
+//    func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
+//        Task {
+//            await MainActor.run {
+//                self.store.addComments(viewModel: viewModel)
+//            }
+//        }
+//    }
+//}
 
 
 struct StoryDetailView: View {
     
-    @ObservedObject var store = StoryDetailViewStore()
+//    @ObservedObject var store = StoryDetailViewStore()
+    @ObservedObject var viewState: StoryDetailViewState
     var interactor: StoryDetailLogic?
     
     @State private var id = 0
@@ -47,20 +48,20 @@ struct StoryDetailView: View {
             }
             .background(Color("MainColor"))
             .task {
-                await getComments()
+                await viewState.getComments()
             }
 
 
-            CommentsListView(data: store.comments, children: \.replies) { reply in
+            CommentsListView(data: viewState.comments, children: \.replies) { reply in
                 CommentView(viewModel: reply)
             }
         }
         .id(id)
         .task {
-            await getStory()
+            await viewState.getStory()
         }
         .refreshable {
-            await getStory()
+            await viewState.getStory()
             id += 1
         }
     }
@@ -68,14 +69,14 @@ struct StoryDetailView: View {
     private var headerSection: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text(store.story.title)
+                Text(viewState.story.title)
                     .font(.body)
                     .fontWeight(.semibold)
                 
-                MetaInforamtionView(author: store.story.author,
-                                    posted: store.story.timePosted,
-                                    repliesCount: store.story.commentsCount,
-                                    score: store.story.score)
+                MetaInforamtionView(author: viewState.story.author,
+                                    posted: viewState.story.timePosted,
+                                    repliesCount: viewState.story.commentsCount,
+                                    score: viewState.story.score)
                 .font(.caption)
             }
             
@@ -104,10 +105,14 @@ struct StoryDetailView_Previews: PreviewProvider {
                                 [StoryDetail.GetCommentsList.ViewModel.DisplayedComment.preview]
             )
         
-        let previewStore = StoryDetailViewStore()
-        previewStore.update(viewModel: viewModel)
-        previewStore.addComments(viewModel: commentsViewModel)
+//        let previewStore = StoryDetailViewStore()
+//        previewStore.update(viewModel: viewModel)
+//        previewStore.addComments(viewModel: commentsViewModel)
+        let viewState = StoryDetailViewState()
+        let view = StoryDetailView(viewState: viewState)
+        viewState.displayStory(viewModel: viewModel)
+        viewState.displayComments(viewModel: commentsViewModel)
         
-        return StoryDetailView(store: previewStore)
+        return view
     }
 }

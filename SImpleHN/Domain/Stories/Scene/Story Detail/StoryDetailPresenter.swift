@@ -17,34 +17,34 @@ class StoryDetailPresenter {
 }
 
 extension StoryDetailPresenter: StoryDetailPresentationLogic {
-    func presentStory(response: StoryDetail.GetStory.Response) {
+    @MainActor func presentStory(response: StoryDetail.GetStory.Response) {
         var viewModel = StoryDetail.GetStory.ViewModel()
         switch response.result {
         case .failure(let error):
             viewModel.error = error.localizedDescription
-        
+            
         case .success(let story):
             let timePosted = RelativeTimeFormatter.formatTimeString(timeInterval: story.time)
             let displayedStory = StoryDetail.GetStory.ViewModel.DisplayedStory(story: story,
-                                                                          timePosted: timePosted)
+                                                                               timePosted: timePosted)
             viewModel.displayedStory = displayedStory
         }
         
         view?.displayStory(viewModel: viewModel)
     }
     
-    func presentComments(response: StoryDetail.GetCommentsList.Respose) {
+    @MainActor func presentComments(response: StoryDetail.GetCommentsList.Respose) {
         let viewModel = StoryDetail.GetCommentsList.ViewModel()
         
         switch response.result {
         case .failure(let error):
             viewModel.error = error.localizedDescription
-        
+            
         case .success(let comments):
             viewModel.displayedComments = buildCommentTree(comments)
         }
         
-        view?.displayComments(viewModel: viewModel)
+        self.view?.displayComments(viewModel: viewModel)
     }
     
     private func buildCommentTree(_ comments: [Comment]) -> [StoryDetail.GetCommentsList.ViewModel.DisplayedComment] {

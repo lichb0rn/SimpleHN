@@ -8,6 +8,7 @@
 import XCTest
 @testable import SImpleHN
 
+@MainActor
 final class StoryDetailPresenterTests: XCTestCase {
 
     var sut: StoryDetailPresenter!
