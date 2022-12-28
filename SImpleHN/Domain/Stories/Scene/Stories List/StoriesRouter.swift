@@ -19,9 +19,9 @@ protocol StoriesDataPassing {
 class StoriesRouter: StoriesRoutingLogic, StoriesDataPassing {
     var store: StoriesStore?
     
-    func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> StoryDetailView {
+    @MainActor func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> StoryDetailView {
         let story = store?.stories?.first(where: { $0.id == id })
-        let detailView = StoryDetailConfigurator.storyDetail(for: story!, worker: StoriesService())
+        let detailView = StoryDetailConfigurator.storyDetail(for: story!, worker: NetworkService())
         return detailView as! StoryDetailView
     }
 }

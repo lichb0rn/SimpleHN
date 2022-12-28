@@ -8,15 +8,16 @@
 import SwiftUI
 
 enum StoriesViewConfigurator {
-    static func storiesView() -> some View {
-        var view = StoriesView<StoriesRouter>()
-        let interactor = StoriesInteractor()
+    @MainActor static func storiesView() -> some View {
+        let viewState = StoryListViewState()
+        var view = StoriesView<StoriesRouter>(viewState: viewState)
+        let interactor = StoriesInteractor(worker: NetworkService())
         let presenter = StoriesPresenter()
         let router = StoriesRouter()
-        view.interactor = interactor
         interactor.presenter = presenter
-        presenter.view = view
+        presenter.view = viewState
         view.router = router
+        viewState.interactor = interactor
         router.store = interactor
         return view
     }

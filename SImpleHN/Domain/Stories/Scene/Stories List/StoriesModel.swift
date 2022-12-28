@@ -33,16 +33,12 @@ enum Stories {
                     self.author = "\(story.by)"
                     self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
-                    if let host = story.url.host() {
-                        self.url = "(\(host))"
-                    } else {
-                        self.url = nil
-                    }
+                    self.url = story.link
                 }
             }
             
-            var stories: [DisplayedStory]?
             var success: Bool
+            var stories: [DisplayedStory]?
             var errorMessage: String?
         }
     }

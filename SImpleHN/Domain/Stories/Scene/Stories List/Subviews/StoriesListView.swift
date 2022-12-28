@@ -22,6 +22,7 @@ struct StoriesListView: View {
                                            timePosted: story.timePosted,
                                            link: story.url)
             StoryView(viewModel: viewModel)
+                .padding(.vertical, 4)
         }
         .listStyle(.plain)
     }

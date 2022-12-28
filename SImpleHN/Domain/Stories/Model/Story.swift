@@ -7,28 +7,34 @@
 
 import Foundation
 
-struct Story: Codable {
+
+struct Story  {
     let id: Int
     let title: String
     let by: String
     let descendants: Int
-    let kids: [Int]
+    let kids: [Int]?
     let score: Int
     let time: TimeInterval
-    let url: URL
+    let link: String
+    var replies: [Comment]
+    
+    init(hnItem item: HNItem) {
+        self.id = item.id
+        self.time = item.time ?? Date().timeIntervalSinceNow
+        self.by = item.by ?? ""
+        self.descendants = item.descendants ?? 0
+        self.kids = item.kids
+        self.score = item.score ?? 0
+        self.link = item.url?.absoluteString ?? ""
+        self.title = item.title ?? ""
+        self.replies = []
+    }
 }
 
 extension Story: Identifiable {}
 extension Story: Hashable {}
 
-
 extension Story {
-    static var previewStory = Story(id: Int.random(in: 1000...999999),
-                                    title: "Venture Capital in the 1980s",
-                                    by: "theyeti",
-                                    descendants: Int.random(in: 0...100),
-                                    kids: [],
-                                    score: Int.random(in: 0...100),
-                                    time: 1425261906,
-                                    url: URL(string: "http://reactionwheel.net/2015/01/80s-vc.html")!)
+    static let previewStory = Story(hnItem: HNItem.previewItem)
 }

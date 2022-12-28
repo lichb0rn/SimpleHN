@@ -12,13 +12,13 @@ enum StoryDetail {
         struct Request {}
         
         struct Response {
-            var story: Story
+            var result: Result<Story, Error>
         }
         
         struct ViewModel {
-            struct DisplayedStory: Identifiable, Hashable {
+            struct DisplayedStory: Identifiable, Equatable {
                 let id: Int
-                var title: String
+                let title: String
                 let score: String
                 let author: String
                 let commentsCount: String
@@ -31,6 +31,7 @@ enum StoryDetail {
                     self.author = story.by
                     self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
+                    
                 }
                 init() {
                     id = -1
@@ -42,8 +43,31 @@ enum StoryDetail {
                 }
             }
             
-            var displayedStory: DisplayedStory
-            var commentIds: [Int]
+            var displayedStory: DisplayedStory?
+            var error: String?
+            
+            init(displayedStory: DisplayedStory? = nil, error: String? = nil) {
+                self.displayedStory = displayedStory
+                self.error = error
+            }
         }
     }
 }
+
+extension StoryDetail.GetStory.ViewModel {
+    static var previewViewModel: StoryDetail.GetStory.ViewModel = {
+        var viewModel = StoryDetail.GetStory.ViewModel()
+        viewModel.displayedStory = previewDisplayedStory
+        return viewModel
+    }()
+    
+    static var previewDisplayedStory: StoryDetail.GetStory.ViewModel.DisplayedStory = {
+        let story = StoryDetail.GetStory.ViewModel.DisplayedStory(
+            story: Story.previewStory,
+            timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Story.previewStory.time)
+        )
+        return story
+    }()
+}
+
+

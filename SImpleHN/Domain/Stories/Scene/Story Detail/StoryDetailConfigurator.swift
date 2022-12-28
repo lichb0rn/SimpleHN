@@ -8,13 +8,15 @@
 import SwiftUI
 
 enum StoryDetailConfigurator {
+    @MainActor
     static func storyDetail(for story: Story, worker: Service) -> some View {
-        var view = StoryDetailView()
+        let viewState = StoryDetailViewState()
+        let view = StoryDetailView(viewState: viewState)
         let interactor = StoryDetailInteractor(story: story, worker: worker)
         let presenter = StoryDetailPresenter()
-        view.interactor = interactor
+        viewState.interactor = interactor
         interactor.presenter = presenter
-        presenter.view = view
+        presenter.view = viewState
         return view
     }
 }

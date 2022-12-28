@@ -26,10 +26,10 @@ struct StoryView: View {
             Text(viewModel.title)
                 .font(.headline)
             
-            MetaInforamtionView(score: viewModel.score,
-                                author: viewModel.author,
+            MetaInforamtionView(author: viewModel.author,
                                 posted: viewModel.timePosted,
-                                commentsCount: viewModel.commentsCount)
+                                repliesCount: viewModel.commentsCount,
+                                score: viewModel.score)
             .font(.caption)
             .foregroundColor(.gray)
         }
@@ -47,7 +47,5 @@ struct StoryListRowView_Previews: PreviewProvider {
                                               timePosted: "1 min. ago",
                                               link: "(theverge.com)")
         return StoryView(viewModel: previewViewModel)
-            .previewLayout(.sizeThatFits)
-            .padding()
     }
 }

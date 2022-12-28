@@ -18,7 +18,7 @@ class StoriesPresenter {
 extension StoriesPresenter: StoriesPresentationLogic {
     
     func presentStories(response: Stories.Fetch.Response) {
-        var viewModel = Stories.Fetch.ViewModel(success: false)
+        var viewModel = Stories.Fetch.ViewModel(success: true)
         
         if let stories = response.stories {
             viewModel.stories = stories.map { story in
@@ -28,7 +28,6 @@ extension StoriesPresenter: StoriesPresentationLogic {
                     .DisplayedStory(story: story,
                                   timePosted: posted)
             }
-            viewModel.success = true
         } else {
             viewModel.errorMessage = response.error?.localizedDescription
         }
