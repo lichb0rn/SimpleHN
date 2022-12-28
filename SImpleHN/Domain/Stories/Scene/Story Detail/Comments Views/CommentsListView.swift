@@ -74,6 +74,7 @@ fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: Vie
                     RoundedRectangle(cornerRadius: 2)
                         .frame(width: 2)
                 }
+                .animation(.easeInOut, value: isExpanded)
         }
     }
 }
