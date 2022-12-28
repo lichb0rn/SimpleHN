@@ -16,7 +16,7 @@ enum StoryDetail {
         }
         
         struct ViewModel {
-            struct DisplayedStory: Identifiable {
+            struct DisplayedStory: Identifiable, Equatable {
                 let id: Int
                 let title: String
                 let score: String

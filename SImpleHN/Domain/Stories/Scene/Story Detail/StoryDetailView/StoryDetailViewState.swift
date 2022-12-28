@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol StoryDetailDisplayLogic {
     func displayStory(viewModel: StoryDetail.GetStory.ViewModel)
@@ -16,21 +17,55 @@ protocol StoryDetailDisplayLogic {
 class StoryDetailViewState: ObservableObject {
     var interactor: StoryDetailLogic?
     
+    
+    @Published var storyStatus: Status<StoryDetail.GetStory.ViewModel.DisplayedStory> = .idle
+    @Published var commentsStatus: Status<[StoryDetail.GetCommentsList.ViewModel.DisplayedComment]> = .idle
+    
     @Published var story: StoryDetail.GetStory.ViewModel.DisplayedStory = .init()
     @Published var comments: [StoryDetail.GetCommentsList.ViewModel.DisplayedComment] = []
     @Published var inProgress: Bool = false
     @Published var error: String = ""
     
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        $storyStatus
+            .sink { self.reduce($0) }
+            .store(in: &cancellables)
+            
+    }
+    
+    private func reduce(_ status: Status<StoryDetail.GetStory.ViewModel.DisplayedStory>) {
+        switch status {
+        case .fetched(_):
+            Task {
+                await getComments()
+            }
+        default:
+            return
+        }
+    }
+    
     func getStory() async {
+        storyStatus = .fetching
         let request = StoryDetail.GetStory.Request()
         await interactor?.getStory(request: request)
     }
     
     func getComments() async {
-        inProgress = true
+        commentsStatus = .fetching
         
         let request = StoryDetail.GetCommentsList.Request()
         await interactor?.getComments(request: request)
+    }
+}
+
+extension StoryDetailViewState {
+    enum Status<DisplayedModel: Equatable>: Equatable {
+        case idle
+        case fetching
+        case fetched(DisplayedModel)
+        case error(String)
     }
 }
 
@@ -41,9 +76,9 @@ extension StoryDetailViewState: StoryDetailDisplayLogic {
         Task {
             await MainActor.run {
                 if let displayedStory = viewModel.displayedStory {
-                    self.story = displayedStory
+                    storyStatus = .fetched(displayedStory)
                 } else if let error = viewModel.error {
-                    self.error = error
+                    storyStatus = .error(error)
                 }
             }
         }
@@ -52,11 +87,10 @@ extension StoryDetailViewState: StoryDetailDisplayLogic {
     func displayComments(viewModel: StoryDetail.GetCommentsList.ViewModel) {
         Task {
             await MainActor.run {
-                inProgress = false
                 if let displayedComments = viewModel.displayedComments {
-                    self.comments = displayedComments
+                    commentsStatus = .fetched(displayedComments)
                 } else if let error = viewModel.error {
-                    self.error = error
+                    commentsStatus = .error(error)
                 }
             }
         }

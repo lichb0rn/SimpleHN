@@ -53,7 +53,7 @@ final class StoriesPresenterTests: XCTestCase {
         
         let receivedViewModel = try XCTUnwrap(viewSpy.viewModel)
         XCTAssertTrue(viewSpy.displayTopStoriesCalled)
-        XCTAssertEqual(viewModel.stories?.count, viewSpy.viewModel?.stories?.count)
+        XCTAssertEqual(viewModel.stories?.count, receivedViewModel.stories?.count)
     }
     
     func test_presentStories_passErrorViewModelToView() throws {

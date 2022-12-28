@@ -32,7 +32,7 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
         }
     }
     
-    @ViewBuilder
+    
     private func renderState(_ state: StoryListViewState.Status) -> some View {
         Group {
             switch state {

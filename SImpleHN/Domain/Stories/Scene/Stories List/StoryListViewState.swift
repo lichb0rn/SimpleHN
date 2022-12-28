@@ -14,12 +14,6 @@ protocol StoriesDisplayLogic {
 
 @MainActor
 class StoryListViewState: ObservableObject {
-    enum Status: Equatable {
-        case idle
-        case fetching
-        case fetched([Stories.Fetch.ViewModel.DisplayedStory])
-        case error(String)
-    }
     var interactor: StoriesLogic?
     
     @Published var status = Status.idle
@@ -30,6 +24,17 @@ class StoryListViewState: ObservableObject {
         status = .fetching
     }
 }
+
+
+extension StoryListViewState {
+    enum Status: Equatable {
+        case idle
+        case fetching
+        case fetched([Stories.Fetch.ViewModel.DisplayedStory])
+        case error(String)
+    }
+}
+
 
 extension StoryListViewState: StoriesDisplayLogic {
     func displayStories(viewModel: Stories.Fetch.ViewModel) {
@@ -44,3 +49,5 @@ extension StoryListViewState: StoriesDisplayLogic {
         }
     }
 }
+
+

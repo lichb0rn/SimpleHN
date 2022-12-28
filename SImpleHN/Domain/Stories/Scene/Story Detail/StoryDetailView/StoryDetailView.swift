@@ -16,27 +16,13 @@ struct StoryDetailView: View {
     var body: some View {
         VStack {
             VStack {
-                headerSection
+                renderStoryState(viewState.storyStatus)
                     .padding(.horizontal)
                 Divider()
             }
             .background(Color("MainColor"))
-            .task {
-                await viewState.getComments()
-            }
-            
-            Group {
-                if !viewState.inProgress {
-                    CommentsListView(data: viewState.comments, children: \.replies) { reply in
-                        CommentView(viewModel: reply)
-                    }
-                } else {
-                    Spacer()
-                    ProgressView()
-                    Spacer()
-                }
-            }
-            
+
+            renderCommentsState(viewState.commentsStatus)
         }
         .id(id)
         .task {
@@ -48,17 +34,52 @@ struct StoryDetailView: View {
         }
     }
     
-    private var headerSection: some View {
+    private func renderStoryState(_ state: StoryDetailViewState.Status<StoryDetail.GetStory.ViewModel.DisplayedStory>) -> some View {
+        Group {
+            switch state {
+            case .idle:
+                Text("Nothing to show")
+            case .fetching:
+                ProgressView()
+            case .fetched(let displayedStory):
+                headerSection(displayedStory)
+            case .error(let msg):
+                Text(msg)
+            }
+        }
+    }
+
+    private func renderCommentsState(_ state: StoryDetailViewState.Status
+                                     <[StoryDetail.GetCommentsList.ViewModel.DisplayedComment]>) -> some View {
+        Group {
+            switch state {
+            case .idle:
+                Text("Nothing to show")
+            case .fetching:
+                Spacer()
+                ProgressView()
+                Spacer()
+            case .fetched(let displayedComments):
+                CommentsListView(data: displayedComments, children: \.replies) { reply in
+                    CommentView(viewModel: reply)
+                }
+            case .error(let msg):
+                Text(msg)
+            }
+        }
+    }
+    
+    private func headerSection(_ story: StoryDetail.GetStory.ViewModel.DisplayedStory) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text(viewState.story.title)
+                Text(story.title)
                     .font(.body)
                     .fontWeight(.semibold)
                 
-                MetaInforamtionView(author: viewState.story.author,
-                                    posted: viewState.story.timePosted,
-                                    repliesCount: viewState.story.commentsCount,
-                                    score: viewState.story.score)
+                MetaInforamtionView(author: story.author,
+                                    posted: story.timePosted,
+                                    repliesCount: story.commentsCount,
+                                    score: story.score)
                 .font(.caption)
             }
             
