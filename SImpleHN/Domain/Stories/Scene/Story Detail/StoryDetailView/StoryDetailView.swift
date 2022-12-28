@@ -42,7 +42,7 @@ struct StoryDetailView: View {
             case .fetching:
                 ProgressView()
             case .fetched(let displayedStory):
-                headerSection(displayedStory)
+                StoryDetailHeaderView(story: displayedStory)
             case .error(let msg):
                 Text(msg)
             }
@@ -69,23 +69,6 @@ struct StoryDetailView: View {
         }
     }
     
-    private func headerSection(_ story: StoryDetail.GetStory.ViewModel.DisplayedStory) -> some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(story.title)
-                    .font(.body)
-                    .fontWeight(.semibold)
-                
-                MetaInforamtionView(author: story.author,
-                                    posted: story.timePosted,
-                                    repliesCount: story.commentsCount,
-                                    score: story.score)
-                .font(.caption)
-            }
-            
-            Spacer()
-        }
-    }
     
     func getStory() async {
         let request = StoryDetail.GetStory.Request()
