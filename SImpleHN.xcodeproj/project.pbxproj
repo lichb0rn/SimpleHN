@@ -149,14 +149,14 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
-		891D7D71295762F900A2EB42 /* StoryDetailView */ = {
+		891D7D71295762F900A2EB42 /* StoryDetail Views */ = {
 			isa = PBXGroup;
 			children = (
 				895523E9292F6C4E0052DAD6 /* StoryDetailView.swift */,
 				891D7D722957631800A2EB42 /* StoryDetailViewState.swift */,
 				89C66F08295BFB7600A55BF8 /* StoryDetailHeaderView.swift */,
 			);
-			path = StoryDetailView;
+			path = "StoryDetail Views";
 			sourceTree = "<group>";
 		};
 		8929915A2931088F00666E8F /* Reusables */ = {
@@ -176,13 +176,13 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		8981B467293B665F001D96D7 /* Comments */ = {
+		8981B467293B665F001D96D7 /* Comments Views */ = {
 			isa = PBXGroup;
 			children = (
 				891CF1F82931D3B0007AC197 /* CommentsListView.swift */,
 				8953A64F2939EE150060F35A /* CommentView.swift */,
 			);
-			path = Comments;
+			path = "Comments Views";
 			sourceTree = "<group>";
 		};
 		89D48794294A14240050E493 /* Scene Model */ = {
@@ -300,13 +300,13 @@
 		89F28B26292DFF9F00D7E7D8 /* Story Detail */ = {
 			isa = PBXGroup;
 			children = (
-				8981B467293B665F001D96D7 /* Comments */,
+				8981B467293B665F001D96D7 /* Comments Views */,
 				89D48794294A14240050E493 /* Scene Model */,
 				895523F3292FDCAC0052DAD6 /* StoryDetailConfigurator.swift */,
 				895523EB292F9EE60052DAD6 /* StoryDetailInteractor.swift */,
 				895523ED292F9EF30052DAD6 /* StoryDetailPresenter.swift */,
 				891CF1FE2931D3D2007AC197 /* StoryDetailRouter.swift */,
-				891D7D71295762F900A2EB42 /* StoryDetailView */,
+				891D7D71295762F900A2EB42 /* StoryDetail Views */,
 			);
 			path = "Story Detail";
 			sourceTree = "<group>";

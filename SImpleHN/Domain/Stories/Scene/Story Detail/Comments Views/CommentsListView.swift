@@ -15,11 +15,12 @@ struct CommentsListView<Data, RowContent>: View where Data: RandomAccessCollecti
     init(data: Data, children: KeyPath<Data.Element, Data?>, rowContent: @escaping (Data.Element) -> RowContent) {
         self.nodeView = NodeView(data: data, children: children, rowContent: rowContent)
     }
-
+    
     var body: some View {
         List {
             nodeView
         }.listStyle(.plain)
+        
     }
     
 }
@@ -35,14 +36,16 @@ fileprivate struct NodeView<Data, RowContent>: View where Data: RandomAccessColl
             if hasChild(child) {
                 CommentDisclosureGroup {
                     NodeView(data: child[keyPath: self.children]!, children: self.children, rowContent: self.rowContent)
+                        .padding(.leading)
+                    
                 } label: {
                     self.rowContent(child)
                 }
-
             } else {
                 rowContent(child)
             }
         }
+        
     }
     
     func hasChild(_ element: Data.Element) -> Bool {
@@ -52,8 +55,8 @@ fileprivate struct NodeView<Data, RowContent>: View where Data: RandomAccessColl
 
 fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: View, Content: View {
     @State var isExpanded: Bool = true
-    var content: () -> Content
-    var label: () -> Label
+    @ViewBuilder var content: () -> Content
+    @ViewBuilder var label: () -> Label
     
     @ViewBuilder
     var body: some View {
@@ -66,13 +69,11 @@ fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: Vie
         })
         
         if isExpanded {
-            HStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(width: 4)
-                LazyVStack {
-                    content()
+            content()
+                .overlay(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 2)
+                        .frame(width: 2)
                 }
-            }
         }
     }
 }
