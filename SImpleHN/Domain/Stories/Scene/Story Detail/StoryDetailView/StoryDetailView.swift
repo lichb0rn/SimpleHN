@@ -74,11 +74,6 @@ struct StoryDetailView: View {
         let request = StoryDetail.GetStory.Request()
         await interactor?.getStory(request: request)
     }
-    
-    func getComments() async {
-        let request = StoryDetail.GetCommentsList.Request()
-        await interactor?.getComments(request: request)
-    }
 }
 
 struct StoryDetailView_Previews: PreviewProvider {
