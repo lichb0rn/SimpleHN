@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MetaInforamtionView: View {
+struct MetaInformationView: View {
     
     var author: String
     var posted: String
@@ -17,7 +17,7 @@ struct MetaInforamtionView: View {
     var body: some View {
         HStack(spacing: 12) {
             if let score {
-                glyph(name: "plusminus", label: score)
+                glyph(name: "heart.fill", label: score)
             }
             glyph(name: "person.fill", label: author)
             glyph(name: "clock.arrow.circlepath", label: posted)
@@ -35,7 +35,7 @@ struct MetaInforamtionView: View {
 
 struct MetaInforamtionView_Previews: PreviewProvider {
     static var previews: some View {
-        MetaInforamtionView(
+        MetaInformationView(
             author: "paprika",
             posted: "1 minute ago",
             repliesCount: "170",

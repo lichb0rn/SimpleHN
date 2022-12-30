@@ -26,7 +26,7 @@ struct StoryView: View {
             Text(viewModel.title)
                 .font(.headline)
             
-            MetaInforamtionView(author: viewModel.author,
+            MetaInformationView(author: viewModel.author,
                                 posted: viewModel.timePosted,
                                 repliesCount: viewModel.commentsCount,
                                 score: viewModel.score)

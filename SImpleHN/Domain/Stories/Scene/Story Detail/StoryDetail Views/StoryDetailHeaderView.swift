@@ -18,7 +18,7 @@ struct StoryDetailHeaderView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                 
-                MetaInforamtionView(author: story.author,
+                MetaInformationView(author: story.author,
                                     posted: story.timePosted,
                                     repliesCount: story.commentsCount,
                                     score: story.score)
