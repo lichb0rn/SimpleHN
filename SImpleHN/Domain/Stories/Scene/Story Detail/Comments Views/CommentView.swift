@@ -13,7 +13,7 @@ struct CommentView: View {
     
     var body: some View {
         HStack(spacing: 8) {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 12) {
                     Text(viewModel.author)
                     Text(viewModel.timePosted)
@@ -23,6 +23,10 @@ struct CommentView: View {
                 
                 Text(viewModel.text)
                     .font(.callout)
+                
+                Text(viewModel.repliesCount)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
             }
         }
     }

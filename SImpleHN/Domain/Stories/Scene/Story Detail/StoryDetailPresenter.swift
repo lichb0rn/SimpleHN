@@ -34,7 +34,7 @@ extension StoryDetailPresenter: StoryDetailPresentationLogic {
     }
     
     @MainActor func presentComments(response: StoryDetail.GetCommentsList.Respose) {
-        let viewModel = StoryDetail.GetCommentsList.ViewModel()
+        var viewModel = StoryDetail.GetCommentsList.ViewModel()
         
         switch response.result {
         case .failure(let error):
@@ -64,6 +64,7 @@ extension StoryDetailPresenter: StoryDetailPresentationLogic {
     
     private func makeDisplayedComment(from comment: Comment) -> StoryDetail.GetCommentsList.ViewModel.DisplayedComment {
         let posted = RelativeTimeFormatter.formatTimeString(timeInterval: comment.time)
+        let repliesCount = repliesCountString(from: comment.replies.count)
         let displayedComment = StoryDetail
             .GetCommentsList
             .ViewModel
@@ -72,8 +73,22 @@ extension StoryDetailPresenter: StoryDetailPresentationLogic {
                 author: comment.by,
                 text: comment.text,
                 parent: comment.parent,
-                repliesCount: comment.replies.count,
+                repliesCount: repliesCount,
                 timePosted: posted)
         return displayedComment
+    }
+    
+    private func repliesCountString(from value: Int) -> String {
+        var str = "\(value) "
+        
+        var reply: String
+        if value == 1 {
+            reply = "reply"
+        } else {
+            reply = "replies"
+        }
+        
+        str.append(reply)
+        return str
     }
 }

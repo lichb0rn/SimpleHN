@@ -15,13 +15,13 @@ extension StoryDetail {
             var result: Result<[Comment], Error>
         }
         
-        class ViewModel {
+        struct ViewModel {
             struct DisplayedComment: Identifiable {
                 let id: Int
                 let author: String
                 let text: String
                 let parent: Int?
-                let repliesCount: Int
+                let repliesCount: String
                 let timePosted: String
                 var replies: [StoryDetail.GetCommentsList.ViewModel.DisplayedComment]? = nil
             }
@@ -55,7 +55,7 @@ extension StoryDetail.GetCommentsList.ViewModel.DisplayedComment {
                 author: Comment.previewComment.by,
                 text: Comment.previewComment.text,
                 parent: 1000,
-                repliesCount: Comment.previewComment.replies.count,
+                repliesCount: "\(Comment.previewComment.replies.count) replies",
                 timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Date.now.timeIntervalSinceNow)
                 )
         return comment
