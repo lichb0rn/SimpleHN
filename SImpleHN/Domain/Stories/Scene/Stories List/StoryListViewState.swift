@@ -16,10 +16,20 @@ protocol StoriesDisplayLogic {
 class StoryListViewState: ObservableObject {
     var interactor: StoriesLogic?
     
+    private var currentRequest = Stories.Fetch.Request(type: .top)
+    
+    @Published var requestType: Stories.Fetch.Request.RequestType = .top {
+        didSet {
+            currentRequest = Stories.Fetch.Request(type: requestType)
+            Task {
+                
+            }
+        }
+    }
     @Published var status = Status.idle
     
     func getStories() async {
-        let request = Stories.Fetch.Request()
+        let request = currentRequest
         await interactor?.fetch(request: request)
         status = .fetching
     }

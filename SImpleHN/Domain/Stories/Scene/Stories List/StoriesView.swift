@@ -47,6 +47,22 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
                     .navigationTitle("HN")
                     .toolbarBackground(Color("MainColor"), for: .navigationBar)
                     .toolbarBackground(.visible, for: .navigationBar)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Menu {
+                                Button("New") {
+                                    viewState.requestType = .new
+                                }
+                                Button("Top") {
+                                    viewState.requestType = .top
+                                }
+                            } label: {
+                                Label(viewState.requestType.rawValue, systemImage: "chevron.down")
+                                    .labelStyle(.titleAndIcon)
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
                     .refreshable {
                         await viewState.getStories()
                     }

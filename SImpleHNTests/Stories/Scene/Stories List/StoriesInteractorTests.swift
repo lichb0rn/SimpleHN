@@ -45,7 +45,7 @@ final class StoriesInteractorTests: XCTestCase {
         sut.presenter = presenterSpy
         let stories = [story]
         
-        let request = Stories.Fetch.Request()
+        let request = Stories.Fetch.Request(type: .top)
         await sut.fetch(request: request)
         
         XCTAssertTrue(presenterSpy.presentCalled)
@@ -57,7 +57,7 @@ final class StoriesInteractorTests: XCTestCase {
         sut = StoriesInteractor(worker: mockService)
         sut.presenter = presenterSpy
         
-        let request = Stories.Fetch.Request()
+        let request = Stories.Fetch.Request(type: .top)
         await sut.fetch(request: request)
         
         XCTAssertTrue(presenterSpy.presentCalled)

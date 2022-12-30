@@ -9,7 +9,13 @@ import Foundation
 
 enum Stories {
     enum Fetch {
-        struct Request {}
+        struct Request {
+            enum RequestType: String {
+                case new = "New"
+                case top = "Top"
+            }
+            let type: RequestType
+        }
         
         struct Response {
             var stories: [Story]?
