@@ -28,15 +28,18 @@ class StoriesInteractor {
     }
 }
 
-extension StoriesInteractor: StoriesStore {
-
-}
+extension StoriesInteractor: StoriesStore { }
 
 extension StoriesInteractor: StoriesLogic {
     func fetch(request: Stories.Fetch.Request) async {
         do {
-            let newStoriesIds = try await worker.fetchLatest()
-            let stories = await fetchStories(withIds: newStoriesIds)
+            var storiesIds: [Int]
+            switch request.type {
+            case .top: storiesIds = try await fetchTop()
+            case .new: storiesIds = try await fetchNew()
+            }
+            
+            let stories = await fetchStories(withIds: storiesIds)
             self.stories = stories
             let response = Stories.Fetch.Response(stories: stories)
             presenter?.presentStories(response: response)
@@ -46,6 +49,15 @@ extension StoriesInteractor: StoriesLogic {
         }
     }
     
+    private func fetchNew() async throws -> [Story.ID] {
+        let newStoriesIds = try await worker.fetchNewStories()
+        return newStoriesIds
+    }
+    
+    private func fetchTop() async throws -> [Story.ID] {
+        let topStoriesIds = try await worker.fetchTopStories()
+        return topStoriesIds
+    }
     
     private func fetchStories(withIds ids: [Story.ID]) async -> [Story] {
         let maxStories = Array(ids.prefix(maxStories))

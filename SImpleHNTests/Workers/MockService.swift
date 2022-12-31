@@ -9,17 +9,30 @@ import Foundation
 @testable import SImpleHN
 
 
-struct MockService: Service {
+class MockService: Service {
+    enum StoryType {
+        case new
+        case top
+    }
+
     let mustFail: Bool
     let story = Story.previewStory
     let item = HNItem.previewItem
+    var storiesTypeCalled = StoryType.new
     
     init(mustFail: Bool = false) {
         self.mustFail = mustFail
     }
     
-    func fetchLatest() async throws -> [Story.ID] {
+    func fetchNewStories() async throws -> [Story.ID] {
         try failIfMust()
+        storiesTypeCalled = .new
+        return [story.id]
+    }
+    
+    func fetchTopStories() async throws -> [Story.ID] {
+        try failIfMust()
+        storiesTypeCalled = .top
         return [story.id]
     }
     

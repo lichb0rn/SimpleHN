@@ -13,7 +13,8 @@ protocol Service {
 }
 
 protocol StoriesService: Service {
-    func fetchLatest() async throws -> [Story.ID]
+    func fetchNewStories() async throws -> [Story.ID]
+    func fetchTopStories() async throws -> [Story.ID]
 }
 
 actor NetworkService: Service {
@@ -26,12 +27,16 @@ actor NetworkService: Service {
     private let networking = NetworkWorker()
     private var cache: [Int: State] = [:]
     
-    func fetchLatest() async throws -> [Story.ID] {
-//        let newStoriesRequest = NewStoriesRequest()
-        #warning("Return back to new stories")
-        let newStoriesRequest = TopStoriesRequest()
+    func fetchNewStories() async throws -> [Story.ID] {
+        let newStoriesRequest = NewStoriesRequest()
         let newStoriesIds = try await networking.fetch(newStoriesRequest)
         return newStoriesIds
+    }
+    
+    func fetchTopStories() async throws -> [Story.ID] {
+        let topStoriesRequest = TopStoriesRequest()
+        let topStoriesIds = try await networking.fetch(topStoriesRequest)
+        return topStoriesIds
     }
     
     func fetch(by id: Int) async throws -> HNItem {

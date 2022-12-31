@@ -13,16 +13,20 @@ final class StoriesInteractorTests: XCTestCase {
     var sut: StoriesInteractor!
     var presenterSpy: StoriesPresenterSpy!
     var story = Story.previewStory
+    var mockWorker: MockService!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         presenterSpy = StoriesPresenterSpy()
-        sut = StoriesInteractor()
+        mockWorker = MockService()
+        sut = StoriesInteractor(worker: mockWorker)
+        sut.presenter = presenterSpy
     }
 
     override func tearDownWithError() throws {
         sut = nil
         presenterSpy = nil
+        mockWorker = nil
         try super.tearDownWithError()
     }
 
@@ -41,8 +45,6 @@ final class StoriesInteractorTests: XCTestCase {
     
     // MARK: - Tests
     func test_successFetch_callsPresenter_withNonEmptyRepsonse() async {
-        sut = StoriesInteractor(worker: MockService())
-        sut.presenter = presenterSpy
         let stories = [story]
         
         let request = Stories.Fetch.Request(type: .top)
@@ -64,5 +66,19 @@ final class StoriesInteractorTests: XCTestCase {
         XCTAssertNil(presenterSpy.stories)
     }
     
-
+    func test_givenTopStoriesRequest_callsWorkerFetchTopStories() async {
+        let request = Stories.Fetch.Request(type: .top)
+        
+        await sut.fetch(request: request)
+        
+        XCTAssertEqual(mockWorker.storiesTypeCalled, .top)
+    }
+    
+    func test_givenNewStoriesRequest_callsWorkerFetchNewStories() async {
+        let request = Stories.Fetch.Request(type: .new)
+        
+        await sut.fetch(request: request)
+        
+        XCTAssertEqual(mockWorker.storiesTypeCalled, .new)
+    }
 }
