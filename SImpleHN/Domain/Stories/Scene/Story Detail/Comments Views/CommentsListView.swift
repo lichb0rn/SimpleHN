@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct CommentsListView<Data, RowContent>: View where Data: RandomAccessCollection, Data.Element: Identifiable, RowContent: View{
+struct CommentsListView<Data, RowContent>: View where Data: RandomAccessCollection, Data.Element: Identifiable, RowContent: View {
     
     private let nodeView: NodeView<Data, RowContent>
     
@@ -71,7 +71,7 @@ fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: Vie
         if isExpanded {
             content()
                 .overlay(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 2)
+                    Rectangle()
                         .frame(width: 2)
                 }
                 .animation(.easeInOut, value: isExpanded)

@@ -17,7 +17,7 @@ enum TestDTO {
                                              by: "theyeti",
                                              time: 1425261906,
                                              kids: nil,
-                                             title: "Venture Capital in the 1980s",
+                                             title: "Test story for testing purposes",
                                              descendants: 100,
                                              score: 100,
                                              url: URL(string: "http://reactionwheel.net/2015/01/80s-vc.html")!,

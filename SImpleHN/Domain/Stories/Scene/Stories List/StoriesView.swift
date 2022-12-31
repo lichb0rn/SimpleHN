@@ -45,6 +45,7 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
             case .fetched(let stories):
                 StoriesListView(stories: stories, selectedStory: $selected)
                     .navigationTitle("HN")
+                    .searchable(text: $viewState.searchText, prompt: "Type to search through stories")
                     .toolbarBackground(Color("MainColor"), for: .navigationBar)
                     .toolbarBackground(.visible, for: .navigationBar)
                     .toolbar {

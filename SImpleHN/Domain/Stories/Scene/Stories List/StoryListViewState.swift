@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol StoriesDisplayLogic {
     func displayStories(viewModel: Stories.Fetch.ViewModel)
@@ -29,13 +30,38 @@ extension StoryListViewState: StoriesDisplayLogic {
 class StoryListViewState: ObservableObject {
     var interactor: StoriesLogic?
     
+    @Published var searchText: String = ""
     @Published private(set) var status = Status.idle
     @Published private(set) var requestType = StoryType.new {
         didSet {
             Task { await getStories() }
         }
     }
-        
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        $searchText
+            .debounce(for: .seconds(0.2), scheduler: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.process($0)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func process(_ text: String) {
+        guard !text.isEmpty else {
+            Task { await getStories() }
+            return
+        }
+        filter(by: text)
+    }
+    
+    private func filter(by keyword: String) {
+        guard case let .fetched(stories) = status else { return }
+        let filtered = stories.filter { $0.title.lowercased().contains(keyword.lowercased()) }
+        status = .fetched(filtered)
+    }
     
     func getStories() async {
         let request = requestType.request
