@@ -50,14 +50,13 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Menu {
-                                Button("New") {
-                                    viewState.requestType = .new
-                                }
-                                Button("Top") {
-                                    viewState.requestType = .top
+                                ForEach(StoryListViewState.StoryType.allCases, id: \.self) { storyType in
+                                    Button(storyType.title) {
+                                        viewState.changeStoryType(to: storyType)
+                                    }
                                 }
                             } label: {
-                                Label(viewState.requestType.rawValue, systemImage: "chevron.down")
+                                Label(viewState.requestType.title, systemImage: "chevron.down")
                                     .labelStyle(.titleAndIcon)
                                     .foregroundColor(.black)
                             }
