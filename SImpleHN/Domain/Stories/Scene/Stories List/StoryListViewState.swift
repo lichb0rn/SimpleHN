@@ -29,20 +29,18 @@ extension StoryListViewState: StoriesDisplayLogic {
 class StoryListViewState: ObservableObject {
     var interactor: StoriesLogic?
     
-    private var currentRequest = Stories.Fetch.Request(type: .top)
-    
     @Published private(set) var status = Status.idle
     @Published private(set) var requestType = StoryType.new {
         didSet {
-            print(requestType.title)
+            Task { await getStories() }
         }
     }
-    
+        
     
     func getStories() async {
-        let request = currentRequest
-        await interactor?.fetch(request: request)
+        let request = requestType.request
         status = .fetching
+        await interactor?.fetch(request: request)
     }
     
     func changeStoryType(to type: StoryType) {

@@ -26,15 +26,15 @@ final class StoryListViewStateTests: XCTestCase {
     override func tearDownWithError() throws {
         interactorSpy = nil
         sut = nil
+        cancellables.removeAll()
         try super.tearDownWithError()
     }
     
     // MARK: - Test doubles
-    class StoriesInteractorSpy: StoriesLogic {
+    class StoriesInteractorSpy: ObservableObject, StoriesLogic {
         var stories: [Story]?
         
-        var interactorLoaded: Bool = false
-        var fetchCalled: Bool = false
+        @Published var fetchCalled: Bool = false
         var storiesRequest: Stories.Fetch.Request?
         
         func fetch(request: Stories.Fetch.Request) async {
@@ -61,6 +61,19 @@ final class StoryListViewStateTests: XCTestCase {
         sut.$status
             .sink {
                 XCTAssertEqual($0, .idle)
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+        
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func test_onStart_newStoriesOptionIsSet() {
+        let expectation = expectation(description: "New Stories")
+        
+        sut.$requestType
+            .sink {
+                XCTAssertEqual($0, .new)
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -121,5 +134,36 @@ final class StoryListViewStateTests: XCTestCase {
         sut.displayStories(viewModel: expectedViewModel)
         
         wait(for: [expectation], timeout: 1)
+    }
+    
+    // MARK: - Story Type
+    func test_whenNewStoriesOptionIsChosen_requestsNewStoriesFromInteractor() throws {
+        let expectation = expectation(description: "Interactor Called")
+        interactorSpy.$fetchCalled
+            .dropFirst()
+            .sink { _ in expectation.fulfill() }
+            .store(in: &cancellables)
+        
+        sut.changeStoryType(to: .new)
+        
+        wait(for: [expectation], timeout: 1)
+        
+        let receivedRequest = try XCTUnwrap(interactorSpy.storiesRequest)
+        XCTAssertEqual(receivedRequest.type, .new)
+    }
+    
+    func test_whenTopStoriesOptionIsChosen_requestsTopStoriesFromInteractor() throws {
+        let expectation = expectation(description: "Interactor Called")
+        interactorSpy.$fetchCalled
+            .dropFirst()
+            .sink { _ in expectation.fulfill() }
+            .store(in: &cancellables)
+        
+        sut.changeStoryType(to: .top)
+        
+        wait(for: [expectation], timeout: 1)
+        
+        let receivedRequest = try XCTUnwrap(interactorSpy.storiesRequest)
+        XCTAssertEqual(receivedRequest.type, .top)
     }
 }
