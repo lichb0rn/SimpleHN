@@ -90,6 +90,7 @@ actor NetworkService: Service {
             }
             return fetched
         }
+        
         return items
     }
 }

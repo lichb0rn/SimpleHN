@@ -65,13 +65,14 @@ extension StoryDetailPresenter: StoryDetailPresentationLogic {
     private func makeDisplayedComment(from comment: Comment) -> StoryDetail.GetCommentsList.ViewModel.DisplayedComment {
         let posted = RelativeTimeFormatter.formatTimeString(timeInterval: comment.time)
         let repliesCount = repliesCountString(from: comment.replies.count)
+        let commentText = htmlStrip(comment.text)
         let displayedComment = StoryDetail
             .GetCommentsList
             .ViewModel
             .DisplayedComment(
                 id: comment.id,
                 author: comment.by,
-                text: comment.text,
+                text: commentText,
                 parent: comment.parent,
                 repliesCount: repliesCount,
                 timePosted: posted)
@@ -90,5 +91,16 @@ extension StoryDetailPresenter: StoryDetailPresentationLogic {
         
         str.append(reply)
         return str
+    }
+    
+    private func htmlStrip(_ html: String) -> String {
+        let data = Data(html.utf8)
+        if let nsAttrString = try? NSAttributedString(data: data,
+                                                      options: [.documentType: NSAttributedString.DocumentType.html],
+                                                      documentAttributes: nil) {
+            return nsAttrString.string
+        } else {
+            return html
+        }
     }
 }
