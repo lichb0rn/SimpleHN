@@ -12,12 +12,7 @@ protocol StoriesRoutingLogic {
     func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> View
 }
 
-#warning("Remove this protocol")
-protocol StoriesDataPassing {
-    var store: StoriesStore? { get set }
-}
-
-class StoriesRouter: StoriesRoutingLogic, StoriesDataPassing {
+class StoriesRouter: StoriesRoutingLogic {
     var store: StoriesStore?
     
     @MainActor func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> StoryDetailView {
