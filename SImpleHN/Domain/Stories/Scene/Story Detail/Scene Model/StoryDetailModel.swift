@@ -34,7 +34,7 @@ enum StoryDetail {
                     self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
                     self.link = URL(string: story.link)
-                    self.text = story.text
+                    self.text = story.text?.htmlStrip()
                 }
                 
                 init() {
