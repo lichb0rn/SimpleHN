@@ -17,8 +17,8 @@ struct StoryDetailView: View {
         VStack {
             VStack {
                 renderStoryState(viewState.storyStatus)
-                    .padding(.horizontal)
                 Divider()
+                    .padding(.horizontal)
             }
             .background(Color("MainColor"))
             

@@ -17,6 +17,7 @@ struct Story  {
     let score: Int
     let time: TimeInterval
     let link: String
+    let text: String?
     var replies: [Comment]
     
     init(hnItem item: HNItem) {
@@ -29,6 +30,7 @@ struct Story  {
         self.link = item.url?.absoluteString ?? ""
         self.title = item.title ?? ""
         self.replies = []
+        self.text = item.text
     }
 }
 

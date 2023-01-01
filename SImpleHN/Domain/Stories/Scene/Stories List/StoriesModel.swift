@@ -31,6 +31,7 @@ enum Stories {
                 let commentsCount: String
                 let timePosted: String
                 let url: String?
+                let glyph: StoryType
                 
                 init(story: Story, timePosted: String) {
                     self.id = story.id
@@ -40,6 +41,7 @@ enum Stories {
                     self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
                     self.url = story.link
+                    self.glyph = story.text == nil ? .link : .text
                 }
             }
             
@@ -47,6 +49,13 @@ enum Stories {
             var stories: [DisplayedStory]?
             var errorMessage: String?
         }
+    }
+}
+
+extension Stories.Fetch.ViewModel.DisplayedStory {
+    enum StoryType: String {
+        case link = "globe"
+        case text = "doc.text"
     }
 }
 

@@ -18,6 +18,10 @@ struct StoryDetailHeaderView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                 
+                if let stroryText = story.text {
+                    Text(stroryText)
+                }
+                
                 MetaInformationView(author: story.author,
                                     posted: story.timePosted,
                                     repliesCount: story.commentsCount,
