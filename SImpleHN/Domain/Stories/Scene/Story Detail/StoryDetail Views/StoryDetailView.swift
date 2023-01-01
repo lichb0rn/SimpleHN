@@ -43,6 +43,7 @@ struct StoryDetailView: View {
                 ProgressView()
             case .fetched(let displayedStory):
                 StoryDetailHeaderView(story: displayedStory)
+                    .padding(.horizontal)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
