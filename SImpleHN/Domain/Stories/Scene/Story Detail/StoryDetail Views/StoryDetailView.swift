@@ -21,7 +21,7 @@ struct StoryDetailView: View {
                 Divider()
             }
             .background(Color("MainColor"))
-
+            
             renderCommentsState(viewState.commentsStatus)
         }
         .id(id)
@@ -43,12 +43,13 @@ struct StoryDetailView: View {
                 ProgressView()
             case .fetched(let displayedStory):
                 StoryDetailHeaderView(story: displayedStory)
+                    .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                print("web")
-                            } label: {
-                                Image(systemName: "globe")
+                            if let link = displayedStory.link {
+                                Link(destination: link) {
+                                    Image(systemName: "globe")
+                                }
                             }
                         }
                     }
@@ -57,7 +58,7 @@ struct StoryDetailView: View {
             }
         }
     }
-
+    
     private func renderCommentsState(_ state: StoryDetailViewState.Status
                                      <[StoryDetail.GetCommentsList.ViewModel.DisplayedComment]>) -> some View {
         Group {

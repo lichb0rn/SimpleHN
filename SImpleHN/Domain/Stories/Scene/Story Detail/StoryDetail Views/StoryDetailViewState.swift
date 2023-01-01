@@ -21,11 +21,6 @@ class StoryDetailViewState: ObservableObject {
     @Published var storyStatus: Status<StoryDetail.GetStory.ViewModel.DisplayedStory> = .idle
     @Published var commentsStatus: Status<[StoryDetail.GetCommentsList.ViewModel.DisplayedComment]> = .idle
     
-    @Published var story: StoryDetail.GetStory.ViewModel.DisplayedStory = .init()
-    @Published var comments: [StoryDetail.GetCommentsList.ViewModel.DisplayedComment] = []
-    @Published var inProgress: Bool = false
-    @Published var error: String = ""
-    
     private var cancellables = Set<AnyCancellable>()
     
     init() {

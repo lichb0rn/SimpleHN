@@ -23,6 +23,7 @@ enum StoryDetail {
                 let author: String
                 let commentsCount: String
                 let timePosted: String
+                let link: URL?
                 
                 init(story: Story, timePosted: String) {
                     self.id = story.id
@@ -31,6 +32,7 @@ enum StoryDetail {
                     self.author = story.by
                     self.commentsCount = "\(story.descendants)"
                     self.timePosted = timePosted
+                    self.link = URL(string: story.link)
                     
                 }
                 init() {
@@ -40,6 +42,7 @@ enum StoryDetail {
                     author = ""
                     commentsCount = ""
                     timePosted = ""
+                    link = nil
                 }
             }
             

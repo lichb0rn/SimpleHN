@@ -9,5 +9,12 @@ import SwiftUI
 
 protocol StoryDetailRoutingLogic {
     associatedtype View: SwiftUI.View
-    func makeCommentsView()
+    func makeWebView(for url: URL) -> View
+}
+
+class StoryDetailRouter: StoryDetailRoutingLogic {
+    
+    func makeWebView(for url: URL) -> some View {
+        return EmptyView()
+    }
 }
