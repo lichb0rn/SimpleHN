@@ -59,7 +59,6 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
                             } label: {
                                 Label(viewState.requestType.title, systemImage: "chevron.down")
                                     .labelStyle(.titleAndIcon)
-                                    .foregroundColor(.black)
                             }
                         }
                     }

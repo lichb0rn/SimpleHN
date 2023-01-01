@@ -43,6 +43,15 @@ struct StoryDetailView: View {
                 ProgressView()
             case .fetched(let displayedStory):
                 StoryDetailHeaderView(story: displayedStory)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                print("web")
+                            } label: {
+                                Image(systemName: "globe")
+                            }
+                        }
+                    }
             case .error(let msg):
                 Text(msg)
             }
