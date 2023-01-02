@@ -34,16 +34,18 @@ final class StoryListViewStateTests: XCTestCase {
     class StoriesInteractorSpy: ObservableObject, StoriesLogic {
         var stories: [Story]?
         
-        @Published var fetchCalled: Bool = false
+        @Published var interactorCalled: Bool = false
         var storiesRequest: Stories.Fetch.Request?
+        var searchedText: String?
         
         func fetch(request: Stories.Fetch.Request) async {
-            fetchCalled = true
+            interactorCalled = true
             storiesRequest = request
         }
         
         func search(text: String) {
-            
+            interactorCalled = true
+            searchedText = text
         }
     }
     
@@ -88,7 +90,7 @@ final class StoryListViewStateTests: XCTestCase {
     func test_getStories_callsInteractor() async {
         await sut.getStories()
         
-        XCTAssertTrue(interactorSpy.fetchCalled)
+        XCTAssertTrue(interactorSpy.interactorCalled)
         XCTAssertNotNil(interactorSpy.storiesRequest)
     }
     
@@ -143,7 +145,7 @@ final class StoryListViewStateTests: XCTestCase {
     // MARK: - Story Type
     func test_whenNewStoriesOptionIsChosen_requestsNewStoriesFromInteractor() throws {
         let expectation = expectation(description: "Interactor Called")
-        interactorSpy.$fetchCalled
+        interactorSpy.$interactorCalled
             .dropFirst()
             .sink { _ in expectation.fulfill() }
             .store(in: &cancellables)
@@ -158,7 +160,7 @@ final class StoryListViewStateTests: XCTestCase {
     
     func test_whenTopStoriesOptionIsChosen_requestsTopStoriesFromInteractor() throws {
         let expectation = expectation(description: "Interactor Called")
-        interactorSpy.$fetchCalled
+        interactorSpy.$interactorCalled
             .dropFirst()
             .sink { _ in expectation.fulfill() }
             .store(in: &cancellables)
@@ -185,58 +187,18 @@ final class StoryListViewStateTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
-    func test_givenExistingKeyword_publishesNonEmptyStoriesList() {
+    func test_givenExistingKeyword_callsInteractor() throws {
         let textForSearch = "venture"
-        var viewModel = makeViewModel()
-        viewModel.stories?.append(.init(story: Story(hnItem: TestDTO.storyWithOutComments), timePosted: ""))
-        sut.displayStories(viewModel: viewModel)
-        let expecation = expectation(description: "Story with with venture keyword")
-        sut.$status
-            .sink {
-                if case let .fetched(stories) = $0 {
-                    XCTAssertEqual(stories.count, 1)
-                    XCTAssertTrue(stories.contains(where: { $0.title.contains(textForSearch)}))
-                }
-                expecation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        sut.searchText = textForSearch
-        
-        wait(for: [expecation], timeout: 1)
-    }
-    
-    func test_givenNonExistentKeyword_publishesEmptyStoriesList() {
-        let textForSearch = "ThereIsNoSuchWord"
-        var viewModel = makeViewModel()
-        viewModel.stories?.append(.init(story: Story(hnItem: TestDTO.storyWithOutComments), timePosted: ""))
-        sut.displayStories(viewModel: viewModel)
-        let expecation = expectation(description: "Empty stories")
-        sut.$status
-            .sink {
-                if case let .fetched(stories) = $0 {
-                    XCTAssertTrue(stories.isEmpty)
-                }
-                expecation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        sut.searchText = textForSearch
-        
-        wait(for: [expecation], timeout: 1)
-    }
-    
-    func test_givenEmptySearchText_fetchesStories() {
-        let expecation = expectation(description: "Interactor called")
-        interactorSpy.$fetchCalled
+        let expectation = expectation(description: "Interactor Called")
+        interactorSpy.$interactorCalled
             .dropFirst()
-            .sink { _ in expecation.fulfill() }
+            .sink { _ in expectation.fulfill() }
             .store(in: &cancellables)
         
-        sut.searchText = ""
+        sut.searchText = textForSearch
         
-        wait(for: [expecation], timeout: 1)
-        
-        XCTAssertTrue(interactorSpy.fetchCalled)
+        wait(for: [expectation], timeout: 1)
+        let receivedSearchText = try XCTUnwrap(interactorSpy.searchedText)
+        XCTAssertEqual(receivedSearchText, textForSearch)
     }
 }

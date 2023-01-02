@@ -50,11 +50,7 @@ class StoryListViewState: ObservableObject {
     }
     
     private func process(_ text: String) {
-        guard !text.isEmpty else {
-            Task { await getStories() }
-            return
-        }
-        filter(by: text)
+        interactor?.search(text: text)
     }
     
     private func filter(by keyword: String) {
