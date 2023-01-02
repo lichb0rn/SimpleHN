@@ -41,6 +41,10 @@ final class StoryListViewStateTests: XCTestCase {
             fetchCalled = true
             storiesRequest = request
         }
+        
+        func search(text: String) {
+            
+        }
     }
     
     

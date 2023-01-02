@@ -81,4 +81,38 @@ final class StoriesInteractorTests: XCTestCase {
         
         XCTAssertEqual(mockWorker.storiesTypeCalled, .new)
     }
+    
+    func test_givenExistingSearchText_callsPresenterrWithCorrectStoriesList() throws {
+        let existingSearchText = "venture"
+        sut.stories = [story]
+        
+        sut.search(text: existingSearchText)
+        
+        
+        let presentedStories = try XCTUnwrap(presenterSpy.stories)
+        XCTAssertTrue(presenterSpy.presentCalled)
+        XCTAssertEqual(presentedStories, [story])
+    }
+    
+    func test_givenNonExistingSearchText_callsPreseterWithEmptyStoriesList() throws {
+        let nonExistingSearchText = "ThereIsNoScuchStringIGuarantee"
+        sut.stories = [story]
+        
+        sut.search(text: nonExistingSearchText)
+        
+        let presentedStories = try XCTUnwrap(presenterSpy.stories)
+        XCTAssertTrue(presenterSpy.presentCalled)
+        XCTAssertTrue(presentedStories.isEmpty)
+    }
+    
+    func test_givenEmptySearchText_callsPresenterWithPreviouslyFetchedStories() throws {
+        let emptySearchText = ""
+        sut.stories = [story]
+        
+        sut.search(text: emptySearchText)
+        
+        let presentedStories = try XCTUnwrap(presenterSpy.stories)
+        XCTAssertTrue(presenterSpy.presentCalled)
+        XCTAssertEqual(presentedStories, [story])
+    }
 }

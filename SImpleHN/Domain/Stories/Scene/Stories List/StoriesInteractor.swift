@@ -9,6 +9,7 @@ import Foundation
 
 protocol StoriesLogic {
     func fetch(request: Stories.Fetch.Request) async
+    func search(text: String)
 }
 
 protocol StoriesStore {
@@ -68,5 +69,19 @@ extension StoriesInteractor: StoriesLogic {
         } catch {
             return []
         }
+    }
+    
+    func search(text: String) {
+        guard let stories = self.stories else { return }
+        
+        var response = Stories.Fetch.Response()
+        if !text.isEmpty {
+            let filtered = stories.filter { $0.title.lowercased().contains(text.lowercased()) }
+            response.stories = filtered
+        } else {
+            response.stories = stories
+        }
+    
+        presenter?.presentStories(response: response)
     }
 }
