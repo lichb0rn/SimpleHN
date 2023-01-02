@@ -35,6 +35,6 @@ struct CommentView: View {
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
         let comment = StoryDetail.GetCommentsList.ViewModel.DisplayedComment.preview
-        return CommentView(viewModel: comment).frame(height: 100)
+        return CommentView(viewModel: comment)
     }
 }

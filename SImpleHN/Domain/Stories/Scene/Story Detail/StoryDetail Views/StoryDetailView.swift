@@ -18,12 +18,13 @@ struct StoryDetailView: View {
             VStack {
                 renderStoryState(viewState.storyStatus)
                 Divider()
-                    .padding(.horizontal)
             }
-            .background(Color("MainColor"))
+            .padding(.vertical)
             
             renderCommentsState(viewState.commentsStatus)
         }
+        .toolbarBackground(Color("MainColor"), for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .id(id)
         .task {
             await viewState.getStory()
@@ -98,10 +99,9 @@ struct StoryDetailView_Previews: PreviewProvider {
             )
         
         let viewState = StoryDetailViewState()
-        let view = StoryDetailView(viewState: viewState)
         viewState.displayStory(viewModel: viewModel)
         viewState.displayComments(viewModel: commentsViewModel)
-        
+        let view = StoryDetailView(viewState: viewState)
         return view
     }
 }

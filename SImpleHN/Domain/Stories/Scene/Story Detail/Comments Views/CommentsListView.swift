@@ -19,8 +19,8 @@ struct CommentsListView<Data, RowContent>: View where Data: RandomAccessCollecti
     var body: some View {
         List {
             nodeView
-        }.listStyle(.plain)
-        
+        }
+        .listStyle(.plain)
     }
     
 }
@@ -37,7 +37,10 @@ fileprivate struct NodeView<Data, RowContent>: View where Data: RandomAccessColl
                 CommentDisclosureGroup {
                     NodeView(data: child[keyPath: self.children]!, children: self.children, rowContent: self.rowContent)
                         .padding(.leading)
-                    
+                        .overlay(alignment: .leading) {
+                            Rectangle()
+                                .frame(width: 2)
+                        }
                 } label: {
                     self.rowContent(child)
                 }
@@ -70,10 +73,6 @@ fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: Vie
         
         if isExpanded {
             content()
-                .overlay(alignment: .leading) {
-                    Rectangle()
-                        .frame(width: 2)
-                }
                 .animation(.easeInOut, value: isExpanded)
         }
     }
