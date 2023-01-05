@@ -10,7 +10,6 @@ import Foundation
 
 protocol StoryDetailLogic {
     func getStory(request: StoryDetail.GetStory.Request) async
-    func getComments(request: StoryDetail.GetCommentsList.Request) async
 }
 
 class StoryDetailInteractor {
@@ -43,38 +42,4 @@ extension StoryDetailInteractor: StoryDetailLogic {
             return errorResponse
         }
     }
-    
-    func getComments(request: StoryDetail.GetCommentsList.Request) async {
-        guard let kids = self.story.kids else {
-            let emptyResponse = StoryDetail.GetCommentsList.Respose(result: .success([]))
-            presenter?.presentComments(response: emptyResponse)
-            return
-        }
-        
-        do {
-            let comments = try await fetchComments(withIds: kids)
-            let response = StoryDetail.GetCommentsList.Respose(result: .success(comments))
-            presenter?.presentComments(response: response)
-        } catch {
-            let errorResponse = StoryDetail.GetCommentsList.Respose(result: .failure(error))
-            presenter?.presentComments(response: errorResponse)
-        }
-    }
-    
-    private func fetchComments(withIds ids: [Int]) async throws-> [Comment] {
-        guard !ids.isEmpty else { return [] }
-        
-        var comments: [Comment] = []
-        let items = try await worker.fetch(by: ids)
-        comments = items.map(Comment.init)
-        
-        for idx in comments.indices {
-            if let kids = comments[idx].kids {
-                let replies = try await fetchComments(withIds: kids)
-                comments[idx].addReplies(replies)
-            }
-        }
-        return comments
-    }
-    
 }

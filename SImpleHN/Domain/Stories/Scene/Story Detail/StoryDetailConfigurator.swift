@@ -11,12 +11,14 @@ enum StoryDetailConfigurator {
     @MainActor
     static func storyDetail(for story: Story, worker: Service) -> some View {
         let viewState = StoryDetailViewState()
-        let view = StoryDetailView(viewState: viewState)
+        var view = StoryDetailView<StoryDetailRouter>(viewState: viewState)
         let interactor = StoryDetailInteractor(story: story, worker: worker)
         let presenter = StoryDetailPresenter()
+        let router = StoryDetailRouter()
         viewState.interactor = interactor
         interactor.presenter = presenter
         presenter.view = viewState
+        view.router = router
         return view
     }
 }

@@ -9,22 +9,22 @@ import SwiftUI
 
 struct CommentView: View {
     
-    let viewModel: StoryDetail.GetCommentsList.ViewModel.DisplayedComment
+    let displayedComment: Comments.GetCommentsList.ViewModel.DisplayedComment
     
     var body: some View {
         HStack(spacing: 8) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 12) {
-                    Text(viewModel.author)
-                    Text(viewModel.timePosted)
+                    Text(displayedComment.author)
+                    Text(displayedComment.timePosted)
                 }
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 
-                Text(viewModel.text)
+                Text(displayedComment.text)
                     .font(.callout)
                 
-                Text(viewModel.repliesCount)
+                Text(displayedComment.repliesCount)
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
@@ -34,7 +34,7 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        let comment = StoryDetail.GetCommentsList.ViewModel.DisplayedComment.preview
-        return CommentView(viewModel: comment)
+        let comment = Comments.GetCommentsList.ViewModel.DisplayedComment.preview
+        return CommentView(displayedComment: comment)
     }
 }

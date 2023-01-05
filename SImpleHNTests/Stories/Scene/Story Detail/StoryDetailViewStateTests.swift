@@ -44,11 +44,6 @@ final class StoryDetailViewStateTests: XCTestCase {
             getCalled = true
             storyRequest = request
         }
-        
-        func getComments(request: StoryDetail.GetCommentsList.Request) async {
-            getCalled = true
-            commentsRequest = request
-        }
     }
     
     // MARK: - Helpers
@@ -61,28 +56,7 @@ final class StoryDetailViewStateTests: XCTestCase {
         return viewModel
     }
     
-    func makeCommentsViewModel() -> StoryDetail.GetCommentsList.ViewModel {
-        let posted = RelativeTimeFormatter.formatTimeString(timeInterval: TestDTO.comment1.time ?? 0)
-        let comment = Comment(hnItem: TestDTO.comment1)
-        let expectedComments = StoryDetail.GetCommentsList.ViewModel()
-        expectedComments.displayedComments = [.init(id: comment.id,
-                                                    author: comment.by,
-                                                    text: comment.text,
-                                                    parent: comment.parent,
-                                                    repliesCount: comment.replies.count,
-                                                    timePosted: posted)
-        ]
-        return expectedComments
-    }
-    
     // MARK: Life cycle tests
-    func test_viewState_getComments_callesInteractor_getComments() async {
-        await sut.getComments()
-        
-        XCTAssertTrue(interactorySpy.getCalled)
-        XCTAssertNotNil(interactorySpy.commentsRequest)
-    }
-    
     func test_onAppear_inProgressIsFalse() {
         let expectation = expectation(description: "inProgress Initial Status")
         sut.$inProgress
@@ -167,6 +141,7 @@ final class StoryDetailViewStateTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
+    #warning("Fix this")
     func test_onReceivedStory_commentsStartFetching() {
         let receivedStoryViewModel = makeStoryViewModel()
         let expectation = expectation(description: "Comments status is Fetching")
@@ -179,67 +154,6 @@ final class StoryDetailViewStateTests: XCTestCase {
             .store(in: &cancellables)
         
         sut.displayStory(viewModel: receivedStoryViewModel)
-        
-        wait(for: [expectation], timeout: 1)
-    }
-
-    // MARK: Comments tests
-    func test_onStart_commentsStatusIsIdle() {
-        let expectation = expectation(description: "Idle Status")
-        
-        sut.$commentsStatus
-            .sink {
-                XCTAssertEqual($0, .idle)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func test_getComments_changesStatusToFetching() async {
-        let expectation = expectation(description: "Fetching Comments Status")
-        sut.$commentsStatus
-            .dropFirst()
-            .sink {
-                XCTAssertEqual($0, .fetching)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        await sut.getComments()
-        
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func test_onReceivedComments_changesStatusToFetched() {
-        let expectaion = expectation(description: "Fetched")
-        let viewModel = makeCommentsViewModel()
-        sut.$commentsStatus
-            .dropFirst()
-            .sink {
-                XCTAssertEqual($0, .fetched(viewModel.displayedComments ?? []))
-                expectaion.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        sut.displayComments(viewModel: viewModel)
-        
-        wait(for: [expectaion], timeout: 1)
-    }
-    
-    func test_onReceivedCommentsError_changesStatusToError() {
-        let expectation = expectation(description: "Error Status")
-        let errorViewModel = StoryDetail.GetCommentsList.ViewModel(error: "Test error")
-        sut.$commentsStatus
-            .dropFirst()
-            .sink {
-                XCTAssertEqual($0, .error("Test error"))
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        sut.displayComments(viewModel: errorViewModel)
         
         wait(for: [expectation], timeout: 1)
     }

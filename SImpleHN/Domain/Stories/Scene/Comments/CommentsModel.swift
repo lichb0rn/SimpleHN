@@ -1,5 +1,5 @@
 //
-//  StoryDetailCommentsModel.swift
+//  CommentsModel.swift
 //  SImpleHN
 //
 //  Created by Miroslav Taleiko on 14.12.2022.
@@ -7,9 +7,11 @@
 
 import Foundation
 
-extension StoryDetail {
+enum Comments {
     enum GetCommentsList {
-        struct Request { }
+        struct Request {
+            var ids: [Int]
+        }
         
         struct Respose {
             var result: Result<[Comment], Error>
@@ -23,7 +25,7 @@ extension StoryDetail {
                 let parent: Int?
                 let repliesCount: String
                 let timePosted: String
-                var replies: [StoryDetail.GetCommentsList.ViewModel.DisplayedComment]? = nil
+                var replies: [Comments.GetCommentsList.ViewModel.DisplayedComment]? = nil
             }
             
             var displayedComments: [DisplayedComment]?
@@ -37,17 +39,17 @@ extension StoryDetail {
     }
 }
 
-extension StoryDetail.GetCommentsList.ViewModel.DisplayedComment: Equatable {
-    static func == (lhs: StoryDetail.GetCommentsList.ViewModel.DisplayedComment, rhs: StoryDetail.GetCommentsList.ViewModel.DisplayedComment) -> Bool {
+extension Comments.GetCommentsList.ViewModel.DisplayedComment: Equatable {
+    static func == (lhs: Comments.GetCommentsList.ViewModel.DisplayedComment, rhs: Comments.GetCommentsList.ViewModel.DisplayedComment) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
 
 // MARK: - Preview
-extension StoryDetail.GetCommentsList.ViewModel.DisplayedComment {
-    static var preview: StoryDetail.GetCommentsList.ViewModel.DisplayedComment = {
-        let comment = StoryDetail
+extension Comments.GetCommentsList.ViewModel.DisplayedComment {
+    static var preview: Comments.GetCommentsList.ViewModel.DisplayedComment = {
+        let comment = Comments
             .GetCommentsList
             .ViewModel
             .DisplayedComment(

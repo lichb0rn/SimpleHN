@@ -44,18 +44,10 @@ final class StoryDetailInteractorTests: XCTestCase {
             case .failure(let error): self.error = error
             }
         }
-        
-        func presentComments(response: StoryDetail.GetCommentsList.Respose) {
-            presentCalled = true
-            switch response.result {
-            case .success(let comments): self.commentsRespone = comments
-            case .failure(let error): self.error = error
-            }
-        }
     }
     
     
-    // MARK: Story tests
+    // MARK: Tests
     func test_presentStoryCalled_withStory() async {
         let dummyRequest = StoryDetail.GetStory.Request()
         
@@ -77,54 +69,5 @@ final class StoryDetailInteractorTests: XCTestCase {
         XCTAssertTrue(presenterSpy.presentCalled)
         XCTAssertNotNil(presenterSpy.error)
         XCTAssertNil(presenterSpy.storyResponse)
-    }
-    
-    // MARK: Comments Test
-    func test_presentCommentsCalled_withEmptyComments() async throws {
-        let emptyStory = Story(hnItem: TestDTO.storyWithOutComments)
-        sut = StoryDetailInteractor(story: emptyStory, worker: worker)
-        sut.presenter = presenterSpy
-        let commentsRequest = StoryDetail.GetCommentsList.Request()
-        
-        await sut.getComments(request: commentsRequest)
-        
-        let receivedComments = try XCTUnwrap(presenterSpy.commentsRespone)
-        XCTAssertTrue(presenterSpy.presentCalled)
-        XCTAssertEqual(receivedComments, [])
-    }
-    
-    func test_presentCommentsCalled_withComments() async throws {
-        let request = StoryDetail.GetCommentsList.Request()
-        
-        await sut.getComments(request: request)
-        
-        let receivedComments = try XCTUnwrap(presenterSpy.commentsRespone)
-        XCTAssertTrue(presenterSpy.presentCalled)
-        XCTAssert(receivedComments.count > 0)
-    }
-    
-    func test_presentComments_withErrorCalled() async {
-        let mockService = MockService(mustFail: true)
-        sut = StoryDetailInteractor(story: story, worker: mockService)
-        sut.presenter = presenterSpy
-        let request = StoryDetail.GetCommentsList.Request()
-        
-        await sut.getComments(request: request)
-
-        
-        XCTAssertTrue(presenterSpy.presentCalled)
-        XCTAssertNotNil(presenterSpy.error)
-    }
-    
-    func test_presentCommentsCalled_withNestedComments() async throws {
-        let request = StoryDetail.GetCommentsList.Request()
-        
-        await sut.getComments(request: request)
-        
-        let receivedComments = try XCTUnwrap(presenterSpy.commentsRespone)
-        XCTAssertTrue(presenterSpy.presentCalled)
-        XCTAssertEqual(receivedComments[0].id, TestDTO.comment1.id)
-        XCTAssertEqual(receivedComments[1].id, TestDTO.comment2.id)
-        XCTAssertEqual(receivedComments[1].replies[0].id, TestDTO.comment3.id)
     }
 }

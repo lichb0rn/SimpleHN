@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct StoryDetailView: View {
+struct StoryDetailView<Router: StoryDetailRoutingLogic>: View {
+    var router: Router?
+    
     @ObservedObject var viewState: StoryDetailViewState
-    var interactor: StoryDetailLogic?
     
     @State private var id = 0
     
@@ -21,7 +22,14 @@ struct StoryDetailView: View {
             }
             .padding(.vertical)
             
-            renderCommentsState(viewState.commentsStatus)
+            Group {
+                if !viewState.kids.isEmpty {
+                    router?.makeCommentsView(for: viewState.kids)
+                } else {
+                    Text("No comments yet")
+                    Spacer()
+                }
+            }
         }
         .toolbarBackground(Color("MainColor"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
@@ -60,48 +68,14 @@ struct StoryDetailView: View {
             }
         }
     }
-    
-    private func renderCommentsState(_ state: StoryDetailViewState.Status
-                                     <[StoryDetail.GetCommentsList.ViewModel.DisplayedComment]>) -> some View {
-        Group {
-            switch state {
-            case .idle:
-                Text("Nothing to show")
-            case .fetching:
-                Spacer()
-                ProgressView()
-                Spacer()
-            case .fetched(let displayedComments):
-                CommentsListView(data: displayedComments, children: \.replies) { reply in
-                    CommentView(viewModel: reply)
-                }
-            case .error(let msg):
-                Text(msg)
-            }
-        }
-    }
-    
-    
-    func getStory() async {
-        let request = StoryDetail.GetStory.Request()
-        await interactor?.getStory(request: request)
-    }
 }
 
 struct StoryDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = StoryDetail.GetStory.ViewModel.previewViewModel
-        
-        let commentsViewModel: StoryDetail
-            .GetCommentsList
-            .ViewModel = .init(displayedComments:
-                                [StoryDetail.GetCommentsList.ViewModel.DisplayedComment.preview]
-            )
-        
         let viewState = StoryDetailViewState()
         viewState.displayStory(viewModel: viewModel)
-        viewState.displayComments(viewModel: commentsViewModel)
-        let view = StoryDetailView(viewState: viewState)
+        let view = StoryDetailView<StoryDetailRouter>(viewState: viewState)
         return view
     }
 }

@@ -8,21 +8,41 @@
 import SwiftUI
 
 
-struct CommentsListView<Data, RowContent>: View where Data: RandomAccessCollection, Data.Element: Identifiable, RowContent: View {
+struct CommentsListView: View {
     
-    private let nodeView: NodeView<Data, RowContent>
-    
-    init(data: Data, children: KeyPath<Data.Element, Data?>, rowContent: @escaping (Data.Element) -> RowContent) {
-        self.nodeView = NodeView(data: data, children: children, rowContent: rowContent)
-    }
+    @ObservedObject var viewState: CommentsViewState
     
     var body: some View {
-        List {
-            nodeView
-        }
-        .listStyle(.plain)
+        renderCommentsState(viewState.status)
+            .task {
+                await viewState.getComments()
+            }
     }
     
+    
+    private func renderCommentsState(_ state: CommentsViewState.Status
+                                     <[Comments.GetCommentsList.ViewModel.DisplayedComment]>) -> some View {
+        Group {
+            switch state {
+            case .idle:
+                Text("Nothing to show")
+            case .fetching:
+                Spacer()
+                ProgressView()
+                Spacer()
+            case .fetched(let displayedComments):
+//                CommentsListView(data: displayedComments, children: \.replies) { comment in
+//                    CommentView(displayedComment: comment)
+//                }
+                List(displayedComments, children: \.replies) { comment in
+                    CommentView(displayedComment: comment)
+                }.listStyle(.plain)
+                
+            case .error(let msg):
+                Text(msg)
+            }
+        }
+    }
 }
 
 fileprivate struct NodeView<Data, RowContent>: View where Data: RandomAccessCollection, Data.Element: Identifiable, RowContent: View {

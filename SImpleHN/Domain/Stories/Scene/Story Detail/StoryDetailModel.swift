@@ -25,6 +25,7 @@ enum StoryDetail {
                 let timePosted: String
                 let text: String?
                 let link: URL?
+                let kids: [Int]
                 
                 init(story: Story, timePosted: String) {
                     self.id = story.id
@@ -35,6 +36,7 @@ enum StoryDetail {
                     self.timePosted = timePosted
                     self.link = URL(string: story.link)
                     self.text = story.text?.htmlStrip()
+                    self.kids = story.kids ?? []
                 }
                 
                 init() {
@@ -46,6 +48,7 @@ enum StoryDetail {
                     timePosted = ""
                     link = nil
                     text = nil
+                    kids = []
                 }
             }
             
