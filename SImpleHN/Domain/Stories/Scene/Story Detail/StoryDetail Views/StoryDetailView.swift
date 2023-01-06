@@ -15,7 +15,7 @@ struct StoryDetailView<Router: StoryDetailRoutingLogic>: View {
     @State private var id = 0
     
     var body: some View {
-        VStack {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 renderStoryState(viewState.storyStatus)
                 Divider()

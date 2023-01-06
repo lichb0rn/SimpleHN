@@ -31,13 +31,13 @@ struct CommentsListView: View {
                 ProgressView()
                 Spacer()
             case .fetched(let displayedComments):
-//                CommentsListView(data: displayedComments, children: \.replies) { comment in
-//                    CommentView(displayedComment: comment)
-//                }
-                List(displayedComments, children: \.replies) { comment in
-                    CommentView(displayedComment: comment)
-                }.listStyle(.plain)
-                
+                VStack(alignment: .leading) {
+                    NodeView(data: displayedComments, children: \.replies) { comment in
+                        CommentView(displayedComment: comment)
+                            .padding(.vertical, 4)
+                    }
+                }
+                .padding(.horizontal)
             case .error(let msg):
                 Text(msg)
             }
@@ -66,6 +66,7 @@ fileprivate struct NodeView<Data, RowContent>: View where Data: RandomAccessColl
                 }
             } else {
                 rowContent(child)
+                Divider()
             }
         }
         

@@ -28,6 +28,7 @@ struct CommentView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
+            .multilineTextAlignment(.leading)
         }
     }
 }
