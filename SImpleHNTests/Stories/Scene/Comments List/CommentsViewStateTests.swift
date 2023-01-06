@@ -21,6 +21,7 @@ final class CommentsViewStateTests: XCTestCase {
         interactorySpy = CommentsInteractorSpy()
         sut = CommentsViewState()
         sut.interactor = interactorySpy
+        sut.topLevelCommentIds = [TestDTO.comment1.id]
     }
     
     override func tearDownWithError() throws {
@@ -59,11 +60,14 @@ final class CommentsViewStateTests: XCTestCase {
     }
     
     // MARK: Tests
-    func test_viewState_canCallInteractor() async {
+    func test_givenTopLevelCommentIds_callsInteractor() async throws {
+        sut.topLevelCommentIds = [TestDTO.comment1.id]
+        
         await sut.getComments()
         
+        let receivedReuest = try XCTUnwrap(interactorySpy.request)
         XCTAssertTrue(interactorySpy.getCalled)
-        XCTAssertNotNil(interactorySpy.request)
+        XCTAssertEqual(receivedReuest.ids, [TestDTO.comment1.id])
     }
     
     func test_onStart_commentsStatusIsIdle() {
@@ -80,7 +84,7 @@ final class CommentsViewStateTests: XCTestCase {
     }
 
     
-    func test_getComments_changesStatusToFetching() async {
+    func test_onGetComments_statusIsFetching() async {
         let expectation = expectation(description: "Fetching Comments Status")
         sut.$status
             .dropFirst()
