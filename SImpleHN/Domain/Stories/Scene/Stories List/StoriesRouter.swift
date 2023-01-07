@@ -16,9 +16,10 @@ class StoriesRouter: StoriesRoutingLogic {
     var store: StoriesStore?
     
     @MainActor
+    @ViewBuilder
     func makeDetailView(for id: Stories.Fetch.ViewModel.DisplayedStory.ID) -> some View {
-        let story = store?.stories?.first(where: { $0.id == id })
-        let detailView = StoryDetailConfigurator.storyDetail(for: story!, worker: NetworkService())
-        return detailView as! StoryDetailView<StoryDetailRouter>
+        if let story = store?.stories?.first(where: { $0.id == id }) {
+            StoryDetailConfigurator.storyDetail(for: story, worker: NetworkService())
+        }
     }
 }

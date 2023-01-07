@@ -19,7 +19,7 @@ struct StoriesView<Router: StoriesRoutingLogic>: View {
     var body: some View {
         NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
             renderState(viewState.status)
-
+            
         } detail: {
             if let selected {
                 router?.makeDetailView(for: selected)

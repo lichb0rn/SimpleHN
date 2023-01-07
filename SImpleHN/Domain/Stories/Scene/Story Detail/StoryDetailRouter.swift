@@ -14,7 +14,8 @@ protocol StoryDetailRoutingLogic {
 
 class StoryDetailRouter: StoryDetailRoutingLogic {
     
-    @MainActor @ViewBuilder
+    @MainActor
+    @ViewBuilder
     func makeCommentsView(for kids: [Int]) -> some View {
         CommentsListViewConfigurator.commentsView(for: kids, worker: NetworkService())
     }

@@ -141,7 +141,6 @@ final class StoryDetailViewStateTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
-    #warning("Fix this")
     func test_onReceivedStory_commentsStartFetching() {
         let receivedStoryViewModel = makeStoryViewModel()
         let expectation = expectation(description: "Comments status is Fetching")

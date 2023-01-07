@@ -37,6 +37,7 @@ final class StoryDetailInteractorTests: XCTestCase {
         var commentsRespone: [Comment]?
         var error: Error?
         
+        
         func presentStory(response: StoryDetail.GetStory.Response) {
             presentCalled = true
             switch response.result {

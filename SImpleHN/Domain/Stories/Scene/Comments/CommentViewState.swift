@@ -32,6 +32,8 @@ class CommentsViewState: ObservableObject {
     @Published var status: Status<[Comments.GetCommentsList.ViewModel.DisplayedComment]> = .idle
     
     var topLevelCommentIds: [Int] = []
+
+    
     
     @MainActor
     func getComments() async {

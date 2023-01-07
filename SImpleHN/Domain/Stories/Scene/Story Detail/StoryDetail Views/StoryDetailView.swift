@@ -12,8 +12,6 @@ struct StoryDetailView<Router: StoryDetailRoutingLogic>: View {
     
     @ObservedObject var viewState: StoryDetailViewState
     
-    @State private var id = 0
-    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
@@ -33,16 +31,12 @@ struct StoryDetailView<Router: StoryDetailRoutingLogic>: View {
         }
         .toolbarBackground(Color("MainColor"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .id(id)
-        .task {
-            await viewState.getStory()
-        }
         .refreshable {
             await viewState.getStory()
-            id += 1
         }
     }
     
+    @ViewBuilder
     private func renderStoryState(_ state: StoryDetailViewState.Status<StoryDetail.GetStory.ViewModel.DisplayedStory>) -> some View {
         Group {
             switch state {

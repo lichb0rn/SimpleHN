@@ -19,6 +19,16 @@ class StoryDetailViewState: ObservableObject {
     @Published var storyStatus: Status<StoryDetail.GetStory.ViewModel.DisplayedStory> = .idle
     @Published var kids: [Int] = []
     
+    
+    init() {
+        // It's probably better to start fetching from the .task {} modifier
+        // But I couldn't make it work when selecting different stories in iPad
+        // It looks like bug#91311311, but the ZStack workaroung wasn't working for me
+        Task {
+            await getStory()
+        }
+    }
+    
     func getStory() async {
         storyStatus = .fetching
         let request = StoryDetail.GetStory.Request()
