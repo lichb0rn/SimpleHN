@@ -36,13 +36,12 @@ final class StoryDetailViewStateTests: XCTestCase {
     // MARK: Test doubles
     class StoryDetailInteractorSpy: StoryDetailLogic {
         var getCalled: Bool = false
-        var storyRequest: StoryDetail.GetStory.Request?
-        var commentsRequest: StoryDetail.GetCommentsList.Request?
+        var request: StoryDetail.GetStory.Request?
         var error: Error?
         
         func getStory(request: StoryDetail.GetStory.Request) {
             getCalled = true
-            storyRequest = request
+            self.request = request
         }
     }
     
@@ -56,25 +55,11 @@ final class StoryDetailViewStateTests: XCTestCase {
         return viewModel
     }
     
-    // MARK: Life cycle tests
-    func test_onAppear_inProgressIsFalse() {
-        let expectation = expectation(description: "inProgress Initial Status")
-        sut.$inProgress
-            .sink(receiveValue: {
-                XCTAssertFalse($0)
-                expectation.fulfill()
-            })
-            .store(in: &cancellables)
-        
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    
-    // MARK: - Story Tests
-    func test_onStart_storyStatusIsIdle() {
+    // MARK: - Tests
+    func test_onStart_statusIsIdle() {
         let expectation = expectation(description: "Idle Status")
         
-        sut.$storyStatus
+        sut.$status
             .sink {
                 XCTAssertEqual($0, .idle)
                 expectation.fulfill()
@@ -84,9 +69,10 @@ final class StoryDetailViewStateTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
-    func test_getStory_changesStatusToFetching() async {
-        let expectation = expectation(description: "Idle Status")
-        sut.$storyStatus
+    func test_onStart_startsFetchingStory() {
+        let expectation = expectation(description: "Fetching Status")
+        
+        sut.$status
             .dropFirst()
             .sink {
                 XCTAssertEqual($0, .fetching)
@@ -94,25 +80,37 @@ final class StoryDetailViewStateTests: XCTestCase {
             }
             .store(in: &cancellables)
         
-        await sut.getStory()
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func test_onStart_repliesListIsEmpty() {
+        let expectation = expectation(description: "Empty replies list")
+        
+        sut.$replies
+            .sink {
+                XCTAssertTrue($0.isEmpty)
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
         
         wait(for: [expectation], timeout: 1)
     }
     
-    func test_getStory_callsInteractor_getStory() async {
+    func test_getStory_callsInteractor() async {
         await sut.getStory()
         
         XCTAssertTrue(interactorySpy.getCalled)
-        XCTAssertNotNil(interactorySpy.storyRequest)
+        XCTAssertNotNil(interactorySpy.request)
     }
+    
     
     func test_onReceivedStory_statusIsFetched() {
         let expectedViewModel = makeStoryViewModel()
         let notExpected = StoryDetail.GetStory.ViewModel.DisplayedStory(story: Story(hnItem: HNItem.previewItem),
                                                                         timePosted: "")
         
-        let expectation = expectation(description: "Fetching Status")
-        sut.$storyStatus
+        let expectation = expectation(description: "Fetched Status")
+        sut.$status
             .dropFirst()
             .sink {
                 XCTAssertEqual($0, .fetched(expectedViewModel.displayedStory ?? notExpected))
@@ -125,13 +123,13 @@ final class StoryDetailViewStateTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
-    func test_onRecievedStoryError_statusIsError() {
-        let expectedViewModel = StoryDetail.GetStory.ViewModel(error: "Test error")
-        let expectation = expectation(description: "Error Received")
-        sut.$storyStatus
+    func test_onReceivedStoryWithReplies_updatesRepliesPublisher() {
+        let expectedViewModel = makeStoryViewModel()
+        let expectation = expectation(description: "Replies updated")
+        sut.$replies
             .dropFirst()
-            .sink {
-                XCTAssertEqual($0, .error("Test error"))
+            .sink { [weak self] in
+                XCTAssertEqual($0, self?.story.kids)
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -141,18 +139,18 @@ final class StoryDetailViewStateTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
-    func test_onReceivedStory_commentsStartFetching() {
-        let receivedStoryViewModel = makeStoryViewModel()
-        let expectation = expectation(description: "Comments status is Fetching")
-        sut.$commentsStatus
-            .dropFirst()
+    func test_onRecievedStoryError_statusIsError() {
+        let expectedViewModel = StoryDetail.GetStory.ViewModel(error: "Test error")
+        let expectation = expectation(description: "Error Received")
+        sut.$status
+            .dropFirst(2)
             .sink {
-                XCTAssertEqual($0, .fetching)
+                XCTAssertEqual($0, .error("Test error"))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
         
-        sut.displayStory(viewModel: receivedStoryViewModel)
+        sut.displayStory(viewModel: expectedViewModel)
         
         wait(for: [expectation], timeout: 1)
     }

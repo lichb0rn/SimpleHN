@@ -15,14 +15,14 @@ struct StoryDetailView<Router: StoryDetailRoutingLogic>: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                renderStoryState(viewState.storyStatus)
+                renderStoryState(viewState.status)
                 Divider()
             }
             .padding(.vertical)
             
             Group {
-                if !viewState.kids.isEmpty {
-                    router?.makeCommentsView(for: viewState.kids)
+                if !viewState.replies.isEmpty {
+                    router?.makeCommentsView(for: viewState.replies)
                 } else {
                     Text("No comments yet")
                     Spacer()

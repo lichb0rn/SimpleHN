@@ -16,7 +16,7 @@ enum TestDTO {
                                              type: .story,
                                              by: "theyeti",
                                              time: 1425261906,
-                                             kids: nil,
+                                             kids: [1],
                                              title: "Test story for testing purposes",
                                              descendants: 100,
                                              score: 100,
