@@ -9,7 +9,7 @@ import Foundation
 @testable import SImpleHN
 
 enum TestDTO {
-    static var allDTO = [TestDTO.story, TestDTO.comment1, TestDTO.comment2, TestDTO.comment3, TestDTO.comment4]
+    static var allDTO = [TestDTO.story, TestDTO.comment1, TestDTO.comment2, TestDTO.comment3, TestDTO.comment4, TestDTO.deletedComment]
     
     static var story = HNItem.previewItem
     static var storyWithOutComments = HNItem(id: 1000,
@@ -71,4 +71,17 @@ enum TestDTO {
                                   url: nil,
                                   parent: TestDTO.comment2.id,
                                   text: "test comment 4")
+    
+    static var deletedComment = HNItem(id: 5,
+                                       type: .comment,
+                                       by: "test5",
+                                       time: Date.now.timeIntervalSinceNow,
+                                       kids: [],
+                                       deleted: true,
+                                       title: nil,
+                                       descendants: nil,
+                                       score: nil,
+                                       url: nil,
+                                       parent: nil,
+                                       text: "Deleted comment")
 }

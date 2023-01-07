@@ -48,7 +48,8 @@ extension CommentsInteractor: CommentsLogic {
         
         var comments: [Comment] = []
         let items = try await worker.fetch(by: ids)
-        comments = items.map(Comment.init)
+        let filterDeleted = items.filter({ $0.deleted == nil })
+        comments = filterDeleted.map(Comment.init)
         
         for idx in comments.indices {
             if let kids = comments[idx].kids {

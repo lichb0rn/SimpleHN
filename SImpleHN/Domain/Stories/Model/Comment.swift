@@ -15,6 +15,7 @@ struct Comment  {
     let parent: Int?
     let text: String
     let time: TimeInterval
+    let deleted: Bool?
     var replies: [Comment]
     
     init(hnItem item: HNItem) {
@@ -25,6 +26,7 @@ struct Comment  {
         self.time = item.time ?? Date().timeIntervalSinceNow
         self.kids = item.kids
         self.replies = []
+        self.deleted = item.deleted
     }
     
     mutating func addReplies(_ replies: [Comment]) {

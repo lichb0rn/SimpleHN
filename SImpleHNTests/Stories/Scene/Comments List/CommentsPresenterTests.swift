@@ -72,7 +72,7 @@ final class CommentsPresenterTests: XCTestCase {
         let receivedComment = try XCTUnwrap(viewSpy.viewModel?.displayedComments?.first)
         XCTAssertEqual(receivedComment.id, TestDTO.comment1.id)
     }
-//
+
     func test_givenError_displayCalled_wthErrorViewModel() throws {
         let response = Comments.GetCommentsList.Respose(result: .failure(NetworkError.badServerResponse))
 

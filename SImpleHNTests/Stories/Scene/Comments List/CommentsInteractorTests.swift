@@ -79,16 +79,15 @@ final class CommentsInteractorTests: XCTestCase {
         XCTAssertTrue(presenterSpy.presentCalled)
         XCTAssertNotNil(presenterSpy.error)
     }
-//
-//    func test_presentCommentsCalled_withNestedComments() async throws {
-//        let request = Comments.GetCommentsList.Request()
-//
-//        await sut.getComments(request: request)
-//
-//        let receivedComments = try XCTUnwrap(presenterSpy.response)
-//        XCTAssertTrue(presenterSpy.presentCalled)
-//        XCTAssertEqual(receivedComments[0].id, TestDTO.comment1.id)
-//        XCTAssertEqual(receivedComments[1].id, TestDTO.comment2.id)
-//        XCTAssertEqual(receivedComments[1].replies[0].id, TestDTO.comment3.id)
-//    }
+
+    func test_filtersDeletedComment() async throws {
+        let requestedComments = [TestDTO.comment4.id, TestDTO.deletedComment.id]
+        let request = Comments.GetCommentsList.Request(ids: requestedComments)
+        
+        await sut.getComments(request: request)
+        
+        let receivedComments  = try XCTUnwrap(presenterSpy.response)
+        XCTAssertEqual(receivedComments.count, 1)
+        XCTAssertEqual(receivedComments.first?.id, TestDTO.comment4.id)
+    }
 }
