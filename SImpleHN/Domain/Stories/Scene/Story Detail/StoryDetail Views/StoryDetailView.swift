@@ -31,9 +31,6 @@ struct StoryDetailView<Router: StoryDetailRoutingLogic>: View {
         }
         .toolbarBackground(Color("MainColor"), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .refreshable {
-            await viewState.getStory()
-        }
     }
     
     @ViewBuilder
