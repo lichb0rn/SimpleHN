@@ -19,9 +19,8 @@ struct CommentsListView: View {
             }
     }
     
-    
-    private func renderCommentsState(_ state: CommentsViewState.Status
-                                     <[Comments.GetCommentsList.ViewModel.DisplayedComment]>) -> some View {
+    @ViewBuilder
+    private func renderCommentsState(_ state: CommentsViewState.Status) -> some View {
         Group {
             switch state {
             case .idle:
@@ -30,11 +29,14 @@ struct CommentsListView: View {
                 Spacer()
                 ProgressView()
                 Spacer()
-            case .fetched(let displayedComments):
+            case .fetched:
                 VStack(alignment: .leading) {
-                    NodeView(data: displayedComments, children: \.replies) { comment in
-                        CommentView(displayedComment: comment)
+                    NodeView(data: viewState.comments, children: \.replies) { comment in
+                        CommentView(displayedComment: comment.displayedComment)
                             .padding(.vertical, 4)
+                            .task {
+                                await viewState.getComment(for: comment.id)
+                            }
                     }
                 }
                 .padding(.horizontal)
@@ -45,12 +47,14 @@ struct CommentsListView: View {
     }
 }
 
-fileprivate struct NodeView<Data, RowContent>: View where Data: RandomAccessCollection, Data.Element: Identifiable, RowContent: View {
+
+fileprivate struct NodeView<Data, RowContent>: View
+where Data: RandomAccessCollection, Data.Element: ObservableObject & Identifiable, RowContent: View {
     
     let data: Data
     let children: KeyPath<Data.Element, Data?>
     let rowContent: (Data.Element) -> RowContent
-    
+
     var body: some View {
         ForEach(data) { child in
             if hasChild(child) {
@@ -68,14 +72,15 @@ fileprivate struct NodeView<Data, RowContent>: View where Data: RandomAccessColl
                 rowContent(child)
                 Divider()
             }
+
         }
-        
     }
     
     func hasChild(_ element: Data.Element) -> Bool {
         return element[keyPath: children] != nil
     }
 }
+
 
 fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: View, Content: View {
     @State var isExpanded: Bool = true

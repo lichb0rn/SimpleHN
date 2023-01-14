@@ -15,8 +15,9 @@ extension CommentsViewState: CommentsDisplayLogic {
     func displayComments(viewModel: Comments.GetCommentsList.ViewModel) {
         Task {
             await MainActor.run {
-                if let displayedComments = viewModel.displayedComments {
-                    status = .fetched(displayedComments)
+                if let comments = viewModel.observableComments {
+                    status = .fetched
+                    merge(with: comments)
                 } else if let error = viewModel.error {
                     status = .error(error)
                 }
@@ -27,13 +28,19 @@ extension CommentsViewState: CommentsDisplayLogic {
 
 
 class CommentsViewState: ObservableObject {
+    enum Status: Equatable {
+        case idle
+        case fetching
+        case fetched
+        case error(String)
+    }
+    
     var interactor: CommentsLogic?
     
-    @Published var status: Status<[Comments.GetCommentsList.ViewModel.DisplayedComment]> = .idle
+    @Published private(set) var status: Status = .idle
+    @Published private(set) var comments: [ObservableComment] = []
     
     var topLevelCommentIds: [Int] = []
-
-    
     
     @MainActor
     func getComments() async {
@@ -43,18 +50,18 @@ class CommentsViewState: ObservableObject {
         let request = Comments.GetCommentsList.Request(ids: topLevelCommentIds)
         await interactor?.getComments(request: request)
     }
-
+    
     func getComment(for parent: Int) async {
-
+        let request = Comments.GetCommentsList.ReplyRequest(parent: parent)
+        await interactor?.getCommentReplies(request: request)
     }
-}
-
-
-extension CommentsViewState {
-    enum Status<DisplayedModel: Equatable>: Equatable {
-        case idle
-        case fetching
-        case fetched(DisplayedModel)
-        case error(String)
+    
+    private func merge(with new: [ObservableComment]) {
+        guard !comments.isEmpty else {
+            self.comments = new
+            return
+        }
+        
+        comments.forEach {  if $0.addReplies(new) { return } }
     }
 }

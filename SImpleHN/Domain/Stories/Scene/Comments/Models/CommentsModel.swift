@@ -13,26 +13,29 @@ enum Comments {
             var ids: [Int]
         }
         
+        struct ReplyRequest {
+            var parent: Int
+        }
+        
         struct Respose {
             var result: Result<[Comment], Error>
         }
         
         struct ViewModel {
-            struct DisplayedComment: Identifiable {
+            struct DisplayedComment {
                 let id: Int
                 let author: String
                 let text: String
                 let parent: Int?
                 let repliesCount: String
                 let timePosted: String
-                var replies: [Comments.GetCommentsList.ViewModel.DisplayedComment]? = nil
             }
             
-            var displayedComments: [DisplayedComment]?
+            var observableComments: [ObservableComment]?
             var error: String?
             
-            init(displayedComments: [DisplayedComment]? = nil, error: String? = nil) {
-                self.displayedComments = displayedComments
+            init(observableComments: [ObservableComment]? = nil, error: String? = nil) {
+                self.observableComments = observableComments
                 self.error = error
             }
         }
@@ -57,7 +60,7 @@ extension Comments.GetCommentsList.ViewModel.DisplayedComment {
                 author: Comment.previewComment.by,
                 text: Comment.previewComment.text,
                 parent: 1000,
-                repliesCount: "\(Comment.previewComment.replies.count) replies",
+                repliesCount: "\(Comment.previewComment.kids?.count) replies",
                 timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Date.now.timeIntervalSinceNow)
                 )
         return comment

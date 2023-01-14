@@ -9,13 +9,12 @@ import Foundation
 
 protocol CommentsLogic {
     func getComments(request: Comments.GetCommentsList.Request) async
+    func getCommentReplies(request: Comments.GetCommentsList.ReplyRequest) async
 }
 
 class CommentsInteractor {
     var presenter: CommentsPresentationLogic?
     
-    
-    private var comments: [Comment] = []
     private let worker: Service
     
     init(worker: Service) {
@@ -28,19 +27,46 @@ extension CommentsInteractor: CommentsLogic {
     func getComments(request: Comments.GetCommentsList.Request) async {
         let idsToFetch = request.ids
         guard !idsToFetch.isEmpty else {
-            let emptyResponse = Comments.GetCommentsList.Respose(result: .success([]))
-            presenter?.presentComments(response: emptyResponse)
+            presentEmpty()
             return
         }
         
         do {
-            let comments = try await fetchComments(withIds: request.ids)
-            let response = Comments.GetCommentsList.Respose(result: .success(comments))
-            presenter?.presentComments(response: response)
+            let comments = try await fetchComments(withIds: idsToFetch)
+            presentComments(comments)
         } catch {
-            let errorResponse = Comments.GetCommentsList.Respose(result: .failure(error))
-            presenter?.presentComments(response: errorResponse)
+            presentError(error)
         }
+    }
+    
+    func getCommentReplies(request: Comments.GetCommentsList.ReplyRequest) async {
+        guard let parent = try? await worker.fetch(by: request.parent),
+              let replies = parent.kids,
+              !replies.isEmpty else {
+            return
+        }
+        
+        do {
+            let comments = try await fetchComments(withIds: replies)
+            presentComments(comments)
+        } catch {
+            presentError(error)
+        }
+    }
+    
+    private func presentEmpty() {
+        let emptyResponse = Comments.GetCommentsList.Respose(result: .success([]))
+        presenter?.presentComments(response: emptyResponse)
+    }
+    
+    private func presentComments(_ comments: [Comment]) {
+        let response = Comments.GetCommentsList.Respose(result: .success(comments))
+        presenter?.presentComments(response: response)
+    }
+    
+    private func presentError(_ error: Error) {
+        let errorResponse = Comments.GetCommentsList.Respose(result: .failure(error))
+        presenter?.presentComments(response: errorResponse)
     }
     
     private func fetchComments(withIds ids: [Int]) async throws-> [Comment] {
@@ -50,13 +76,7 @@ extension CommentsInteractor: CommentsLogic {
         let items = try await worker.fetch(by: ids)
         let filterDeleted = items.filter({ $0.deleted == nil })
         comments = filterDeleted.map(Comment.init)
-        
-        for idx in comments.indices {
-            if let kids = comments[idx].kids {
-                let replies = try await fetchComments(withIds: kids)
-                comments[idx].addReplies(replies)
-            }
-        }
+    
         return comments
     }
 }

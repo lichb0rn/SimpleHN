@@ -90,4 +90,19 @@ final class CommentsInteractorTests: XCTestCase {
         XCTAssertEqual(receivedComments.count, 1)
         XCTAssertEqual(receivedComments.first?.id, TestDTO.comment4.id)
     }
+    
+    func test_givenCommentReplies_presenterCalled() async throws {
+        let commentWithChildren = TestDTO.comment2
+        await sut.getComments(request: Comments.GetCommentsList.Request(ids: [commentWithChildren.id]))
+        presenterSpy.response = nil
+        presenterSpy.presentCalled = false
+        let request = Comments.GetCommentsList.ReplyRequest(parent: commentWithChildren.id)
+        
+        await sut.getCommentReplies(request: request)
+        
+        let receivedComments = try XCTUnwrap(presenterSpy.response)
+        let receviedIds = receivedComments.compactMap { $0.id }
+        XCTAssertTrue(presenterSpy.presentCalled)
+        XCTAssertEqual(receviedIds, commentWithChildren.kids)
+    }
 }

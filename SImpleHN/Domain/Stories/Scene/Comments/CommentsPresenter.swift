@@ -24,30 +24,16 @@ extension CommentsPresenter: CommentsPresentationLogic {
             viewModel.error = error.localizedDescription
             
         case .success(let comments):
-            viewModel.displayedComments = buildCommentTree(comments)
+            let displayedComments = comments.map(makeDisplayedComment(from:))
+            viewModel.observableComments = displayedComments.map { ObservableComment(comment: $0)}
         }
         
         self.view?.displayComments(viewModel: viewModel)
     }
     
-    private func buildCommentTree(_ comments: [Comment]) -> [Comments.GetCommentsList.ViewModel.DisplayedComment] {
-        var tree: [Comments.GetCommentsList.ViewModel.DisplayedComment] = []
-        
-        for comment in comments {
-            var displayed = makeDisplayedComment(from: comment)
-            
-            if !comment.replies.isEmpty {
-                displayed.replies = buildCommentTree(comment.replies)
-            }
-            
-            tree.append(displayed)
-        }
-        return tree
-    }
-    
     private func makeDisplayedComment(from comment: Comment) -> Comments.GetCommentsList.ViewModel.DisplayedComment {
         let posted = RelativeTimeFormatter.formatTimeString(timeInterval: comment.time)
-        let repliesCount = repliesCountString(from: comment.replies.count)
+        let repliesCount = repliesCountString(from: comment.kids?.count ?? 0)
         let displayedComment = Comments
             .GetCommentsList
             .ViewModel

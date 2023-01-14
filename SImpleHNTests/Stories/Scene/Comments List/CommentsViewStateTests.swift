@@ -42,23 +42,29 @@ final class CommentsViewStateTests: XCTestCase {
             getCalled = true
             self.request = request
         }
+        
+        func getCommentReplies(request: Comments.GetCommentsList.ReplyRequest) async {
+            
+        }
     }
     
     // MARK: Helpers
-    func makeCommentsViewModel() -> Comments.GetCommentsList.ViewModel {
-        let posted = RelativeTimeFormatter.formatTimeString(timeInterval: TestDTO.comment1.time ?? 0)
-        let comment = Comment(hnItem: TestDTO.comment1)
-        var expectedComments = Comments.GetCommentsList.ViewModel()
-        expectedComments.displayedComments = [.init(id: comment.id,
-                                                    author: comment.by,
-                                                    text: comment.text,
-                                                    parent: comment.parent,
-                                                    repliesCount: "\(comment.replies.count) reply",
-                                                    timePosted: posted)
+    func makeCommentsViewModel(fromDTO dto: HNItem = TestDTO.comment1) -> Comments.GetCommentsList.ViewModel {
+        var viewModel = Comments.GetCommentsList.ViewModel()
+        let posted = RelativeTimeFormatter.formatTimeString(timeInterval: dto.time ?? 0)
+        let comment = Comments.GetCommentsList.ViewModel.DisplayedComment(
+            id: dto.id,
+            author: dto.by ?? "",
+            text: dto.text ?? "",
+            parent: dto.parent,
+            repliesCount: "\(dto.kids?.count ?? 1) reply",
+            timePosted: posted)
+        viewModel.observableComments = [
+            ObservableComment(comment: comment)
         ]
-        return expectedComments
+        return viewModel
     }
-    
+        
     // MARK: Tests
     func test_givenTopLevelCommentIds_callsInteractor() async throws {
         sut.topLevelCommentIds = [TestDTO.comment1.id]
@@ -71,16 +77,11 @@ final class CommentsViewStateTests: XCTestCase {
     }
     
     func test_onStart_commentsStatusIsIdle() {
-        let expectation = expectation(description: "Idle Status")
-        
-        sut.$status
-            .sink {
-                XCTAssertEqual($0, .idle)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(sut.status, .idle)
+    }
+    
+    func test_onStart_commentsAreEmpty() {
+        XCTAssertTrue(sut.comments.isEmpty)
     }
 
     
@@ -93,28 +94,44 @@ final class CommentsViewStateTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         await sut.getComments()
-        
+
         wait(for: [expectation], timeout: 1)
     }
-    
+
     func test_onReceivedComments_changesStatusToFetched() {
         let expectaion = expectation(description: "Fetched")
         let viewModel = makeCommentsViewModel()
         sut.$status
             .dropFirst()
             .sink {
-                XCTAssertEqual($0, .fetched(viewModel.displayedComments ?? []))
+                XCTAssertEqual($0, .fetched)
                 expectaion.fulfill()
+            }
+            .store(in: &cancellables)
+
+        sut.displayComments(viewModel: viewModel)
+
+        wait(for: [expectaion], timeout: 1)
+    }
+    
+    func test_onReceivedComments_commentsPublisherIsNotEmpty() {
+        let expectation = expectation(description: "Receieved comments")
+        let viewModel = makeCommentsViewModel()
+        sut.$comments
+            .dropFirst()
+            .sink {
+                XCTAssertEqual($0, viewModel.observableComments)
+                expectation.fulfill()
             }
             .store(in: &cancellables)
         
         sut.displayComments(viewModel: viewModel)
         
-        wait(for: [expectaion], timeout: 1)
+        wait(for: [expectation], timeout: 1)
     }
-    
+
     func test_onReceivedCommentsError_changesStatusToError() {
         let expectation = expectation(description: "Error Status")
         let errorViewModel = Comments.GetCommentsList.ViewModel(error: "Test error")
@@ -125,9 +142,28 @@ final class CommentsViewStateTests: XCTestCase {
                 expectation.fulfill()
             }
             .store(in: &cancellables)
-        
+
         sut.displayComments(viewModel: errorViewModel)
+
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func test_onReceivedChildComments_mergesParent() throws {
+        let parentViewModel = makeCommentsViewModel()
+        sut.displayComments(viewModel: parentViewModel)
+        let childViewModel = makeCommentsViewModel(fromDTO: TestDTO.comment2)
+        let expectation = expectation(description: "Add child")
+        sut.$comments
+            .dropFirst()
+            .sink { _ in
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+        
+        sut.displayComments(viewModel: childViewModel)
         
         wait(for: [expectation], timeout: 1)
+        let child = try XCTUnwrap(sut.comments.first?.replies)
+        XCTAssertEqual(child, childViewModel.observableComments)
     }
 }
