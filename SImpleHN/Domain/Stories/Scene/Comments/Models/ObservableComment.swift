@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+// Simple observable tree with level-order searching
 class ObservableComment: ObservableObject, Identifiable {
     
     var id: Int {
@@ -24,7 +26,7 @@ class ObservableComment: ObservableObject, Identifiable {
     func addReplies(_ replies: [ObservableComment]) -> Bool {
         guard let parentId = replies.first?.displayedComment.parent else { return false }
         
-        if let parentComment = bfs(parentId: parentId) {
+        if let parentComment = breadFirstSearch(parentId: parentId) {
             parentComment.replies = replies
             return true
         }
@@ -33,7 +35,7 @@ class ObservableComment: ObservableObject, Identifiable {
     }
     
     
-    private func bfs(parentId: Int) -> ObservableComment? {
+    private func breadFirstSearch(parentId: Int) -> ObservableComment? {
         if self.id == parentId {
             return self
         }

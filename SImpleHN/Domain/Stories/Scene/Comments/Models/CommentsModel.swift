@@ -60,7 +60,7 @@ extension Comments.GetCommentsList.ViewModel.DisplayedComment {
                 author: Comment.previewComment.by,
                 text: Comment.previewComment.text,
                 parent: 1000,
-                repliesCount: "\(Comment.previewComment.kids?.count) replies",
+                repliesCount: "\(Comment.previewComment.kids?.count ?? 0) replies",
                 timePosted: RelativeTimeFormatter.formatTimeString(timeInterval: Date.now.timeIntervalSinceNow)
                 )
         return comment

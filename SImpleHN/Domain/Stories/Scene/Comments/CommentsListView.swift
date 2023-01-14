@@ -30,7 +30,7 @@ struct CommentsListView: View {
                 ProgressView()
                 Spacer()
             case .fetched:
-                VStack(alignment: .leading) {
+                LazyVStack(alignment: .leading) {
                     NodeView(data: viewState.comments, children: \.replies) { comment in
                         CommentView(displayedComment: comment.displayedComment)
                             .padding(.vertical, 4)
@@ -38,6 +38,7 @@ struct CommentsListView: View {
                                 await viewState.getComment(for: comment.id)
                             }
                     }
+                    .transition(.move(edge: .leading))
                 }
                 .padding(.horizontal)
             case .error(let msg):
@@ -99,7 +100,6 @@ fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: Vie
         
         if isExpanded {
             content()
-                .animation(.easeInOut, value: isExpanded)
         }
     }
 }
