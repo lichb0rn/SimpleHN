@@ -2,6 +2,11 @@
 
 This is a simple HackerNews reader iOS app.
 
+<p float="left">
+    <img src="iphone.png" width="19%">
+    <img src="ipad.png" width="80%">
+</p>
+
 ## Motivation
 
 My main goal is to practice Clean Swift (VIP) architecure.
