@@ -35,7 +35,7 @@ struct CommentsListView: View {
                         CommentView(displayedComment: comment.displayedComment)
                             .padding(.vertical, 4)
                             .task {
-                                await viewState.getComment(for: comment.id)
+                                await viewState.getReplies(for: comment.id)
                             }
                     }
                     .transition(.move(edge: .leading))
@@ -50,7 +50,9 @@ struct CommentsListView: View {
 
 
 fileprivate struct NodeView<Data, RowContent>: View
-where Data: RandomAccessCollection, Data.Element: ObservableObject & Identifiable, RowContent: View {
+where Data: RandomAccessCollection,
+        Data.Element: ObservableObject & Identifiable,
+        RowContent: View {
     
     let data: Data
     let children: KeyPath<Data.Element, Data?>
@@ -84,7 +86,7 @@ where Data: RandomAccessCollection, Data.Element: ObservableObject & Identifiabl
 
 
 fileprivate struct CommentDisclosureGroup<Label, Content>: View where Label: View, Content: View {
-    @State var isExpanded: Bool = true
+    @State var isExpanded: Bool = false
     @ViewBuilder var content: () -> Content
     @ViewBuilder var label: () -> Label
     

@@ -51,7 +51,7 @@ class CommentsViewState: ObservableObject {
         await interactor?.getComments(request: request)
     }
     
-    func getComment(for parent: Int) async {
+    func getReplies(for parent: Int) async {
         let request = Comments.GetCommentsList.ReplyRequest(parent: parent)
         await interactor?.getCommentReplies(request: request)
     }
@@ -62,6 +62,8 @@ class CommentsViewState: ObservableObject {
             return
         }
         
-        comments.forEach {  if $0.addReplies(new) { return } }
+        for comment in comments {
+            if comment.addReplies(new) { break }
+        }
     }
 }
